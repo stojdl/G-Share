@@ -6,5 +6,43 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    //
+    /**
+     * Get the user that owns the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the settings associated with the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function settings(): HasOne
+    {
+        return $this->hasOne(PostSettings::class);
+    }
+
+    /**
+     * Get all of the shares for the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function shares(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Get all of the saved_posts for the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function saved_posts(): HasMany
+    {
+        return $this->hasMany(SavedPost::class);
+    }
 }
