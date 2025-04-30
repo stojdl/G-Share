@@ -45,4 +45,44 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get all of the posts for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    /**
+     * Get all of the shares for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function shares(): HasMany
+    {
+        return $this->hasMany(Share::class);
+    }
+
+    /**
+     * Get all of the saved_posts_folders for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function saved_posts_folders(): HasMany
+    {
+        return $this->hasMany(SavedPostsFolder::class);
+    }
+
+    /**
+     * Get all of the saved_posts for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function saved_posts(): HasMany
+    {
+        return $this->hasMany(SavedPost::class);
+    }
 }
