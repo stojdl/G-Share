@@ -14,13 +14,13 @@ return new class extends Migration
 
         Schema::create('saved_posts', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->references('id')
+            $table->foreignId('user_id')->references('id')
                                         ->on('users')
                                         ->onDelete('cascade');
-            $table->foreign('post_id')->references('id')
+            $table->foreignId('post_id')->references('id')
                                         ->on('posts')
                                         ->onDelete('cascade');
-            $table->foreign('saved_posts_folders_id')->references('id')
+            $table->foreignId('saved_posts_folders_id')->references('id')
                                         ->on('saved_posts_folders')
                                         ->onDelete('cascade');
             $table->timestamps();

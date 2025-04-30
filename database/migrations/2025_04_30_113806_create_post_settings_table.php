@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('allow_comments', ['everyone', 'friends_close_friends', 'followers', 'following', 'only_me']);
             $table->enum('allow_sharing', ['everyone', 'friends_close_friends', 'followers', 'following', 'only_me']);
             $table->boolean('can_be_saved');
-            $table->foreign('post_id')->references('id')
+            $table->foreignId('post_id')->references('id')
                                         ->on('posts')
                                         ->onDelete('cascade'); 
             $table->timestamps();

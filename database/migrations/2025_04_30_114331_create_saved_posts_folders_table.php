@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('saved_posts_folders', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreign('user_id')->references('id')
+            $table->foreignId('user_id')->references('id')
                                         ->on('users')
                                         ->onDelete('cascade');
             $table->timestamps();

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('post_shares', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->references('id')
+            $table->foreignId('user_id')->references('id')
                                         ->on('users')
                                         ->onDelete('cascade');
-            $table->foreign('post_id')->references('id')
+            $table->foreignId('post_id')->references('id')
                                         ->on('posts')
                                         ->onDelete('cascade');
             $table->timestamps();
