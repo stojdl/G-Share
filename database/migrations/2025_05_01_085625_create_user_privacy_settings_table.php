@@ -22,7 +22,7 @@ return new class extends Migration
             $table->enum('show_continent', ['everyone', 'friends', 'close_friends', 'only_me'])->default('friends');
             $table->enum('show_timezone', ['everyone', 'friends', 'close_friends', 'only_me'])->default('friends');
 
-            $table->boolean('show_year_of_birth')->default(false);
+            $table->enum('show_year_of_birth', ['everyone', 'friends', 'close_friends', 'only_me'])->default('only_me');
           
             $table->boolean('allow_friend_requests')->default(true);
             $table->boolean('allow_follow_requests')->default(true);
