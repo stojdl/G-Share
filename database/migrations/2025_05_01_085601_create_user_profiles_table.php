@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('quote')->nullable();
             $table->string('bio')->nullable();
-            $table->string('continent')->nullable();
+            $table->enum('continent', ['Africa', 'Antarctica', 'Asia', 'Europe', 'North America', 'Oceania', 'South America'])->nullable();
             $table->string('website')->nullable();
             $table->string('year_of_birth')->nullable();
             $table->string('timezone')->nullable();
