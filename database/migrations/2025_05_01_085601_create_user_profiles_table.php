@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->id();
+            $table->string('nickname')->nullable();
+            $table->string('hashtag')->nullable();
             $table->string('avatar')->nullable();
             $table->string('quote')->nullable();
             $table->string('bio')->nullable();
