@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->boolean('two_factor_auth')->default(false);
 
-            $table->boolean('currency')->nullable();
+            $table->string('currency')->nullable();
 
             $table->string('language')->nullable();
 
