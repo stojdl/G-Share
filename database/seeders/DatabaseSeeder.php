@@ -17,7 +17,11 @@ class DatabaseSeeder extends Seeder
         //User::factory(5)->create();
 
 
-        $user = User::factory(5)->withPosts(5)->create();
+        $user = User::factory(5)->withPosts(5)
+                                ->withProfile()
+                                ->withSettings()
+                                ->withPrivacySettings()
+                                ->create();
 
 
 

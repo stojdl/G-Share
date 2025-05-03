@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\UserProfile;
+use App\Models\UserSettings;
+use App\Models\UserPrivacySettings;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -46,8 +49,26 @@ class UserFactory extends Factory
         ]);
     }
 
+    public function withProfile(): static
+    {
+        return $this->has(UserProfile::factory(), 'profile');
+    }
+
+    public function withSettings(): static
+    {
+        return $this->has(UserSettings::factory(), 'settings');
+    }
+
+    public function withPrivacySettings(): static
+    {
+        return $this->has(UserPrivacySettings::factory(), 'privacy_settings');
+    }
+
     public function withPosts(int $count = 5): static
     {
         return $this->has(Post::factory()->count($count), 'posts');
     }
+
+
+
 }
