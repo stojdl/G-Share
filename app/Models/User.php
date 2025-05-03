@@ -48,6 +48,36 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the profile associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function profile(): HasOne
+    {
+        return $this->hasOne(UserProfile::class);
+    }
+
+    /**
+     * Get the settings associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function settings(): HasOne
+    {
+        return $this->hasOne(UserSettings::class);
+    }
+
+    /**
+     * Get the privacy_settings associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function privacy_settings(): HasOne
+    {
+        return $this->hasOne(UserPrivacySettings::class);
+    }
+
+    /**
      * Get all of the posts for the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
