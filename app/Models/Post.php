@@ -35,16 +35,6 @@ class Post extends Model
     }
 
     /**
-     * Get all of the shares for the Post
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function shares(): HasMany
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    /**
      * Get all of the saved_posts for the Post
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -52,5 +42,45 @@ class Post extends Model
     public function saved_posts(): HasMany
     {
         return $this->hasMany(SavedPost::class);
+    }
+
+    /**
+     * Get all of the comments for the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Get all of the reactions for the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function reactions(): HasMany
+    {
+        return $this->hasMany(PostReactions::class);
+    }
+
+    /**
+     * Get all of the views for the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function views(): HasMany
+    {
+        return $this->hasMany(PostViews::class);
+    }
+
+    /**
+     * Get all of the shares for the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function shares(): HasMany
+    {
+        return $this->hasMany(Share::class);
     }
 }
