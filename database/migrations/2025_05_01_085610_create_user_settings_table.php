@@ -23,9 +23,9 @@ return new class extends Migration
 
             $table->boolean('currency')->nullable();
 
-            $table->string('language')->nulable();
+            $table->string('language')->nullable();
 
-            $table->string('collect_challenges')->default(true);
+            $table->boolean('collect_challenges')->default(true);
 
             $table->foreignId('user_id')->references('id')
                                         ->on('users')
