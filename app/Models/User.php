@@ -119,4 +119,47 @@ class User extends Authenticatable
     {
         return $this->hasMany(SavedPost::class);
     }
+
+    /**
+     * Get all of the comments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+
+    /**
+     * Get all of the comment_likes for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comment_likes(): HasMany
+    {
+        return $this->hasMany(CommentLike::class);
+    }
+
+        /**
+     * Get all of the post_views for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function post_views(): HasMany
+    {
+        return $this->hasMany(PostView::class);
+    }
+
+    /**
+     * Get all of the post_reactions for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function post_reactions(): HasMany
+    {
+        return $this->hasMany(PostReaction::class);
+    }
+
+    
 }
