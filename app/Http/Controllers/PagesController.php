@@ -30,7 +30,9 @@ class PagesController extends Controller
     public function dev()
     {
         return Inertia::render('Dev', [
-            'users' => UserResource::collection(\App\Models\User::all()->load('posts')),
+            'users' => UserResource::collection(\App\Models\User::all()->load('posts', 'profile', 'settings', 'privacy_settings')),
+                                                                     
+            
         ]);
     }
     
