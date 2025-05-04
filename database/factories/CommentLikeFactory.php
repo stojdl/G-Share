@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CommentLike>
  */
-class PostFactory extends Factory
+class CommentLikeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,19 +17,22 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
+            'comment_id' => \App\Models\Comment::factory(),
             'user_id' => \App\Models\User::factory(),
-            'title' => fake()->sentence(),
-            'body' => fake()->paragraph(),
-            'created_at' => now(),
-            'updated_at' => now(),
-            'deleted_at' => null,
         ];
     }
-    
+
     public function forUser(UserFactory $user): static
     {
         return $this->state(fn (array $attributes) => [
             'user_id' => $user,
+        ]);
+    }
+
+    public function forComment(CommentFactory $comment): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'comment_id' => $comment,
         ]);
     }
 }
