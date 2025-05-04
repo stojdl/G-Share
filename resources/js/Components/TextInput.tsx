@@ -4,16 +4,16 @@ import {
     useEffect,
     useImperativeHandle,
     useRef,
-} from 'react';
+} from "react";
 
 export default forwardRef(function TextInput(
     {
-        type = 'text',
-        className = '',
+        type = "text",
+        className = "",
         isFocused = false,
         ...props
     }: InputHTMLAttributes<HTMLInputElement> & { isFocused?: boolean },
-    ref,
+    ref
 ) {
     const localRef = useRef<HTMLInputElement>(null);
 
@@ -32,7 +32,8 @@ export default forwardRef(function TextInput(
             {...props}
             type={type}
             className={
-                'rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600 ' +
+                "w-full bg-gray-800 border border-gray-700 text-white placeholder-gray-400 " +
+                "rounded-md px-4 py-2 transition focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 " +
                 className
             }
             ref={localRef}

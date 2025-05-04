@@ -33,4 +33,55 @@ class PagesController extends Controller
             'users' => UserResource::collection(\App\Models\User::all()->load('posts')),
         ]);
     }
+    
+    public function share_place()
+    {
+        return Inertia::render('SharePlace');
+    }
+
+    public function home_page()
+    {
+        return Inertia::render('HomePage');
+    }
+
+    public function communities()
+    {
+        return Inertia::render('Communities');
+    }
+
+
+    public function groups()
+    {
+        return Inertia::render('Groups');
+    }
+
+    public function esports()
+    {
+        return Inertia::render('Esports');
+    }
+
+    public function create_team()
+    {
+        return Inertia::render('CreateTeam');
+    }
+    public function find_team()
+    {
+        return Inertia::render('FindTeam');
+    }
+
+    public function rooms()
+    {
+        return Inertia::render('Rooms');
+    }
+
+    public function tournaments()
+    {
+        return Inertia::render('Tournaments');
+    }
+
+    public function challenges()
+    {
+        return Inertia::render('Challenges');
+    }
+
 }
