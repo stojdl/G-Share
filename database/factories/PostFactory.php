@@ -19,7 +19,7 @@ class PostFactory extends Factory
         return [
             'user_id' => null,
             'title' => fake()->sentence(),
-            'body' => fake()->paragraph(),
+            'body' => fake()->paragraph(15),
             'created_at' => now(),
             'updated_at' => now(),
             'deleted_at' => null,
