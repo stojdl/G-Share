@@ -1,20 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, router } from "@inertiajs/react";
 import { ReactNode } from "react";
+import { useModal } from "@/Contexts/ModalContext";
 
-interface Props {
-    isAddFriendModalOpen: any;
-    setAddFriendModalOpen: any;
-    isNotificationModalOpen: any;
-    setNotificationModalOpen: any;
-    isChatModalOpen: any;
-    setChatModalOpen: any;
-}
-
-const LeftSideBar = (props: Props) => {
-    const { isAddFriendModalOpen, setAddFriendModalOpen } = props;
-    const { isNotificationModalOpen, setNotificationModalOpen } = props;
-    const { isChatModalOpen, setChatModalOpen } = props;
+const LeftSideBar = () => {
+    const modal = useModal();
     const [showFriendsDropdown, setShowFriendsDropdown] = useState(false);
 
     return (
@@ -43,7 +33,7 @@ const LeftSideBar = (props: Props) => {
                     ))}
                 </div>
                 <button
-                    onClick={() => setAddFriendModalOpen(true)}
+                    onClick={() => modal.openModal("AddFriendModal")}
                     className="mt-3 text-sm px-4 py-2 bg-red-600 hover:bg-red-700 rounded-xl shadow transition-all"
                 >
                     + Přidat přítele
@@ -57,8 +47,9 @@ const LeftSideBar = (props: Props) => {
                             key={i}
                             onClick={() => {
                                 if (label === "Notifikace")
-                                    setNotificationModalOpen(true);
-                                if (label === "Chat") setChatModalOpen(true);
+                                    modal.openModal("NotificationModal");
+                                if (label === "Chat")
+                                    modal.openModal("ChatModal");
                                 if (label === "Vytvořit tým")
                                     router.visit("/create-team");
                                 if (label === "Najít tým")
