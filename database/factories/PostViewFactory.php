@@ -19,7 +19,7 @@ class PostViewFactory extends Factory
         return [
             'post_id' => \App\Models\Post::factory(),
             'user_id' => \App\Models\User::factory(),
-            'viewed_at' => now(),
+            'session_id' => $this->faker->uuid(),
         ];
     }
 

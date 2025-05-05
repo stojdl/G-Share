@@ -20,7 +20,7 @@ class CommentFactory extends Factory
     {
         return [
             'body' => $this->faker->sentence(2),
-            'parent_comment_id' => \App\Models\Comment::factory(),
+            'parent_comment_id' => null,
             'post_id' => \App\Models\Post::factory(),
             'user_id' => \App\Models\User::factory(),
         ];

@@ -19,7 +19,6 @@ class ShareFactory extends Factory
         return [
             'post_id' => \App\Models\Post::factory(),
             'user_id' => \App\Models\User::factory(),
-            'shared_at' => now(),
         ];
     }
 
