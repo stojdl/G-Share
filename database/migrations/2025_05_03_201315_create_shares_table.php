@@ -29,6 +29,7 @@ return new class extends Migration
                                         ->on('posts')
                                         ->onDelete('cascade');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

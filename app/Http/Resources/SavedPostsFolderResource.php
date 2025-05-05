@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PostResource extends JsonResource
+class SavedPostsFolderResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,15 +15,12 @@ class PostResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'title' => $this->title,
-            'body' => $this->body,
+            'name' => $this->name,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
             'user' => new UserResource($this->whenLoaded('user')),
-            'comments' => CommentResource::collection($this->whenLoaded('comments')),
-            'reactions' => PostReactionResource::collection($this->whenLoaded('reactions')),
-            'views' => PostViewResource::collection($this->whenLoaded('views')),
+            'saved_posts' => SavedPostResource::collection($this->whenLoaded('savedPosts')),
         ];
     }
 }

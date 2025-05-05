@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('reaction_type', ['like', 'GG', 'BG', 'love', 'haha', 'wow', 'sad', 'angry']);
             $table->string('reaction_icon')->nullable();
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

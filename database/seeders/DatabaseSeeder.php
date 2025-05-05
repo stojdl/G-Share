@@ -4,6 +4,12 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Comment;
+use App\Models\PostLike;
+use App\Models\PostView;
+use App\Models\PostReaction;
+use App\Models\CommentLike;
+use App\Models\Share;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,11 +23,112 @@ class DatabaseSeeder extends Seeder
         //User::factory(5)->create();
 
 
-        $user = User::factory(5)->withPosts(5)
-                                ->withProfile()
-                                ->withSettings()
-                                ->withPrivacySettings()
-                                ->create();
+        // $user = User::factory(5)->withPosts()
+        //                         ->withComments()
+        //                         ->withCommentLikes()
+        //                         ->withPostReactions()
+        //                         ->withPostViews()
+        //                         ->withShares()
+        //                         ->withProfile()
+        //                         ->withSettings()
+        //                         ->withPrivacySettings()
+        //                         ->create();
+
+
+
+        $users = User::factory(3)->withSettings()
+                                 ->withProfile()
+                                 ->withPrivacySettings()
+                                 ->create();
+
+        $user = $users[0];
+        $user2 = $users[1];
+        $user3 = $users[2];
+
+        $post = Post::factory()->create([
+            'user_id' => $users[0]->id,
+        ]);
+        $post2 = Post::factory()->create([
+            'user_id' => $users[1]->id,
+        ]);
+
+        $comment = Comment::factory()->create([
+            'user_id' => $user->id,
+            'post_id' => $post2->id,
+        ]);
+        $comment2 = Comment::factory()->create([
+            'user_id' => $user2->id,
+            'post_id' => $post->id,
+        ]);
+        $comment3 = Comment::factory()->create([
+            'user_id' => $user3->id,
+            'post_id' => $post->id,
+        ]);
+        
+        CommentLike::factory()->create([
+            'user_id' => $user->id,
+            'comment_id' => $comment2->id,
+        ]);
+        CommentLike::factory()->create([
+            'user_id' => $user2->id,
+            'comment_id' => $comment->id,
+        ]);
+        CommentLike::factory()->create([
+            'user_id' => $user->id,
+            'comment_id' => $comment->id,
+        ]);
+        CommentLike::factory()->create([
+            'user_id' => $user3->id,
+            'comment_id' => $comment->id,
+        ]);
+
+        Comment::factory()->create([
+            'user_id' => $user->id,
+            'post_id' => $post2->id,
+            'parent_comment_id' => $comment2->id,
+        ]);
+
+        PostView::factory()->create([
+            'user_id' => $user->id,
+            'post_id' => $post2->id,
+        ]);
+        PostView::factory()->create([
+            'user_id' => $user2->id,
+            'post_id' => $post->id,
+        ]);
+
+        PostReaction::factory()->create([
+            'user_id' => $user->id,
+            'post_id' => $post2->id,
+        ]);
+        PostReaction::factory()->create([
+            'user_id' => $user2->id,
+            'post_id' => $post->id,
+        ]);
+
+        Share::factory()->create([
+            'user_id' => $user->id,
+            'post_id' => $post2->id,
+        ]);
+        Share::factory()->create([
+            'user_id' => $user2->id,
+            'post_id' => $post->id,
+        ]);
+
+
+
+
+
+        // foreach ($users as $user) {
+        //     $posts = Post::factory(5)->create([
+        //         'user_id' => $user->id,
+        //     ]);
+        //     foreach ($posts as $post) {
+        //         $
+        //     }
+        // }
+
+        
 
 
 

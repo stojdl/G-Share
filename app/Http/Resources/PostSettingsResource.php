@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PostResource extends JsonResource
+class PostSettingsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,15 +15,15 @@ class PostResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'title' => $this->title,
-            'body' => $this->body,
+            'show_post' => $this->show_post,
+            'allow_reactions' => $this->allow_reactions,
+            'allow_comments' => $this->allow_comments,
+            'allow_sharing' => $this->allow_sharing,
+            'can_be_saved' => $this->can_be_saved,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
-            'user' => new UserResource($this->whenLoaded('user')),
-            'comments' => CommentResource::collection($this->whenLoaded('comments')),
-            'reactions' => PostReactionResource::collection($this->whenLoaded('reactions')),
-            'views' => PostViewResource::collection($this->whenLoaded('views')),
+            'post' => new PostResource($this->whenLoaded('post')),
         ];
     }
 }

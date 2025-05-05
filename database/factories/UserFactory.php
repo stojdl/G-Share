@@ -6,6 +6,11 @@ use App\Models\UserProfile;
 use App\Models\UserSettings;
 use App\Models\UserPrivacySettings;
 use App\Models\Post;
+use App\Models\Comment;
+use App\Models\PostReaction;
+use App\Models\PostView;
+use App\Models\Share;
+use App\Models\CommentLike;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -68,6 +73,28 @@ class UserFactory extends Factory
         return $this->has(Post::factory()->count($count), 'posts');
     }
 
+    public function withComments(int $count = 5): static
+    {
+        return $this->has(Comment::factory()->count($count), 'comments');
+    }
 
+    public function withCommentLikes(int $count = 5): static
+    {
+        return $this->has(CommentLike::factory()->count($count), 'comment_likes');
+    }
 
+    public function withPostReactions(int $count = 5): static
+    {
+        return $this->has(PostReaction::factory()->count($count), 'post_reactions');
+    }
+
+    public function withPostViews(int $count = 5): static
+    {
+        return $this->has(PostView::factory()->count($count), 'post_views');
+    }
+
+    public function withShares($count = 5): static
+    {
+        return $this->has(Share::factory()->count($count), 'shares');
+    }
 }

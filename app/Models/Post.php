@@ -61,7 +61,7 @@ class Post extends Model
      */
     public function reactions(): HasMany
     {
-        return $this->hasMany(PostReactions::class);
+        return $this->hasMany(PostReaction::class);
     }
 
     /**
@@ -71,7 +71,7 @@ class Post extends Model
      */
     public function views(): HasMany
     {
-        return $this->hasMany(PostViews::class);
+        return $this->hasMany(PostView::class);
     }
 
     /**

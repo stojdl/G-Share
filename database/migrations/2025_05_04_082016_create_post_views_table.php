@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post_shares', function (Blueprint $table) {
+        Schema::create('post_views', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')
                                         ->on('users')
                                         ->onDelete('cascade');
             $table->foreignId('post_id')->references('id')
-                                        ->on('posts')
-                                        ->onDelete('cascade');
+                                         ->on('posts')
+                                         ->onDelete('cascade');
+            $table->string('session_id')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_shares');
+        Schema::dropIfExists('post_views');
     }
 };
