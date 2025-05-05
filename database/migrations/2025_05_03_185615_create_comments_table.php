@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->text('body');
-            $table->foreignId('parent_comment_id')->references('id')
+            $table->foreignId('parent_comment_id')->nullable()
+                                                  ->references('id')
                                                   ->on('comments')
-                                                  ->onDelete('cascade')
-                                                  ->nullable();
+                                                  ->onDelete('cascade');
             $table->foreignId('post_id')->references('id')
                                         ->on('posts')
                                         ->onDelete('cascade');
@@ -25,6 +25,7 @@ return new class extends Migration
                                         ->on('users')
                                         ->onDelete('cascade');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

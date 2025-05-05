@@ -1,20 +1,92 @@
+import { spawn } from "child_process";
 import React, { useState } from "react";
 
 interface Props {
     users: any;
     posts: any;
+    comments: any;
+    views: any;
+    reactions: any;
 }
 
 export default function Dev(props: Props) {
-    const { users, posts } = props;
+    const { users, posts, comments, views, reactions } = props;
     const [isOpen, setOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState<any>(null);
     const [expandedPostIds, setExpandedPostIds] = useState<number[]>([]);
     const [isMainViewOpen, setMainViewOpen] = useState(false);
     console.log("users:", users);
     console.log("posts:", posts);
-
+        console.log(
+        "Users:",
+        users,
+        posts && posts,
+        comments && comments,
+        views && views,
+        reactions && reactions
+    );
+  
     return (
+      <>
+        <div>
+            <h1>Development Testing Page</h1>
+            <p>This page for development and testing purposes.</p>
+            {users.map((user: any, i: number) => (
+              <div key={user.id} className="border p-4 m-4 bg-gray-50 text-black">
+                  <p>{i + 1}. ID: {user.id}</p>
+                  <h2>
+                      Username: {user.username}#{user.hashtag}
+                  </h2>
+                  <p>Email: {user.email}</p>
+                  <p>Premium: {user.premium ? "Ano" : "Ne"}</p>
+
+                  <div>
+                      <p className="font-semibold mt-4">Příspěvky:</p>
+                      {user.posts?.map((post: any, j: number) => (
+                          <div key={post.id} className="border p-4 my-4 bg-white rounded">
+                              <p>ID: {post.id}</p>
+                              <p className="font-bold">{j + 1}. {post.title}</p>
+                              <p>{post.body}</p>
+                              <p>Počet zobrazení: {post.views?.length || 0}</p>
+
+                              <p>
+                                  Reakce:{" "}
+                                  {post.reactions?.map((reaction: any, k: number) => (
+                                      <span key={k}>{reaction.reaction_type}, </span>
+                                  ))}
+                              </p>
+
+                              <p>Počet sdílení: {post.shares?.length || 0}</p>
+
+                              <div>
+                                  <p className="font-semibold mt-2">Komentáře:</p>
+                                  {post.comments?.map((comment: any, k: number) => (
+                                      <div key={comment.id} className="border p-4 my-2 bg-gray-100 rounded">
+                                          <p>ID: {comment.id}</p>
+                                          <p className="font-bold">{k + 1}. {comment.body}</p>
+                                          <p>By: {comment.user.username}</p>
+                                          <p>Likes: {comment.likes?.length || 0}</p>
+
+                                          <div>
+                                              <p className="font-semibold">Odpovědi:</p>
+                                              {comment.children?.map((reply: any, l: number) => (
+                                                  <div key={reply.id} className="border p-3 my-2 bg-gray-50 rounded">
+                                                      <p className="font-bold">{l + 1}. {reply.body}</p>
+                                                      <p>By: {reply.user.username}</p>
+                                                      <p>Likes: {reply.likes?.length || 0}</p>
+                                                  </div>
+                                              ))}
+                                          </div>
+                                      </div>
+                                  ))}
+                              </div>
+                          </div>
+                      ))}
+                  </div>
+              </div>
+          ))}
+
+
         <div className="min-h-screen bg-black text-white">
             <h1 className="mb-10 p-4 text-center text-white">
                 Development Testing Page <br />
@@ -336,5 +408,6 @@ export default function Dev(props: Props) {
                 </div>
             )}
         </div>
+      </>
     );
 }
