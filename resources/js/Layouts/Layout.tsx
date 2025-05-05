@@ -7,6 +7,7 @@ import NotificationModal from "@/Components/Modals/NotificationModal";
 import ChatModal from "@/Components/Modals/ChatModal";
 import PostModal from "@/Components/Modals/PostModal";
 import Nav from "@/Components/Nav/Index";
+import { useModal } from "@/Contexts/ModalContext";
 
 interface Props {
     children: ReactNode;
@@ -15,11 +16,16 @@ interface Props {
 const Layout = (props: Props) => {
     const { children } = props;
 
-    const [isAddFriendModalOpen, setAddFriendModalOpen] = useState(false);
-    const [isPostModalOpen, setPostModalOpen] = useState(false);
-    const [isNotificationModalOpen, setNotificationModalOpen] = useState(false);
-    const [isChatModalOpen, setChatModalOpen] = useState(false);
+    // const [isAddFriendModalOpen, setAddFriendModalOpen] = useState(false);
+    //const [isNotificationModalOpen, setNotificationModalOpen] = useState(false);
+    //const [isChatModalOpen, setChatModalOpen] = useState(false);
+
+    //const [isPostModalOpen, setPostModalOpen] = useState(false);
+
     const [hideHeader, setHideHeader] = useState(false);
+
+    const modal = useModal();
+    console.log(modal);
 
     useEffect(() => {
         let lastScroll = 0;
@@ -36,44 +42,17 @@ const Layout = (props: Props) => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const isAnyModalOpen =
-        isAddFriendModalOpen ||
-        isNotificationModalOpen ||
-        isPostModalOpen ||
-        isChatModalOpen;
-
     return (
         <div className="min-h-screen flex flex-col bg-black text-white relative lg:flex-row">
-            <LeftSideBar
-                isAddFriendModalOpen={isAddFriendModalOpen}
-                setAddFriendModalOpen={setAddFriendModalOpen}
-                isNotificationModalOpen={isNotificationModalOpen}
-                setNotificationModalOpen={setNotificationModalOpen}
-                isChatModalOpen={setChatModalOpen}
-                setChatModalOpen={setChatModalOpen}
-            />
+            <LeftSideBar />
             <RightSideBar />
             {children}
-            {!isAnyModalOpen && (
-                <Nav
-                //isAnyModalOpen={isAnyModalOpen}
-                //activePath="/share-place"
-                />
-            )}
-            {isAddFriendModalOpen && (
-                <AddFriendModal setAddFriendModalOpen={setAddFriendModalOpen} />
-            )}
-            {isNotificationModalOpen && (
-                <NotificationModal
-                    setNotificationModalOpen={setNotificationModalOpen}
-                />
-            )}
-            {isChatModalOpen && (
-                <ChatModal setChatModalOpen={setChatModalOpen} />
-            )}
-            {isPostModalOpen && (
-                <PostModal setPostModalOpen={setPostModalOpen} />
-            )}
+            <Nav isAnyModalOpen={modal.isOpen != false} />
+
+            {modal.isOpen === "AddFriendModal" && <AddFriendModal />}
+            {modal.isOpen === "NotificationModal" && <NotificationModal />}
+            {modal.isOpen === "ChatModal" && <ChatModal />}
+            {modal.isOpen === "PostModal" && <PostModal />}
         </div>
     );
 };

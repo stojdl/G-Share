@@ -1,16 +1,16 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import React from "react";
 
 interface BottomNavProps {
     isAnyModalOpen: boolean;
-    activePath: string; // např. "/share-place"
 }
 
-const BottomNav: React.FC<BottomNavProps> = ({
-    isAnyModalOpen,
-    activePath,
-}) => {
+const BottomNav: React.FC<BottomNavProps> = ({ isAnyModalOpen }) => {
     if (isAnyModalOpen) return null;
+
+    // ⬇️ aktuální URL (např. "/groups", "/communities?sort=recent")
+    const { url } = usePage();
+    const pathname = url.split("?")[0]; // zbaví se query paramů
 
     const navItems = [
         { label: "Share Place", href: "/share-place" },
@@ -22,7 +22,7 @@ const BottomNav: React.FC<BottomNavProps> = ({
     return (
         <div className="fixed bottom-0 left-0 right-0 z-50 bg-gray-950 border-t border-gray-800 px-4 py-3 flex flex-wrap justify-around sm:justify-evenly lg:justify-center gap-2 lg:gap-6 shadow-inner backdrop-blur-md">
             {navItems.map(({ label, href }, index) => {
-                const isActive = activePath === href;
+                const isActive = pathname.startsWith(href); // rozpozná i např. "/groups/123"
 
                 return (
                     <Link
