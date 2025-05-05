@@ -29,10 +29,36 @@ class PagesController extends Controller
 
     public function dev()
     {
+        //$users = \App\Models\User::all()->load('posts', 'profile', 'settings', 'privacy_settings', 'posts.comments', 'posts.likes', 'posts.reactions');
+        
+        $users = \App\Models\User::all()->load('posts', 'profile', 'settings', 'privacy_settings');
+
+        foreach ($users as $user) {
+            $user->load('posts.reactions.user', 
+                        'posts.views.user', 
+                        'posts.shares.user',
+                        'posts.comments.user', 
+                        'posts.comments.likes.user', 
+                        'posts.comments.children.user', 
+                        'posts.comments.children.likes.user');
+            // Pokud máte subkomentáře:
+            //$user->load('posts.comments.children.user');
+
+            // $user->posts->each(function ($post) {
+            //     $post->load('comments.user', 'reactions.user');
+            //     // Pokud máte subkomentáře:
+            //     $post->comments->each(function ($comment) {
+            //         $comment->load('user', 'children.user');
+            //     });
+            // });
+        }
+
         return Inertia::render('Dev', [
-            'users' => UserResource::collection(\App\Models\User::all()->load('posts', 'profile', 'settings', 'privacy_settings')),
-                                                                     
-            
+            'users' => $users,
+            'posts' => \App\Models\Post::all()->load('user', 'comments.user', 'reactions.user'),
+            'comments' => \App\Models\Comment::all()->load('user', 'post', 'children.user'),
+            'views' => \App\Models\PostView::all()->load('user', 'post'),
+            'reactions' => \App\Models\PostReaction::all()->load('user', 'post'),
         ]);
     }
 }
