@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreignId('post_id')->references('id')
                                          ->on('posts')
                                          ->onDelete('cascade');
-            $table->timestamp('viewed_at')->nullable();
             $table->string('session_id')->nullable();
             $table->timestamps();
         });
