@@ -115,8 +115,30 @@ class DatabaseSeeder extends Seeder
             'post_id' => $post->id,
         ]);
 
+        Friendship::factory()->create([
+            'follower_id' => $user->id,
+            'followed_id' => $user2->id,
+            'action_user_id' => $user->id,
+            'status' => 'accepted',
+        ]);
 
+        UserBlock::factory()->create([
+            'blocker_id' => $user->id,
+            'blocked_id' => $user3->id,
+        ]);
 
+        UserFollow::factory()->create([
+            'follower_id' => $user->id,
+            'followed_id' => $user2->id,
+        ]);
+        UserFollow::factory()->create([
+            'follower_id' => $user2->id,
+            'followed_id' => $user->id,
+        ]);
+        UserFollow::factory()->create([
+            'follower_id' => $user2->id,
+            'followed_id' => $user3->id,
+        ]);
 
 
         // foreach ($users as $user) {
