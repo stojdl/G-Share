@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('followed_user_id')->references('id')
                                                 ->on('users')
                                                 ->onDelete('cascade');
-            $table->unique(['following_user_id', 'followed_user_id'], 'user_follow_unique');
+            $table->unique(['follower_user_id', 'followed_user_id'], 'user_follow_unique');
             $table->timestamps();
             $table->softDeletes();
         });
