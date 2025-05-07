@@ -189,6 +189,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get all of the friendship_actions for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function friendship_actions(): HasMany
+    {
+        return $this->hasMany(Friendship::class, 'action_user_id');
+    }
+
+    /**
      * Get all of the following_users for the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
