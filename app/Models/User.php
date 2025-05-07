@@ -161,5 +161,72 @@ class User extends Authenticatable
         return $this->hasMany(PostReaction::class);
     }
 
+    /**
+     * Přátelství, kde je tento uživatel v roli 'user_id'.
+     */
+    public function friendshipsInitiated(): HasMany
+    {
+        return $this->hasMany(Friendship::class, 'user_id');
+    }
+
+    /**
+     * Přátelství, kde je tento uživatel v roli 'friend_id'.
+     */
+    public function friendshipsReceived(): HasMany
+    {
+        return $this->hasMany(Friendship::class, 'friend_id');
+    }
+
+    /**
+     * Získání všech přátelství uživatele (bez ohledu na roli).
+     */
+    public function friends(): Collection
+    {
+        $initiated = $this->friendshipsInitiated()->get();
+        $received = $this->friendshipsReceived()->get();
+
+        return $initiated->concat($received)->unique()->values();
+    }
+
+    /**
+     * Get all of the following_users for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function following(): HasMany
+    {
+        return $this->hasMany(Follow::class, 'followed_user_id');
+    }
+
+    /**
+     * Get all of the followers for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function followers(): HasMany
+    {
+        return $this->hasMany(User::class, 'follower_user_id');
+    }
+
+    /**
+     * Get all of the blocks for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function blocks(): HasMany
+    {
+        return $this->hasMany(UserBlock::class, 'blocked_user_id');
+    }
+
+    /**
+     * Get all of the blocked_by for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function blocked_by(): HasMany
+    {
+        return $this->hasMany(UserBlock::class, 'blocker_user_id');
+    }
+
     
 }
