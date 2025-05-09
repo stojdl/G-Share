@@ -8,6 +8,7 @@ const AddFriendModal = (props: Props) => {
     const modal = useModal();
     const { users } = props;
     console.log("users:", users);
+
     return (
         <div className="w-screen h-screen fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-center items-center p-4 sm:p-6 lg:p-12">
             <div className="bg-gray-900 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative text-white">

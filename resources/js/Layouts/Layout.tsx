@@ -7,13 +7,17 @@ import NotificationModal from "@/Components/Modals/NotificationModal";
 import ChatModal from "@/Components/Modals/ChatModal";
 import PostModal from "@/Components/Modals/PostModal";
 import Nav from "@/Components/Nav/Index";
+import { PageProps } from "@/types";
+import { usePage } from "@inertiajs/react";
 
 interface Props {
     children: ReactNode;
-    users: any[];
 }
 
-const Layout = ({ children, users }: Props) => {
+const Layout = (props: Props) => {
+    const { children } = props;
+    const { users } = usePage<PageProps>().props;
+
     const modal = useModal();
 
     return (
