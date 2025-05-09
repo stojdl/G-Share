@@ -63,9 +63,36 @@ class PagesController extends Controller
     }
     
     public function share_place()
-    {
-        return Inertia::render('SharePlace');
-    }
+{
+    $users = \App\Models\User::with(
+        'posts',
+        'profile',
+        'settings',
+        'privacy_settings',
+        'posts.reactions.user',
+        'posts.views.user',
+        'posts.shares.user',
+        'posts.comments.user',
+        'posts.comments.likes.user',
+        'posts.comments.children.user',
+        'posts.comments.children.likes.user'
+    )->get();
+
+    $posts = \App\Models\Post::with('user', 'comments.user', 'reactions.user')->get();
+    $comments = \App\Models\Comment::with('user', 'likes.user', 'children.user', 'children.likes.user')->get();
+    $views = \App\Models\PostView::with('user')->get();
+    $reactions = \App\Models\PostReaction::with('user')->get();
+
+    return Inertia::render('SharePlace', [
+        'users' => $users,
+        'posts' => $posts,
+        'comments' => $comments,
+        'views' => $views,
+        'reactions' => $reactions,
+    ]);
+}
+
+
 
     public function home_page()
     {
@@ -111,5 +138,29 @@ class PagesController extends Controller
     {
         return Inertia::render('Challenges');
     }
+
+    public function explore()
+{
+    $users = \App\Models\User::all()->load('posts', 'profile', 'settings', 'privacy_settings');
+
+    foreach ($users as $user) {
+        $user->load(
+            'posts.reactions.user',
+            'posts.views.user',
+            'posts.shares.user',
+            'posts.comments.user',
+            'posts.comments.likes.user',
+            'posts.comments.children.user',
+            'posts.comments.children.likes.user'
+        );
+    }
+
+    return Inertia::render('Fragments/SharePlace/Explore', [
+    'users' => $users,
+    'posts' => \App\Models\Post::all()->load('user', 'comments.user', 'reactions.user'),
+]);
+
+
+}
 
 }
