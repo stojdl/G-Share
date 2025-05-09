@@ -21,12 +21,12 @@ const Explore = () => {
             <input
                 type="text"
                 placeholder="🔍 Hledat hráče nebo tým..."
-                className="w-full md:w-1/2 bg-gray-900 border border-gray-800 rounded-2xl px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+                className="w-full md:w-1/2 bg-gray-900 border border-gray-800 rounded px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
             />
 
             <textarea
                 placeholder="📝 Napiš, co chceš sdílet..."
-                className="w-full bg-gray-900 border border-gray-800 rounded-2xl p-5 text-white placeholder-gray-500 resize-none shadow cursor-pointer hover:bg-gray-800 transition-all focus:outline-none focus:ring-2 focus:ring-red-500"
+                className="w-full bg-gray-900 border border-gray-800 rounded p-5 text-white placeholder-gray-500 resize-none shadow cursor-pointer hover:bg-gray-800 transition-all focus:outline-none focus:ring-2 focus:ring-red-500"
                 rows={4}
                 readOnly
                 onClick={() => openModal("PostModal")}
@@ -37,7 +37,7 @@ const Explore = () => {
                     posts.map((post: any, i: number) => (
                         <div
                             key={post.id}
-                            className="border border-gray-800 p-4 my-4 bg-gray-800 rounded-2xl shadow-md hover:shadow-lg transition-all"
+                            className="border border-gray-800 p-4 my-4 bg-gray-800 rounded shadow-md hover:shadow-lg transition-all"
                         >
                             <p className="text-gray-400">
                                 User: {post.user.username}
@@ -78,7 +78,7 @@ const Explore = () => {
                                         (comment: any, k: number) => (
                                             <div
                                                 key={comment.id}
-                                                className="border border-gray-700 p-4 my-2 bg-gray-700 rounded-2xl shadow-sm hover:shadow-md transition-all"
+                                                className="border border-gray-700 p-4 my-2 bg-gray-700 rounded shadow-sm hover:shadow-md transition-all"
                                             >
                                                 <p className="text-gray-400">
                                                     ID: {comment.id}

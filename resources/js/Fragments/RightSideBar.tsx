@@ -8,10 +8,10 @@ const RightSideBar = () => {
                 <h2 className="text-xl font-semibold text-gray-200">
                     📢 Reklama
                 </h2>
-                <div className="w-full h-80 bg-gray-800 border border-gray-700 rounded-xl flex items-center justify-center text-gray-500 shadow-md">
+                <div className="w-full h-80 bg-gray-800 border border-gray-700 rounded flex items-center justify-center text-gray-500 shadow-md">
                     Reklamní prostor
                 </div>
-                <div className="w-full h-80 bg-gray-800 border border-gray-700 rounded-xl flex items-center justify-center text-gray-500 shadow-md">
+                <div className="w-full h-80 bg-gray-800 border border-gray-700 rounded flex items-center justify-center text-gray-500 shadow-md">
                     Další reklama
                 </div>
             </div>

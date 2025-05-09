@@ -36,7 +36,7 @@ const LeftSideBar = () => {
                 </div>
                 <button
                     onClick={() => modal.openModal("AddFriendModal")}
-                    className="mt-3 text-sm px-4 py-2 bg-red-600 hover:bg-red-700 rounded-xl shadow transition-all"
+                    className="mt-3 text-sm px-4 py-2 bg-red-600 hover:bg-red-700 rounded shadow transition-all"
                 >
                     + Přidat přítele
                 </button>
@@ -57,7 +57,7 @@ const LeftSideBar = () => {
                                 if (label === "Najít tým")
                                     router.visit("/find-team");
                             }}
-                            className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-xl py-2 shadow transition"
+                            className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded py-2 shadow transition"
                         >
                             {label}
                         </button>
@@ -71,13 +71,13 @@ const LeftSideBar = () => {
                         onClick={() =>
                             setShowFriendsDropdown(!showFriendsDropdown)
                         }
-                        className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-xl p-4 text-left shadow transition w-full"
+                        className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded p-4 text-left shadow transition w-full"
                     >
                         <p className="font-medium">Přátelé online</p>
                         <p className="text-xs text-gray-400">dropdown</p>
                     </button>
                     {showFriendsDropdown && (
-                        <div className="absolute z-50 w-48 bg-gray-800 border border-gray-700 rounded-xl shadow-xl overflow-hidden top-full mt-2 lg:left-full lg:top-0 lg:ml-2 lg:mt-0">
+                        <div className="absolute z-50 w-48 bg-gray-800 border border-gray-700 rounded shadow-xl overflow-hidden top-full mt-2 lg:left-full lg:top-0 lg:ml-2 lg:mt-0">
                             {[
                                 "PlayerOne",
                                 "ShadowWolf",
@@ -103,7 +103,7 @@ const LeftSideBar = () => {
                                 router.visit("/tournaments");
                             if (label === "Výzvy") router.visit("/challenges");
                         }}
-                        className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-xl p-4 text-left shadow transition"
+                        className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded p-4 text-left shadow transition"
                     >
                         <p className="font-medium">{label}</p>
                         <p className="text-xs text-gray-400">odkaz</p>
