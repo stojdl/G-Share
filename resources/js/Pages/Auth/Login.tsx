@@ -1,11 +1,12 @@
 import Checkbox from "@/Components/Checkbox";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
+import InputError from "@/Components/Forms/Inputs/InputError";
+import InputLabel from "@/Components/Forms/Inputs/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
+import TextInput from "@/Components/Forms/Inputs/TextInput";
 import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
+import TextField from "@/Components/Forms/Inputs/TextField";
 
 export default function Login({
     status,
@@ -43,36 +44,32 @@ export default function Login({
 
             <form onSubmit={submit} className="space-y-6">
                 {/* Email */}
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-2"
-                        autoComplete="username"
-                        isFocused={true}
-                        onChange={(e) => setData("email", e.target.value)}
-                    />
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
+
+                <TextField
+                    id="email"
+                    type="email"
+                    name="email"
+                    value={data.email}
+                    className="mt-2"
+                    autoComplete="username"
+                    isFocused={true}
+                    onChange={(e) => setData("email", e.target.value)}
+                    label="E-mail"
+                    error={errors.email}
+                />
 
                 {/* Heslo */}
-                <div>
-                    <InputLabel htmlFor="password" value="Heslo" />
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-2"
-                        autoComplete="current-password"
-                        onChange={(e) => setData("password", e.target.value)}
-                    />
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
+                <TextField
+                    id="password"
+                    type="password"
+                    name="password"
+                    value={data.password}
+                    className="mt-1 block w-full"
+                    autoComplete="current-password"
+                    onChange={(e) => setData("password", e.target.value)}
+                    label="Heslo"
+                    error={errors.password}
+                />
                 {/* Zapamatovat */}
                 <div className="flex items-center">
                     <Checkbox
