@@ -16,7 +16,8 @@ Route::get('/dashboard', [PagesController::class, 'dashboard'])->middleware(['au
 
 // Skupina rout chráněných middlewarem 'auth'
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [PagesController::class, 'profile'])->name('profile.show');
+    Route::get('/edit-profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/share-place', [PagesController::class, 'share_place'])->name('share_place');
