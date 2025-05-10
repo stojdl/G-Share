@@ -1,3 +1,7 @@
+import { useState } from "react";
+import CommentCard from "./CommentCard";
+import H3 from "../Headings/H3";
+
 interface Props {
     post: any;
 }
@@ -5,30 +9,66 @@ interface Props {
 const PostCard = (props: Props) => {
     const { post } = props;
 
+    const [showComments, setShowComments] = useState(false);
+
     return (
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-red-500/20 transition-all group">
-            <div className="flex justify-between items-center mb-2">
-                <span className="text-sm text-gray-400">
+        <article className="px-4 py-2 bg-gray-800 space-y-2 rounded border border-gray-800 shadow-md hover:shadow-lg transition-all">
+            <div className="space-y-1 border-b border-gray-700 pb-2">
+                <p className="w-max font-bold text-gray-400 hover:underline hover:cursor-pointer hover:text-white">
                     {post.user.username}
-                </span>
-                <span className="text-xs text-red-500">🕒 před 2 min</span>
+                </p>
+                <H3>{post.title}</H3>
+                <p className="text-gray-300">{post.body}</p>
+                {post.views.length > 0 && (
+                    <p className="text-gray-400 mt-2">
+                        👁️ Zhlédnutí: {post.views?.length || 0}
+                    </p>
+                )}
+
+                {post.reactions.length > 0 && (
+                    <p className="text-gray-400">
+                        ❤️ Reakce:{" "}
+                        {post.reactions?.map((reaction: any, k: number) => (
+                            <span key={k} className="text-red-500">
+                                {reaction.reaction_type}
+                                {k < post.reactions.length - 1 ? ", " : ""}
+                            </span>
+                        ))}
+                    </p>
+                )}
+
+                {post.shares.length > 0 && (
+                    <p className="text-gray-400 mt-2">
+                        🔁 Sdílení: {post.shares?.length || 0}
+                    </p>
+                )}
             </div>
-            <p className="text-gray-200 text-base">
-                Tohle je ukázkový herní moment, který můžeš sdílet s komunitou.
-                🎮
-            </p>
-            <div className="flex gap-6 mt-4 text-sm text-gray-400">
-                <button className="hover:text-red-400 transition">
-                    ❤️ Like
+
+            {post.comments?.length > 0 ? (
+                <button
+                    onClick={() => setShowComments(!showComments)}
+                    className="mt-4 font-semibold text-red-500 cursor-pointer hover:underline"
+                >
+                    💬 {showComments ? "Skrýt komentáře" : "Zobrazit komentáře"}
                 </button>
-                <button className="hover:text-red-400 transition">
-                    💬 Komentář
-                </button>
-                <button className="hover:text-red-400 transition">
-                    🔁 Sdílet
-                </button>
-            </div>
-        </div>
+            ) : (
+                <p>Zatím žádné komentáře.</p>
+            )}
+
+            {showComments && (
+                <div className="mt-2 space-y-2">
+                    {post.comments?.map(
+                        (comment: any) =>
+                            comment.parent_comment_id === null && (
+                                <CommentCard
+                                    key={comment.id}
+                                    comment={comment}
+                                />
+                            )
+                    )}
+                </div>
+            )}
+        </article>
     );
 };
 export default PostCard;
