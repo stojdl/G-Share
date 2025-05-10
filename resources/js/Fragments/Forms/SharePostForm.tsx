@@ -1,6 +1,6 @@
 import { useModal } from "@/Contexts/ModalContext";
 import { useForm } from "@inertiajs/react";
-import React, { FormEventHandler } from "react";
+import { FormEventHandler } from "react";
 
 const SharePostForm = () => {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -19,6 +19,7 @@ const SharePostForm = () => {
 
     return (
         <form onSubmit={submit}>
+            {/* Titulek*/}
             <input
                 name="title"
                 type="text"
@@ -27,7 +28,6 @@ const SharePostForm = () => {
                 onChange={(e) => setData("title", e.target.value)}
                 className="w-full mb-4 px-5 py-3 bg-gray-800 border border-gray-700 rounded placeholder-gray-400 text-white"
             />
-
             {/* Kategorie / tagy */}
             <input
                 type="text"
@@ -35,7 +35,6 @@ const SharePostForm = () => {
                 className="w-full mb-4 px-5 py-3 bg-gray-800 border border-gray-700 rounded placeholder-gray-400 text-white cursor-not-allowed"
                 disabled
             />
-
             {/* Obsah */}
             <textarea
                 name="body"
@@ -45,7 +44,6 @@ const SharePostForm = () => {
                 className="w-full mb-4 px-5 py-4 bg-gray-800 border border-gray-700 rounded placeholder-gray-400 text-white resize-none"
                 rows={6}
             ></textarea>
-
             {/* Odkazy, video, obrázky */}
             <input
                 type="file"
@@ -53,7 +51,6 @@ const SharePostForm = () => {
                 className="w-full mb-6 px-5 py-3 bg-gray-800 border border-gray-700 rounded placeholder-gray-400 text-white cursor-not-allowed"
                 disabled
             />
-
             {/* Odeslat */}
             <div className="text-right">
                 <button
