@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { Link, router } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 
 import { useModal } from "@/Contexts/ModalContext";
+import { PageProps } from "@/types";
 
 const LeftSideBar = () => {
+    const { auth } = usePage<PageProps>().props;
+
     const modal = useModal();
     const [showFriendsDropdown, setShowFriendsDropdown] = useState(false);
 
@@ -27,7 +30,12 @@ const LeftSideBar = () => {
                         />
                     </Link>
                     <div className="text-base font-semibold">
-                        JinochiTR1 #0420
+                        <Link
+                            href={route("profile.edit")}
+                            className="text-white"
+                        >
+                            {auth.user.username}
+                        </Link>
                     </div>
                     <div className="text-sm text-green-400">● online</div>
                     <div className="flex gap-2">

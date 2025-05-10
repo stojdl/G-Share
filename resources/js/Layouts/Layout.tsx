@@ -1,7 +1,7 @@
 import AddFriendModal from "@/Components/Modals/AddFriendModal";
 import ChatModal from "@/Components/Modals/ChatModal";
 import NotificationModal from "@/Components/Modals/NotificationModal";
-import PostModal from "@/Components/Modals/PostModal";
+import SharePostModal from "@/Components/Modals/SharePostModal";
 import Nav from "@/Components/Nav/Index";
 import TwitchButton from "@/Components/TwitchButton";
 import { useModal } from "@/Contexts/ModalContext";
@@ -45,7 +45,7 @@ const Layout = (props: Props) => {
             )}
             {modal.isOpen === "NotificationModal" && <NotificationModal />}
             {modal.isOpen === "ChatModal" && <ChatModal />}
-            {modal.isOpen === "PostModal" && <PostModal />}
+            {modal.isOpen === "SharePostModal" && <SharePostModal />}
         </main>
     );
 };
