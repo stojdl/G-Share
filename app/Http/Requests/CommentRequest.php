@@ -24,6 +24,7 @@ class CommentRequest extends FormRequest
         return [
             'post_id' => 'required|exists:posts,id',
             'body' => 'required|string|max:1000',
+            'parent_comment_id' => 'nullable|exists:comments,id',
         ];
     }
 }
