@@ -17,11 +17,13 @@ const LeftSideBar = () => {
             </Link>
 
             <div className="flex flex-col items-center gap-3 mt-6">
-                <img
-                    src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d9865bd5-9256-461e-9cad-595da83f5964/d884qiy-a305329c-9f47-4b75-a7c0-ba603075ebc2.png/v1/fit/w_400,h_400,q_70,strp/request__zed_avatar_by_soulivium_d884qiy-375w-2x.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2Q5ODY1YmQ1LTkyNTYtNDYxZS05Y2FkLTU5NWRhODNmNTk2NFwvZDg4NHFpeS1hMzA1MzI5Yy05ZjQ3LTRiNzUtYTdjMC1iYTYwMzA3NWViYzIucG5nIiwiaGVpZ2h0IjoiPD00MDAiLCJ3aWR0aCI6Ijw9NDAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLndhdGVybWFyayJdLCJ3bWsiOnsicGF0aCI6Ilwvd21cL2Q5ODY1YmQ1LTkyNTYtNDYxZS05Y2FkLTU5NWRhODNmNTk2NFwvc291bGl2aXVtLTQucG5nIiwib3BhY2l0eSI6OTUsInByb3BvcnRpb25zIjowLjQ1LCJncmF2aXR5IjoiY2VudGVyIn19.ovwlBbubWp7eWHdb39FUNBKxcXhzUZiigf5aKFmMupk"
-                    alt="User Avatar"
-                    className="w-20 h-20 rounded-full object-cover shadow-md border border-gray-700"
-                />
+                <Link href="/user" className="flex justify-center">
+                    <img
+                        src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d9865bd5-9256-461e-9cad-595da83f5964/d884qiy-a305329c-9f47-4b75-a7c0-ba603075ebc2.png/v1/fit/w_400,h_400,q_70,strp/request__zed_avatar_by_soulivium_d884qiy-375w-2x.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2Q5ODY1YmQ1LTkyNTYtNDYxZS05Y2FkLTU5NWRhODNmNTk2NFwvZDg4NHFpeS1hMzA1MzI5Yy05ZjQ3LTRiNzUtYTdjMC1iYTYwMzA3NWViYzIucG5nIiwiaGVpZ2h0IjoiPD00MDAiLCJ3aWR0aCI6Ijw9NDAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLndhdGVybWFyayJdLCJ3bWsiOnsicGF0aCI6Ilwvd21cL2Q5ODY1YmQ1LTkyNTYtNDYxZS05Y2FkLTU5NWRhODNmNTk2NFwvc291bGl2aXVtLTQucG5nIiwib3BhY2l0eSI6OTUsInByb3BvcnRpb25zIjowLjQ1LCJncmF2aXR5IjoiY2VudGVyIn19.ovwlBbubWp7eWHdb39FUNBKxcXhzUZiigf5aKFmMupk"
+                        alt="User Avatar"
+                        className="w-20 h-20 rounded-full object-cover shadow-md border border-gray-700"
+                    />
+                </Link>
                 <div className="text-base font-semibold">JinochiTR1 #0420</div>
                 <div className="text-sm text-green-400">● online</div>
                 <div className="flex gap-1 mt-1">
@@ -34,7 +36,7 @@ const LeftSideBar = () => {
                 </div>
                 <button
                     onClick={() => modal.openModal("AddFriendModal")}
-                    className="mt-3 text-sm px-4 py-2 bg-red-600 hover:bg-red-700 rounded-xl shadow transition-all"
+                    className="mt-3 text-sm px-4 py-2 bg-red-600 hover:bg-red-700 rounded shadow transition-all"
                 >
                     + Přidat přítele
                 </button>
@@ -55,7 +57,7 @@ const LeftSideBar = () => {
                                 if (label === "Najít tým")
                                     router.visit("/find-team");
                             }}
-                            className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-xl py-2 shadow transition"
+                            className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded py-2 shadow transition"
                         >
                             {label}
                         </button>
@@ -69,13 +71,13 @@ const LeftSideBar = () => {
                         onClick={() =>
                             setShowFriendsDropdown(!showFriendsDropdown)
                         }
-                        className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-xl p-4 text-left shadow transition w-full"
+                        className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded p-4 text-left shadow transition w-full"
                     >
                         <p className="font-medium">Přátelé online</p>
                         <p className="text-xs text-gray-400">dropdown</p>
                     </button>
                     {showFriendsDropdown && (
-                        <div className="absolute z-50 w-48 bg-gray-800 border border-gray-700 rounded-xl shadow-xl overflow-hidden top-full mt-2 lg:left-full lg:top-0 lg:ml-2 lg:mt-0">
+                        <div className="absolute z-50 w-48 bg-gray-800 border border-gray-700 rounded shadow-xl overflow-hidden top-full mt-2 lg:left-full lg:top-0 lg:ml-2 lg:mt-0">
                             {[
                                 "PlayerOne",
                                 "ShadowWolf",
@@ -101,7 +103,7 @@ const LeftSideBar = () => {
                                 router.visit("/tournaments");
                             if (label === "Výzvy") router.visit("/challenges");
                         }}
-                        className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-xl p-4 text-left shadow transition"
+                        className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded p-4 text-left shadow transition"
                     >
                         <p className="font-medium">{label}</p>
                         <p className="text-xs text-gray-400">odkaz</p>
