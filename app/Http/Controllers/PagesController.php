@@ -8,6 +8,7 @@ use App\Http\Resources\PostResource;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\User;
 
 
 class PagesController extends Controller
@@ -69,6 +70,22 @@ class PagesController extends Controller
             'comments' => \App\Models\Comment::all()->load('user', 'post', 'children.user'),
             'views' => \App\Models\PostView::all()->load('user', 'post'),
             'reactions' => \App\Models\PostReaction::all()->load('user', 'post'),
+        ]);
+    }
+
+    public function profile()
+    {
+        $user = User::find(auth()->user()->id);
+        $user->load('profile', 'settings', 'privacy_settings',
+                    'posts', 'posts.reactions.user',
+                    'posts.comments.user', 'posts.comments.likes.user', 
+                    'posts.comments.children.user', 'posts.comments.children.likes.user',
+                    'posts.comments.children.children.user', 'posts.comments.children.children.likes.user',
+                    'posts.comments.children.children.children.user', 'posts.comments.children.children.children.likes.user',
+                    'posts.comments.children.children.children.children.user', 'posts.comments.children.children.children.children.likes.user',
+                    'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',);
+        return Inertia::render('Profile/Show', [
+            'user' => $user
         ]);
     }
     

@@ -31,7 +31,7 @@ const LeftSideBar = () => {
                     </Link>
                     <div className="text-base font-semibold">
                         <Link
-                            href={route("profile.edit")}
+                            href={route("profile.show")}
                             className="text-white"
                         >
                             {auth.user.username}
