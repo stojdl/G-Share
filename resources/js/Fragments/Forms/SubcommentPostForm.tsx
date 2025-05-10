@@ -1,16 +1,18 @@
 import TextInput from "@/Components/Forms/Inputs/TextInput";
-import { router, useForm } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 
 interface Props {
     post_id: any;
+    parent_comment_id: any;
 }
 
 const CommentPostForm = (props: Props) => {
-    const { post_id } = props;
+    const { post_id, parent_comment_id } = props;
 
     const { data, setData, post, processing, errors, reset } = useForm({
         post_id: post_id,
+        parent_comment_id: parent_comment_id,
         body: "",
     });
 
@@ -19,7 +21,6 @@ const CommentPostForm = (props: Props) => {
         post(route("comment.store"), {
             onSuccess: () => {
                 reset("body");
-                router.reload({ only: ["comments"] });
             },
         });
     };
@@ -30,10 +31,10 @@ const CommentPostForm = (props: Props) => {
                 name="body"
                 value={data.body}
                 onChange={(e) => setData("body", e.target.value)}
-                placeholder="Napiš komentář..."
+                placeholder="Napiš odpověď..."
             />
             <button type="submit" disabled={processing}>
-                Okomentovat
+                Odpovědět
             </button>
         </form>
     );

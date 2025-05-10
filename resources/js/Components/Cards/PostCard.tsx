@@ -70,6 +70,7 @@ const PostCard = (props: Props) => {
                                 <CommentCard
                                     key={comment.id}
                                     comment={comment}
+                                    maxRecursion={5}
                                 />
                             )
                     )}
