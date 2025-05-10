@@ -72,9 +72,45 @@ class PagesController extends Controller
     }
     
     public function share_place()
+{
+    $users = \App\Models\User::with(
+        'posts',
+        'profile',
+        'settings',
+        'privacy_settings',
+        'posts.reactions.user',
+        'posts.views.user',
+        'posts.shares.user',
+        'posts.comments.user',
+        'posts.comments.likes.user',
+        'posts.comments.children.user',
+        'posts.comments.children.likes.user'
+    )->get();
+
+        $posts = \App\Models\Post::all()->load('user', 'views', 'reactions.user', 'shares.user', 'comments.user', 'comments.likes.user', 'comments.children.user', 'comments.children.likes.user' );
+
+    
+
+    return Inertia::render('SharePlace', [
+        'users' => $users,
+        'posts' => $posts,
+        
+    ]);
+}
+
+public function user($user)
     {
-        return Inertia::render('SharePlace');
+        // Načtení uživatele podle ID nebo uživatelského jména
+        $userData = User::where('id', $user)->orWhere('username', $user)->first();
+        if (!$userData) {
+            abort(404, 'Uživatel nenalezen');
+        }
+        // Vrátíme data do Inertia stránky 'User '
+        return Inertia::render('User ', [
+            'user' => $userData,
+        ]);
     }
+
 
     public function home_page()
     {
@@ -120,5 +156,4 @@ class PagesController extends Controller
     {
         return Inertia::render('Challenges');
     }
-
 }

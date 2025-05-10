@@ -2,7 +2,7 @@ import React from "react";
 
 const TwitchButton = () => {
     return (
-        <div className="bg-gray-950 border border-gray-800 px-4 py-2 text-sm flex justify-center items-center rounded-xl shadow">
+        <div className="bg-gray-950 border border-gray-800 px-4 py-2 text-sm flex justify-center items-center rounded-l shadow">
             <a
                 href="https://twitch.tv/JinochiTR1"
                 target="_blank"
