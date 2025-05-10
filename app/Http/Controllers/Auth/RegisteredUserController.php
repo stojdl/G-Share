@@ -47,6 +47,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('share-place', absolute: false));
+        return redirect(route('share_place', absolute: false));
     }
 }
