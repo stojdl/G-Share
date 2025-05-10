@@ -3,6 +3,7 @@
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,6 +23,10 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['prefix' => 'post'], function () {
         Route::post('/store', [PostController::class, 'store'])->name('post.store');
+    });
+
+    Route::group(['prefix' => 'comment'], function () {
+        Route::post('/store', [CommentController::class, 'store'])->name('comment.store');
     });
 
 });
