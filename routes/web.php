@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -17,11 +18,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/share-place', [PagesController::class, 'share_place'])->name('share_place');
+
+    Route::group(['prefix' => 'post'], function () {
+        Route::post('/store', [PostController::class, 'store'])->name('post.store');
+    });
+
 });
 
 // Routy pro další stránky
 Route::get('/dev', [PagesController::class, 'dev'])->name('dev');
-Route::get('/share-place', [PagesController::class, 'share_place'])->name('share_place'); // Dočasná routa
 
 // Routa pro zobrazení uživatelského profilu
 Route::get('/user/{user}', [PagesController::class, 'user'])->name('user');
