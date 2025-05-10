@@ -8,7 +8,8 @@ interface ModalContextType {
         | "NotificationModal"
         | "ChatModal"
         | "PostModal"
-        | "SharePostModal";
+        | "SharePostModal"
+        | "DeleteUser";
     openModal: (
         modal:
             | "AddFriendModal"
@@ -16,6 +17,7 @@ interface ModalContextType {
             | "ChatModal"
             | "PostModal"
             | "SharePostModal"
+            | "DeleteUser"
     ) => void;
     closeModal: () => void;
 }
@@ -32,6 +34,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
         | "ChatModal"
         | "PostModal"
         | "SharePostModal"
+        | "DeleteUser"
     >(false);
 
     const openModal = (
@@ -41,6 +44,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
             | "ChatModal"
             | "PostModal"
             | "SharePostModal"
+            | "DeleteUser"
     ) => setIsOpen(modal);
     const closeModal = () => setIsOpen(false);
 
