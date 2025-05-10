@@ -54,6 +54,9 @@ const PostCard = (props: Props) => {
                     className="mt-4 font-semibold text-red-500 cursor-pointer hover:underline"
                 >
                     💬 {showComments ? "Skrýt komentáře" : "Zobrazit komentáře"}
+                    {post.comments?.length > 0
+                        ? ` (${post.comments?.length})`
+                        : ` (${post.comments?.length})`}
                 </button>
             ) : (
                 <p>Zatím žádné komentáře.</p>

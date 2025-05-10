@@ -16,18 +16,24 @@ const CommentPostForm = (props: Props) => {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route("comment.store"));
+        post(route("comment.store"), {
+            onSuccess: () => {
+                reset("body");
+            },
+        });
     };
 
     return (
         <form onSubmit={submit} className="flex items-center space-x-4">
             <TextInput
-                name="comment"
+                name="body"
                 value={data.body}
                 onChange={(e) => setData("body", e.target.value)}
                 placeholder="Napiš komentář..."
             />
-            <button disabled={processing}>Okomentovat</button>
+            <button type="submit" disabled={processing}>
+                Okomentovat
+            </button>
         </form>
     );
 };
