@@ -7,13 +7,15 @@ interface ModalContextType {
         | "AddFriendModal"
         | "NotificationModal"
         | "ChatModal"
-        | "PostModal";
+        | "PostModal"
+        | "SharePostModal";
     openModal: (
         modal:
             | "AddFriendModal"
             | "NotificationModal"
             | "ChatModal"
             | "PostModal"
+            | "SharePostModal"
     ) => void;
     closeModal: () => void;
 }
@@ -29,6 +31,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
         | "NotificationModal"
         | "ChatModal"
         | "PostModal"
+        | "SharePostModal"
     >(false);
 
     const openModal = (
@@ -37,6 +40,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
             | "NotificationModal"
             | "ChatModal"
             | "PostModal"
+            | "SharePostModal"
     ) => setIsOpen(modal);
     const closeModal = () => setIsOpen(false);
 
