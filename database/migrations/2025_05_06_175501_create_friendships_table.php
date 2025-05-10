@@ -20,7 +20,7 @@ return new class extends Migration
                                         ->on('users')
                                         ->onDelete('cascade');
             $table->unique(['user_id', 'friend_id'], 'friendship_unique');
-            $table->string('action_user_id')->references('id')
+            $table->foreignId('action_user_id')->references('id')
                                             ->on('users')
                                             ->onDelete('cascade');;
             $table->enum('status', ['pending', 'accepted', 'blocked'])->default('pending');

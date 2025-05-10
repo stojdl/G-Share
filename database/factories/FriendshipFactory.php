@@ -17,8 +17,8 @@ class FriendshipFactory extends Factory
     public function definition(): array
     {
         return [
-            'follower_id' => \App\Models\User::factory(),
-            'followed_id' => \App\Models\User::factory(),
+            'user_id' => \App\Models\User::factory(),
+            'friend_id' => \App\Models\User::factory(),
             'action_user_id' => \App\Models\User::factory(),
             'status' => $this->faker->randomElement(['pending', 'accepted', 'blocked']),
         ];

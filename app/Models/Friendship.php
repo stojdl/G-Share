@@ -11,6 +11,8 @@ class Friendship extends Model
 {
     use HasFactory, SoftDeletes;
 
+    //protected $fillable = ['user_id', 'friend_id'];
+
     /**
      * Get the user that owns the Friendship
      *
@@ -18,7 +20,7 @@ class Friendship extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
@@ -29,5 +31,15 @@ class Friendship extends Model
     public function friend(): BelongsTo
     {
         return $this->belongsTo(User::class, 'friend_id');
+    }
+
+    /**
+     * Get the action_user that owns the Friendship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function action_user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'action_user_id');
     }
 }
