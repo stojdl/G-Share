@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('user_blocks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('blocker_user_id')->references('id')
+            $table->foreignId('blocker_id')->references('id')
                                                 ->on('users')
                                                 ->onDelete('cascade');
-            $table->foreignId('blocked_user_id')->references('id')
+            $table->foreignId('blocked_id')->references('id')
                                                 ->on('users')
                                                 ->onDelete('cascade');
-            $table->unique(['blocker_user_id', 'blocked_user_id'], 'user_block_unique');
+            $table->unique(['blocker_id', 'blocked_id'], 'user_block_unique');
             $table->timestamps();
             $table->softDeletes();
         });
