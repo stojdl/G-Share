@@ -12,10 +12,11 @@ const PostCard = (props: Props) => {
     const [showComments, setShowComments] = useState(false);
 
     return (
-        <article className="px-4 py-2 bg-gray-800 space-y-2 rounded border border-gray-800 shadow-md hover:shadow-lg transition-all">
-            <div className="space-y-1 border-b border-gray-700 pb-2">
-                <p className="w-max font-bold text-gray-400 hover:underline hover:cursor-pointer hover:text-white">
-                    {post.user.username}
+        <article className="p-4 bg-gray-800 space-y-2 rounded border border-gray-800 shadow-md hover:shadow-lg transition-all">
+            <div className="space-y-2 border-b border-gray-700 pb-2">
+                <p className="w-max flex items-center space-x-2 font-bold text-gray-400 hover:underline hover:cursor-pointer hover:text-white">
+                    <span className="block border rounded-full w-8 h-8" />
+                    <span>{post.user.username}</span>
                 </p>
                 <H3>{post.title}</H3>
                 <p className="text-gray-300">{post.body}</p>
