@@ -40,7 +40,15 @@ class PagesController extends Controller
                         'posts.comments.user', 
                         'posts.comments.likes.user', 
                         'posts.comments.children.user', 
-                        'posts.comments.children.likes.user');
+                        'posts.comments.children.likes.user',
+                        'blocks',
+                        'blocked_by',
+                        'friendship_actions.user',
+                        'followers',
+                        'follows');
+                        
+            $user->all_friends = $user->all_friends();
+            
             // Pokud máte subkomentáře:
             //$user->load('posts.comments.children.user');
 
@@ -54,6 +62,7 @@ class PagesController extends Controller
         }
 
         return Inertia::render('Dev', [
+            // 'users' => [...$users, 'friends' => $users->all_friends()],
             'users' => $users,
             'posts' => \App\Models\Post::all()->load('user', 'comments.user', 'reactions.user'),
             'comments' => \App\Models\Comment::all()->load('user', 'post', 'children.user'),

@@ -4,13 +4,13 @@ interface Props {
     children: ReactNode;
 }
 
-const H1 = (props: Props) => {
+const H3 = (props: Props) => {
     const { children } = props;
 
     return (
-        <h1 className="text-4xl sm:text-6xl font-extrabold text-red-500 mb-4">
+        <h3 className="text-xl sm:text-2xl font-extrabold text-red-500 mb-4">
             {children}
-        </h1>
+        </h3>
     );
 };
-export default H1;
+export default H3;

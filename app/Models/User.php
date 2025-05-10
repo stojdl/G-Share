@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -161,5 +163,85 @@ class User extends Authenticatable
         return $this->hasMany(PostReaction::class);
     }
 
-    
+    /**
+     * The friend that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function friends(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'friendships', 'user_id', 'friend_id');;
+    }
+
+    /**
+     * The friendOf that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function friends_of(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'friendships', 'friend_id', 'user_id');
+    }
+
+    /**
+     * Get all friends, combining both directions into one collection
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function all_friends(): Collection
+    {
+        // Eager load both friends and friendsOf,
+        // then merge collections and unique by user id to avoid duplicates
+        return $this->friends->merge($this->friends_of)->unique('id')->values();
+    }
+
+    /**
+     * Get all of the friendship_actions for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function friendship_actions(): HasMany
+    {
+        return $this->hasMany(Friendship::class, 'action_user_id');
+    }
+
+    /**
+     * The follows that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function follows(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_follows', 'follower_id', 'followed_id');
+    }
+
+    /**
+     * The followers that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_follows', 'followed_id', 'follower_id');
+    }
+
+    /**
+     * The blocks that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function blocks(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_blocks', 'blocker_id', 'blocked_id');
+    }
+
+    /**
+     * The blocked_by that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function blocked_by(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_blocks', 'blocked_id', 'blocker_id');
+    }
 }
