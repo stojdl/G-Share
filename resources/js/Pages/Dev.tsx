@@ -19,11 +19,11 @@ export default function Dev(props: Props) {
     console.log("posts:", posts);
     console.log(
         "Users:",
-        users,
-        posts && posts,
-        comments && comments,
-        views && views,
-        reactions && reactions
+        users
+        // posts && posts,
+        // comments && comments,
+        // views && views,
+        // reactions && reactions
     );
 
     return (
