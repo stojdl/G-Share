@@ -50,10 +50,13 @@ class DatabaseSeeder extends Seeder
         $user4 = $users[3];
 
         $post = Post::factory()->create([
-            'user_id' => $users[0]->id,
+            'user_id' => $user->id,
         ]);
         $post2 = Post::factory()->create([
-            'user_id' => $users[1]->id,
+            'user_id' => $user2->id,
+        ]);
+        $post3 = Post::factory()->create([
+            'user_id' => $user4->id,
         ]);
 
         $comment = Comment::factory()->create([
@@ -88,7 +91,7 @@ class DatabaseSeeder extends Seeder
 
         Comment::factory()->create([
             'user_id' => $user->id,
-            'post_id' => $post2->id,
+            'post_id' => $post->id,
             'parent_comment_id' => $comment2->id,
         ]);
 
@@ -111,6 +114,10 @@ class DatabaseSeeder extends Seeder
         ]);
         PostReaction::factory()->create([
             'user_id' => $user2->id,
+            'post_id' => $post->id,
+        ]);
+        PostReaction::factory()->create([
+            'user_id' => $user4->id,
             'post_id' => $post->id,
         ]);
 
