@@ -10,6 +10,9 @@ use App\Models\PostView;
 use App\Models\PostReaction;
 use App\Models\CommentLike;
 use App\Models\Share;
+use App\Models\Friendship;
+use App\Models\UserBlock;
+use App\Models\UserFollow;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -36,7 +39,7 @@ class DatabaseSeeder extends Seeder
 
 
 
-        $users = User::factory(3)->withSettings()
+        $users = User::factory(4)->withSettings()
                                  ->withProfile()
                                  ->withPrivacySettings()
                                  ->create();
@@ -44,6 +47,7 @@ class DatabaseSeeder extends Seeder
         $user = $users[0];
         $user2 = $users[1];
         $user3 = $users[2];
+        $user4 = $users[3];
 
         $post = Post::factory()->create([
             'user_id' => $users[0]->id,
@@ -96,6 +100,10 @@ class DatabaseSeeder extends Seeder
             'user_id' => $user2->id,
             'post_id' => $post->id,
         ]);
+        PostView::factory()->create([
+            'user_id' => $user4->id,
+            'post_id' => $post->id,
+        ]);
 
         PostReaction::factory()->create([
             'user_id' => $user->id,
@@ -115,8 +123,46 @@ class DatabaseSeeder extends Seeder
             'post_id' => $post->id,
         ]);
 
+        Friendship::factory()->create([
+            'user_id' => $user->id,
+            'friend_id' => $user2->id,
+            'action_user_id' => $user->id,
+            'status' => 'accepted',
+        ]);
+        Friendship::factory()->create([
+            'user_id' => $user4->id,
+            'friend_id' => $user->id,
+            'action_user_id' => $user->id,
+            'status' => 'pending',
+        ]);
+        Friendship::factory()->create([
+            'user_id' => $user2->id,
+            'friend_id' => $user3->id,
+            'action_user_id' => $user->id,
+            'status' => 'pending',
+        ]);
 
+        UserBlock::factory()->create([
+            'blocker_id' => $user->id,
+            'blocked_id' => $user3->id,
+        ]);
+        UserBlock::factory()->create([
+            'blocker_id' => $user3->id,
+            'blocked_id' => $user->id,
+        ]);
 
+        UserFollow::factory()->create([
+            'follower_id' => $user->id,
+            'followed_id' => $user2->id,
+        ]);
+        UserFollow::factory()->create([
+            'follower_id' => $user2->id,
+            'followed_id' => $user->id,
+        ]);
+        UserFollow::factory()->create([
+            'follower_id' => $user2->id,
+            'followed_id' => $user3->id,
+        ]);
 
 
         // foreach ($users as $user) {
