@@ -2,7 +2,7 @@ import AddFriendModal from "@/Components/Modals/AddFriendModal";
 import ChatModal from "@/Components/Modals/ChatModal";
 import NotificationModal from "@/Components/Modals/NotificationModal";
 import SharePostModal from "@/Components/Modals/SharePostModal";
-import Nav from "@/Components/Nav/Index";
+import Nav from "@/Components/QuickNav/Index";
 import TwitchButton from "@/Components/TwitchButton";
 import { useModal } from "@/Contexts/ModalContext";
 import SearchAnything from "@/Fragments/Forms/SearchAnything";
