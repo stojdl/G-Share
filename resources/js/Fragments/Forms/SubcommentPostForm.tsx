@@ -22,6 +22,7 @@ const CommentPostForm = (props: Props) => {
             onSuccess: () => {
                 reset("body");
             },
+            preserveScroll: true,
         });
     };
 

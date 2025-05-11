@@ -1,7 +1,7 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import DeleteUserModal from "@/Components/Modals/DeleteUserModal";
-import NavLink from "@/Components/Nav/NavLink";
+import NavLink from "@/Components/QuickNav/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { useModal } from "@/Contexts/ModalContext";
 import { Link, usePage } from "@inertiajs/react";

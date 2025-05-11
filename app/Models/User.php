@@ -170,7 +170,8 @@ class User extends Authenticatable
      */
     public function friends(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'friendships', 'user_id', 'friend_id');;
+        return $this->belongsToMany(User::class, 'friendships', 'user_id', 'friend_id')
+                    ->whereNull('friendships.deleted_at');
     }
 
     /**
@@ -180,7 +181,8 @@ class User extends Authenticatable
      */
     public function friends_of(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'friendships', 'friend_id', 'user_id');
+        return $this->belongsToMany(User::class, 'friendships', 'friend_id', 'user_id')
+                    ->whereNull('friendships.deleted_at');
     }
 
     /**
