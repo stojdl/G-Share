@@ -2,6 +2,7 @@ import { useState } from "react";
 import CommentCard from "./CommentCard";
 import H3 from "../Headings/H3";
 import CommentPostForm from "@/Fragments/Forms/CommentPostForm";
+import { Link } from "@inertiajs/react";
 
 interface Props {
     post: any;
@@ -15,10 +16,13 @@ const PostCard = (props: Props) => {
     return (
         <article className="p-4 bg-gray-800 space-y-4 rounded border border-gray-800 shadow-md hover:shadow-lg transition-all">
             <div className="space-y-2 border-b border-gray-700 pb-2">
-                <p className="w-max flex items-center space-x-2 font-bold text-gray-400 hover:underline hover:cursor-pointer hover:text-white">
+                <Link
+                    href={route("user_profile", { user: post.user.id })}
+                    className="w-max flex items-center space-x-2 font-bold text-gray-400 hover:underline hover:cursor-pointer hover:text-white"
+                >
                     <span className="block border rounded-full w-8 h-8" />
                     <span>{post.user.username}</span>
-                </p>
+                </Link>
                 <H3>{post.title}</H3>
                 <p className="text-gray-300">{post.body}</p>
                 <div className="flex items-center justify-between">

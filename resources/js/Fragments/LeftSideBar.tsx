@@ -125,7 +125,7 @@ const LeftSideBar = () => {
                     ))}
                 </div>
 
-                <div className="pt-10 pb-20 text-xs text-center text-gray-400">
+                <div className="pb-20 text-xs text-center text-gray-400">
                     🚀 Premium jen za{" "}
                     <span className="text-red-500">0,99 €</span>
                 </div>

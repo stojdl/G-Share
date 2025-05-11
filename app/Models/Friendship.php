@@ -11,7 +11,13 @@ class Friendship extends Model
 {
     use HasFactory, SoftDeletes;
 
-    //protected $fillable = ['user_id', 'friend_id'];
+    protected $fillable = [
+        'user_id',
+        'friend_id',
+        'action_user_id',
+        'status',
+        'deleted_at',
+    ];
 
     /**
      * Get the user that owns the Friendship

@@ -1,3 +1,4 @@
+import CommentLikeForm from "@/Fragments/Forms/CommentLikeForm";
 import SubcommentPostForm from "@/Fragments/Forms/SubcommentPostForm";
 import { useState } from "react";
 
@@ -19,11 +20,12 @@ const CommentCard = (props: Props) => {
         >
             <p className="text-gray-400">{comment.user.username}</p>
             <p className="font-bold text-white">{comment.body}</p>
-            {comment.likes?.length > 0 && (
-                <p className="text-gray-400">
-                    Líbí se: {comment.likes?.length || 0}
-                </p>
-            )}
+            <p className="flex items-center space-x-2 text-gray-400">
+                <CommentLikeForm comment={comment} />
+                {comment.likes?.length > 0 && (
+                    <span> ({comment.likes?.length || 0})</span>
+                )}
+            </p>
             {comment.children?.length > 0 && (
                 <button
                     onClick={() => {
