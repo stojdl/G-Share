@@ -1,3 +1,4 @@
+import FriendshipForm from "@/Fragments/Forms/FriendshipForm";
 import { PageProps } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
 
@@ -8,7 +9,7 @@ const Show = () => {
 
     return (
         <div>
-            <h1>Profile Page</h1>
+            <h1>User Profile Page</h1>
             <div className="">
                 <button onClick={() => window.history.back()}>back</button>
             </div>
@@ -20,18 +21,11 @@ const Show = () => {
                 />
                 <div className="text-base font-semibold">{user.username}</div>
                 <div className="text-sm text-green-400">● online</div>
-            </div>
-            <Link
-                href={route("profile.edit")}
-                className="mt-3 text-sm px-4 py-1 bg-red-600 hover:bg-red-700 rounded shadow transition-all"
-            >
-                Edit
-            </Link>
-            <div className="border p-6">
-                friends:
-                <div>
-                    {user.all_friends?.length > 0 ? (
-                        user.all_friends.map((friend: any) => (
+                <div className="border p-6">
+                    <FriendshipForm />
+                    friends:
+                    <div>
+                        {user.all_friends.map((friend: any) => (
                             <div className="border p-4">
                                 <Link
                                     href={route("user_profile", {
@@ -41,10 +35,8 @@ const Show = () => {
                                     {friend.username}
                                 </Link>
                             </div>
-                        ))
-                    ) : (
-                        <p>žádní přátele kundo</p>
-                    )}
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

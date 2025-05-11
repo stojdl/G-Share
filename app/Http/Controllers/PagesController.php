@@ -84,7 +84,30 @@ class PagesController extends Controller
                     'posts.comments.children.children.children.user', 'posts.comments.children.children.children.likes.user',
                     'posts.comments.children.children.children.children.user', 'posts.comments.children.children.children.children.likes.user',
                     'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',);
+
+        $user->all_friends = $user->all_friends();
+
         return Inertia::render('Profile/Show', [
+            'user' => $user
+        ]);
+    }
+
+    public function user_profile($user)
+    {
+        $user = User::find($user);
+        $user->load('profile',
+                    'posts', 'posts.reactions.user',
+                    'posts.comments.user', 'posts.comments.likes.user', 
+                    'posts.comments.children.user', 'posts.comments.children.likes.user',
+                    'posts.comments.children.children.user', 'posts.comments.children.children.likes.user',
+                    'posts.comments.children.children.children.user', 'posts.comments.children.children.children.likes.user',
+                    'posts.comments.children.children.children.children.user', 'posts.comments.children.children.children.children.likes.user',
+                    'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',);
+
+        $user->all_friends = $user->all_friends();
+
+
+        return Inertia::render('User/Show', [
             'user' => $user
         ]);
     }
