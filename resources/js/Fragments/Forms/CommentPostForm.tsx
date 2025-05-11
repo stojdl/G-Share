@@ -21,6 +21,7 @@ const CommentPostForm = (props: Props) => {
                 reset("body");
                 router.reload({ only: ["comments"] });
             },
+            preserveScroll: true,
         });
     };
 
