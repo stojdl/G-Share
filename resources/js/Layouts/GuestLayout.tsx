@@ -1,19 +1,38 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import { Link } from '@inertiajs/react';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect, useState } from "react";
+import { Link } from "@inertiajs/react";
+import Footer from "@/Fragments/Footers/Footer";
+import Nav from "@/Components/Nav/Index";
 
 export default function Guest({ children }: PropsWithChildren) {
-    return (
-        <div className="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0 dark:bg-gray-900">
-            <div>
-                <Link href="/">
-                    <ApplicationLogo className="h-20 w-20 fill-current text-gray-500" />
-                </Link>
-            </div>
+    const [hideHeader, setHideHeader] = useState(false);
 
-            <div className="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg dark:bg-gray-800">
-                {children}
-            </div>
-        </div>
+    useEffect(() => {
+        let lastScroll = 0;
+        const handleScroll = () => {
+            const currentScroll = window.scrollY;
+            if (currentScroll > lastScroll && currentScroll > 50) {
+                setHideHeader(true);
+            } else {
+                setHideHeader(false);
+            }
+            lastScroll = currentScroll;
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    return (
+        <>
+            <main className="min-h-screen bg-black text-white flex flex-col items-center px-6">
+                <header className="w-full max-w-7xl">
+                    <Nav />
+                </header>
+
+                <div className="w-full max-w-7xl rounded-xl bg-gray-900 border border-gray-800 p-6 sm:p-8 shadow-2xl">
+                    {children}
+                </div>
+            </main>
+            <Footer />
+        </>
     );
 }

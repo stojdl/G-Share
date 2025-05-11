@@ -37,15 +37,16 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'username' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'last_login' => now(),
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('share_place', absolute: false));
     }
 }

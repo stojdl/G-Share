@@ -1,9 +1,9 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { PageProps } from '@/types';
-import { Head } from '@inertiajs/react';
-import DeleteUserForm from './Partials/DeleteUserForm';
-import UpdatePasswordForm from './Partials/UpdatePasswordForm';
-import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { PageProps } from "@/types";
+import { Head, router } from "@inertiajs/react";
+import DeleteUser from "./Partials/DeleteUser";
+import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
+import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm";
 
 export default function Edit({
     mustVerifyEmail,
@@ -18,6 +18,9 @@ export default function Edit({
             }
         >
             <Head title="Profile" />
+            <div className="text-white">
+                <button onClick={() => window.history.back()}>back</button>
+            </div>
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
@@ -34,7 +37,7 @@ export default function Edit({
                     </div>
 
                     <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800">
-                        <DeleteUserForm className="max-w-xl" />
+                        <DeleteUser />
                     </div>
                 </div>
             </div>
