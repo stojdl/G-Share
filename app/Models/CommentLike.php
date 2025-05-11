@@ -12,6 +12,11 @@ class CommentLike extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'comment_id',
+    ];
+
     /**
      * Get the user that owns the CommentLike
      *

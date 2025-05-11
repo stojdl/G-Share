@@ -4,6 +4,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CommentLikeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,8 +29,8 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['prefix' => 'comment'], function () {
         Route::post('/store', [CommentController::class, 'store'])->name('comment.store');
+        Route::post('/like', [CommentLikeController::class, 'like'])->name('comment.like');
     });
-
 });
 
 // Routy pro další stránky
