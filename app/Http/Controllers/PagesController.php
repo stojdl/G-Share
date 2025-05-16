@@ -96,8 +96,13 @@ class PagesController extends Controller
     public function user_profile($user)
     {
         $logged_user = User::find(auth()->user()->id);
-        $logged_user->load('friendship_requests.user');
         $user = User::find($user);
+
+        if ($logged_user->id === $user->id) {
+            return redirect()->route('profile.show');
+        }
+
+        $logged_user->load('friendship_requests.user');
         $user->load('profile',
                     'friends', 'friendships', 'friendship_requests.user',
                     'posts', 'posts.reactions.user',
