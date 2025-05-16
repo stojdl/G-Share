@@ -1,12 +1,15 @@
+import ThemeSwitcher from "@/Components/ThemeSwitcher";
 import { Link } from "@inertiajs/react";
 
 const RightSideBar = () => {
     return (
         <>
             <div className="lg:w-72" />
-            <aside className="hidden lg:flex w-72 px-4 py-8 space-y-4 fixed top-0 right-0 h-screen  border-l border-gray-800 bg-gray-900 backdrop-blur-md shadow-xl z-40 flex-col">
+            <aside className="hidden lg:flex w-72 px-4 py-8 space-y-4 fixed top-0 right-0 h-screen  border-l border-gray-800 bg-bg backdrop-blur-md shadow-xl z-40 flex-col">
                 <div className="flex items-center justify-between">
-                    <div></div>
+                    <div>
+                        <ThemeSwitcher />
+                    </div>
                     <Link method="post" href={route("logout")} as="button">
                         Log Out
                     </Link>
