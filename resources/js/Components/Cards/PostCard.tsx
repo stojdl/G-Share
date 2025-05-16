@@ -85,7 +85,10 @@ const PostCard = (props: Props) => {
                 </div>
             )}
 
-            <CommentPostForm post_id={post.id} />
+            <CommentPostForm
+                post_id={post.id}
+                setShowComments={setShowComments}
+            />
         </article>
     );
 };
