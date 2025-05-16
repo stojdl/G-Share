@@ -193,6 +193,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, 'friendships', 'user_id', 'friend_id')
                     ->wherePivot('status', 'accepted')
+                    ->wherePivot('deleted_at', null)
                     ->withTimestamps();
     }
 

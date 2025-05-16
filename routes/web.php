@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/user/{user}/profile', [PagesController::class, 'user_profile'])->name('user_profile');
     Route::post('/user/{user}/add-friend', [FriendshipController::class, 'store'])->name('friendship.store');
+    Route::post('/user/{user}/accept-friendship-request', [FriendshipController::class, 'accept_friendship_request'])->name('friendship.accept');
     Route::delete('/user/{user}/remove-friend', [FriendshipController::class, 'destroy'])->name('friendship.remove');
 
     Route::get('/share-place', [PagesController::class, 'share_place'])->name('share_place');

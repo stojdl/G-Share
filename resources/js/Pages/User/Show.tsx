@@ -25,7 +25,7 @@ const Show = () => {
                     <FriendshipForm />
                     friends:
                     <div>
-                        {user.all_friends.map((friend: any) => (
+                        {user.friends.map((friend: any) => (
                             <div className="border p-4">
                                 <Link
                                     href={route("user_profile", {
