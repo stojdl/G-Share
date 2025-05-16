@@ -1,10 +1,23 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import { router, useForm } from "@inertiajs/react";
+import React, {
+    useState,
+    useRef,
+    useEffect,
+    useCallback,
+    useMemo,
+} from "react";
+import { router, useForm, usePage } from "@inertiajs/react";
 
-const PostReactionForm: React.FC = () => {
+interface Props {
+    post: any;
+}
+
+const PostReactionForm: React.FC<Props> = (props) => {
     const [showReactions, setShowReactions] = useState(false);
-    const { data, setData, post } = useForm({ reaction: "" });
-    const formRef = useRef<HTMLFormElement>(null);
+    const { data, setData, post } = useForm({
+        reaction: "",
+        post_id: props.post.id,
+    });
+    const containerRef = useRef<HTMLDivElement>(null);
     const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
 
     const reactions = [
@@ -18,17 +31,42 @@ const PostReactionForm: React.FC = () => {
         "angry",
     ];
 
+    const { auth } = usePage().props;
+
+    const hasReacted = useMemo(() => {
+        return props.post.reactions.some(
+            (reaction: any) => reaction.user_id === auth.user.id
+        );
+    }, [props.post.reactions, auth.user.id]);
+
     const handleReactionClick = useCallback(
         (reaction: string) => {
             setData("reaction", reaction);
+            console.log("data: ", data);
+            console.log("reaction: ", reaction);
         },
-        [setData]
+        [setData, data]
     );
 
-    const handleSubmit = useCallback(
+    const createReaction = useCallback(
         (e: React.FormEvent) => {
             e.preventDefault();
             post(route("post.reaction.store"), {
+                ...data,
+                preserveScroll: true,
+                onSuccess: () => {
+                    setShowReactions(false);
+                    router.reload({ only: ["reactions"] });
+                },
+            });
+        },
+        [data, post]
+    );
+
+    const deleteReaction = useCallback(
+        (e: React.FormEvent) => {
+            e.preventDefault();
+            post(route("post.reaction.remove", { post_id: props.post.id }), {
                 ...data,
                 preserveScroll: true,
                 onSuccess: () => {
@@ -47,8 +85,8 @@ const PostReactionForm: React.FC = () => {
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
-                formRef.current &&
-                !formRef.current.contains(event.target as Node)
+                containerRef.current &&
+                !containerRef.current.contains(event.target as Node)
             ) {
                 timeoutIdRef.current = setTimeout(closeReactions, 2000);
             }
@@ -66,15 +104,21 @@ const PostReactionForm: React.FC = () => {
 
         if (showReactions) {
             document.addEventListener("mousedown", handleClickOutside);
-            formRef.current?.addEventListener("mouseenter", handleMouseEnter);
-            formRef.current?.addEventListener("mouseleave", handleMouseLeave);
-        } else {
-            document.removeEventListener("mousedown", handleClickOutside);
-            formRef.current?.removeEventListener(
+            containerRef.current?.addEventListener(
                 "mouseenter",
                 handleMouseEnter
             );
-            formRef.current?.removeEventListener(
+            containerRef.current?.addEventListener(
+                "mouseleave",
+                handleMouseLeave
+            );
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+            containerRef.current?.removeEventListener(
+                "mouseenter",
+                handleMouseEnter
+            );
+            containerRef.current?.removeEventListener(
                 "mouseleave",
                 handleMouseLeave
             );
@@ -82,11 +126,11 @@ const PostReactionForm: React.FC = () => {
 
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
-            formRef.current?.removeEventListener(
+            containerRef.current?.removeEventListener(
                 "mouseenter",
                 handleMouseEnter
             );
-            formRef.current?.removeEventListener(
+            containerRef.current?.removeEventListener(
                 "mouseleave",
                 handleMouseLeave
             );
@@ -97,14 +141,14 @@ const PostReactionForm: React.FC = () => {
     }, [showReactions, closeReactions]);
 
     return (
-        <form
-            ref={formRef}
-            onSubmit={handleSubmit}
+        <div
+            ref={containerRef}
             className="relative"
             onMouseEnter={() => setShowReactions(true)}
         >
-            {showReactions && (
-                <div
+            {showReactions && !hasReacted && (
+                <form
+                    onSubmit={createReaction}
                     className="absolute top-[-40px] left-0 flex mb-1 px-4 py-2 z-10 bg-white text-black rounded shadow-md space-x-2"
                     onMouseLeave={() => {
                         if (timeoutIdRef.current) {
@@ -114,20 +158,29 @@ const PostReactionForm: React.FC = () => {
                     }}
                 >
                     {reactions.map((reaction) => (
-                        <span
+                        <button
+                            type="submit"
                             key={reaction}
                             className="cursor-pointer text-xl"
                             onClick={() => handleReactionClick(reaction)}
                         >
                             {reaction}
-                        </span>
+                        </button>
                     ))}
-                </div>
+                </form>
             )}
-            <button type="submit" className="text-red-500 font-bold">
-                👍 Reagovat
-            </button>
-        </form>
+            {hasReacted ? (
+                <form onSubmit={deleteReaction}>
+                    <button type="submit" className="text-red-500 font-bold">
+                        👍 Zrušit reakci
+                    </button>
+                </form>
+            ) : (
+                <p className="text-red-500 font-bold cursor-pointer">
+                    👍 Reagovat
+                </p>
+            )}
+        </div>
     );
 };
 

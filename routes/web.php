@@ -6,6 +6,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentLikeController;
 use App\Http\Controllers\FriendshipController;
+use App\Http\Controllers\PostReactionController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,6 +34,8 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['prefix' => 'post'], function () {
         Route::post('/store', [PostController::class, 'store'])->name('post.store');
+        Route::post('/react', [PostReactionController::class, 'store'])->name('post.reaction.store');
+        Route::post('/{post_id}/remove-reaction', [PostReactionController::class, 'destroy'])->name('post.reaction.remove');
     });
 
     Route::group(['prefix' => 'comment'], function () {
