@@ -10,39 +10,76 @@ class FriendshipController extends Controller
 {
     public function store($user_id)
     {
-    $friendship = Friendship::withTrashed()->where(function ($query) use ($user_id) {
-        $query->where('user_id', auth()->id())
-          ->where('friend_id', $user_id);
-    })->orWhere(function ($query) use ($user_id) {
-        $query->where('user_id', $user_id)
-          ->where('friend_id', auth()->id());
-    })->firstOrFail();
+    $friendship = Friendship::withTrashed()->where('user_id', auth()->id())
+        ->where('friend_id', $user_id)
+        ->first();
 
-        if ($friendship->trashed()) {
-            $friendship->restore();
-        } else {
-            Friendship::create([
+    if ($friendship) {
+        $friendship->restore();
+    } else {
+        Friendship::create([
             'user_id' => auth()->id(),
             'friend_id' => $user_id,
-            'status' => "accepted",
+            'status' => "pending",
             'action_user_id' => auth()->id(),
-            ]);
-        }
+        ]);
+    }
 
         return back()->with('success', 'Friend request sent!');
     }
 
+    public function accept_friendship_request($user_id)
+    {
+        $friendship = Friendship::where('user_id', $user_id)
+            ->where('friend_id', auth()->id())
+            ->where('status', 'pending')
+            ->firstOrFail();
+
+        $friendship->update([
+            'status' => 'accepted',
+            'action_user_id' => auth()->id(),
+        ]);
+
+        $existingFriendship = Friendship::withTrashed()
+            ->where('user_id', auth()->id())
+            ->where('friend_id', $user_id)
+            ->first();
+
+        if ($existingFriendship) {
+            $existingFriendship->restore();
+            $existingFriendship->update([
+            'status' => 'accepted',
+            'action_user_id' => auth()->id(),
+            ]);
+        } else {
+            Friendship::create([
+            'user_id' => auth()->id(),
+            'friend_id' => $user_id,
+            'status' => 'accepted',
+            'action_user_id' => auth()->id(),
+            ]);
+        }
+
+        return back()->with('success', 'Friend request accepted!');
+    }
+
     public function destroy($user_id)
     {
-        $friendship = Friendship::where(function ($query) use ($user_id) {
+        $friendships = Friendship::where(function ($query) use ($user_id) {
             $query->where('user_id', auth()->id())
                   ->where('friend_id', $user_id);
         })->orWhere(function ($query) use ($user_id) {
             $query->where('user_id', $user_id)
                   ->where('friend_id', auth()->id());
-        })->firstOrFail();
+        })->get();
 
-        $friendship->delete();
+        foreach ($friendships as $friendship) {
+            $friendship->update([
+                'status' => 'pending',
+                'action_user_id' => auth()->id(),
+            ]);
+            $friendship->delete();
+        }
 
         return back()->with('success', 'Friendship removed!');
     }

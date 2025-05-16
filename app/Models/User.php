@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable
 {
@@ -164,37 +165,47 @@ class User extends Authenticatable
     }
 
     /**
-     * The friend that belong to the User
+     * Get all of the friendships for the User
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function friendships(): HasMany
+    {
+        return $this->hasMany(Friendship::class, 'user_id');
+    }
+
+    /**
+     * Get all of the friends_of for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function friends_of(): HasMany
+    {
+        return $this->hasMany(Friendship::class, 'friend_id');  
+    }
+
+    /**
+        * The friends that belong to the User
+        *
+        * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+        */
     public function friends(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'friendships', 'user_id', 'friend_id')
-                    ->whereNull('friendships.deleted_at');
+                    ->wherePivot('status', 'accepted')
+                    ->wherePivot('deleted_at', null)
+                    ->withTimestamps();
     }
 
     /**
-     * The friendOf that belong to the User
+     * Get all of the friendship_requests for the User
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function friends_of(): BelongsToMany
+    public function friendship_requests(): HasMany
     {
-        return $this->belongsToMany(User::class, 'friendships', 'friend_id', 'user_id')
-                    ->whereNull('friendships.deleted_at');
-    }
-
-    /**
-     * Get all friends, combining both directions into one collection
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function all_friends(): Collection
-    {
-        // Eager load both friends and friendsOf,
-        // then merge collections and unique by user id to avoid duplicates
-        return $this->friends->merge($this->friends_of)->unique('id')->values();
+        return $this->hasMany(Friendship::class, 'friend_id')
+                    ->where('status', 'pending');
     }
 
     /**

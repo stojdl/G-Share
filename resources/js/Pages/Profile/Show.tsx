@@ -30,8 +30,8 @@ const Show = () => {
             <div className="border p-6">
                 friends:
                 <div>
-                    {user.all_friends?.length > 0 ? (
-                        user.all_friends.map((friend: any) => (
+                    {user.friends?.length > 0 ? (
+                        user.friends.map((friend: any) => (
                             <div className="border p-4">
                                 <Link
                                     href={route("user_profile", {

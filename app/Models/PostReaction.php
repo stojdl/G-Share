@@ -9,6 +9,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class PostReaction extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'post_id',
+        'reaction_type',
+        'reaction_icon'
+    ];
     
     /**
      * Get the user that owns the PostReaction

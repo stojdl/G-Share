@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import CommentCard from "./CommentCard";
 import H3 from "../Headings/H3";
 import CommentPostForm from "@/Fragments/Forms/CommentPostForm";
 import { Link } from "@inertiajs/react";
+import PostReactionForm from "@/Fragments/Forms/PostReactionForm";
+import PostReactions from "../PostReactions";
 
 interface Props {
     post: any;
@@ -12,6 +14,14 @@ const PostCard = (props: Props) => {
     const { post } = props;
 
     const [showComments, setShowComments] = useState(false);
+
+    const commentCount = post.comments?.length || 0;
+    const viewCount = post.views?.length || 0;
+    const shareCount = post.shares?.length || 0;
+
+    const toggleComments = useCallback(() => {
+        setShowComments((prevShowComments) => !prevShowComments);
+    }, []);
 
     return (
         <article className="p-4 bg-gray-800 space-y-4 rounded border border-gray-800 shadow-md hover:shadow-lg transition-all">
@@ -26,46 +36,40 @@ const PostCard = (props: Props) => {
                 <H3>{post.title}</H3>
                 <p className="text-gray-300">{post.body}</p>
                 <div className="flex items-center justify-between">
-                    {post.reactions.length > 0 && (
-                        <p className="text-gray-400">
-                            {post.reactions?.map((reaction: any, k: number) => (
-                                <span key={k} className="text-red-500">
-                                    {reaction.reaction_type}
-                                    {k < post.reactions.length - 1 ? ", " : ""}
-                                </span>
-                            ))}
-                        </p>
-                    )}
+                    <PostReactions post={post} />
                     <div className="flex items-center space-x-2">
-                        {post.views.length > 0 && (
-                            <p className="text-gray-400 mt-2">
-                                👁️ {post.views?.length || 0}
-                            </p>
+                        {viewCount > 0 && (
+                            <p className="text-gray-400 mt-2">👁️ {viewCount}</p>
                         )}
 
-                        {post.shares.length > 0 && (
+                        {shareCount > 0 && (
                             <p className="text-gray-400 mt-2">
-                                🔁 {post.shares?.length || 0}
+                                🔁 {shareCount}
                             </p>
                         )}
                     </div>
                 </div>
             </div>
-
-            {post.comments?.length > 0 ? (
-                <button
-                    onClick={() => setShowComments(!showComments)}
-                    className="mt-4 font-semibold text-red-500 cursor-pointer hover:underline"
-                >
-                    💬 {showComments ? "Skrýt komentáře" : "Zobrazit komentáře"}
-                    {post.comments?.length > 0
-                        ? ` (${post.comments?.length})`
-                        : ` (${post.comments?.length})`}
-                </button>
-            ) : (
-                <p>Zatím žádné komentáře.</p>
-            )}
-
+            <div className="mt-4 flex flex-col justify-between space-y-2 sm:flex-row sm:items-center">
+                <PostReactionForm post={post} />
+                {commentCount > 0 ? (
+                    <button
+                        onClick={toggleComments}
+                        className="font-semibold text-red-500 cursor-pointer hover:underline"
+                    >
+                        💬{" "}
+                        {showComments
+                            ? "Skrýt komentáře"
+                            : "Zobrazit komentáře"}
+                        {` (${commentCount})`}
+                    </button>
+                ) : (
+                    <p>Zatím žádné komentáře.</p>
+                )}
+                <p className="cursor-not-allowed text-red-500 font-bold">
+                    📤 Sdílet
+                </p>
+            </div>
             {showComments && (
                 <div className="mt-2 space-y-2">
                     {post.comments?.map(
@@ -81,8 +85,12 @@ const PostCard = (props: Props) => {
                 </div>
             )}
 
-            <CommentPostForm post_id={post.id} />
+            <CommentPostForm
+                post_id={post.id}
+                setShowComments={setShowComments}
+            />
         </article>
     );
 };
+
 export default PostCard;

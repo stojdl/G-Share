@@ -4,7 +4,9 @@ export interface User {
     email: string;
     email_verified_at?: string;
     posts?: any;
-    all_friends?: any;
+    friends?: any;
+    friendships?: any;
+    friendship_requests?: any;
 }
 
 export type PageProps<
@@ -15,4 +17,5 @@ export type PageProps<
     };
     posts: Array;
     user: User;
+    loggedUser: User;
 };
