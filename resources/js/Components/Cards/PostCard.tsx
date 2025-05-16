@@ -123,7 +123,7 @@ const PostCard = (props: Props) => {
                     </div>
                 </div>
             </div>
-            <div className="mt-4 flex justify-between">
+            <div className="mt-4 flex flex-col justify-between space-y-2 sm:flex-row sm:items-center">
                 <PostReactionForm />
                 {commentCount > 0 ? (
                     <button
@@ -139,6 +139,9 @@ const PostCard = (props: Props) => {
                 ) : (
                     <p>Zatím žádné komentáře.</p>
                 )}
+                <p className="cursor-not-allowed text-red-500 font-bold">
+                    📤 Sdílet
+                </p>
             </div>
             {showComments && (
                 <div className="mt-2 space-y-2">

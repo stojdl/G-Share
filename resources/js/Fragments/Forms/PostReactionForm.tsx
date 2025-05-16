@@ -50,16 +50,51 @@ const PostReactionForm: React.FC = () => {
                 formRef.current &&
                 !formRef.current.contains(event.target as Node)
             ) {
-                closeReactions();
+                timeoutIdRef.current = setTimeout(closeReactions, 2000);
             }
         };
 
-        document.addEventListener("mousedown", handleClickOutside);
+        const handleMouseEnter = () => {
+            if (timeoutIdRef.current) {
+                clearTimeout(timeoutIdRef.current);
+            }
+        };
+
+        const handleMouseLeave = () => {
+            timeoutIdRef.current = setTimeout(closeReactions, 2000);
+        };
+
+        if (showReactions) {
+            document.addEventListener("mousedown", handleClickOutside);
+            formRef.current?.addEventListener("mouseenter", handleMouseEnter);
+            formRef.current?.addEventListener("mouseleave", handleMouseLeave);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+            formRef.current?.removeEventListener(
+                "mouseenter",
+                handleMouseEnter
+            );
+            formRef.current?.removeEventListener(
+                "mouseleave",
+                handleMouseLeave
+            );
+        }
 
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
+            formRef.current?.removeEventListener(
+                "mouseenter",
+                handleMouseEnter
+            );
+            formRef.current?.removeEventListener(
+                "mouseleave",
+                handleMouseLeave
+            );
+            if (timeoutIdRef.current) {
+                clearTimeout(timeoutIdRef.current);
+            }
         };
-    }, [closeReactions]);
+    }, [showReactions, closeReactions]);
 
     return (
         <form
@@ -70,7 +105,7 @@ const PostReactionForm: React.FC = () => {
         >
             {showReactions && (
                 <div
-                    className="absolute top-[-40px] left-0 flex mb-1 z-10 bg-white text-black rounded shadow-md space-x-2"
+                    className="absolute top-[-40px] left-0 flex mb-1 px-4 py-2 z-10 bg-white text-black rounded shadow-md space-x-2"
                     onMouseLeave={() => {
                         if (timeoutIdRef.current) {
                             clearTimeout(timeoutIdRef.current);
@@ -89,7 +124,9 @@ const PostReactionForm: React.FC = () => {
                     ))}
                 </div>
             )}
-            <button type="submit">👍 Reagovat</button>
+            <button type="submit" className="text-red-500 font-bold">
+                👍 Reagovat
+            </button>
         </form>
     );
 };
