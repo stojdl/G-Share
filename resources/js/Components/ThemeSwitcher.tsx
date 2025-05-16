@@ -1,0 +1,35 @@
+import React, { useState } from "react";
+
+const ThemeSwitcher = () => {
+    const [theme, setTheme] = useState("light");
+
+    const switchTheme = (newTheme: string) => {
+        setTheme(newTheme);
+        document.documentElement.setAttribute("data-theme", newTheme);
+    };
+
+    return (
+        <div className="flex gap-4">
+            <button
+                onClick={() => switchTheme("light")}
+                className="bg-primary text-text p-2 rounded-lg"
+            >
+                Světlé
+            </button>
+            <button
+                onClick={() => switchTheme("dark")}
+                className="bg-primary text-text p-2 rounded-lg"
+            >
+                Tmavé
+            </button>
+            <button
+                onClick={() => switchTheme("neon")}
+                className="bg-primary text-text p-2 rounded-lg"
+            >
+                Neonové
+            </button>
+        </div>
+    );
+};
+
+export default ThemeSwitcher;
