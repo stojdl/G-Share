@@ -42,13 +42,15 @@ class PagesController extends Controller
                         'posts.comments.likes.user', 
                         'posts.comments.children.user', 
                         'posts.comments.children.likes.user',
-                        'blocks',
-                        'blocked_by',
-                        'friendship_actions.user',
-                        'followers',
-                        'follows');
+                        'blocks.user',
+                        'blocked_by.user',
+                        'friends.user',
+                        'friendships.user',
+                        'friendship_requests.user',
+                        'followers.user',
+                        'follows.user');
                         
-            $user->all_friends = $user->all_friends();
+            // $user->all_friends = $user->all_friends();
 
             
             // Pokud máte subkomentáře:
@@ -77,6 +79,7 @@ class PagesController extends Controller
     {
         $user = User::find(auth()->user()->id);
         $user->load('profile', 'settings', 'privacy_settings',
+                    'friends', 'friendships', 'friendship_requests.user',
                     'posts', 'posts.reactions.user',
                     'posts.comments.user', 'posts.comments.likes.user', 
                     'posts.comments.children.user', 'posts.comments.children.likes.user',
@@ -84,8 +87,6 @@ class PagesController extends Controller
                     'posts.comments.children.children.children.user', 'posts.comments.children.children.children.likes.user',
                     'posts.comments.children.children.children.children.user', 'posts.comments.children.children.children.children.likes.user',
                     'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',);
-
-        $user->all_friends = $user->all_friends();
 
         return Inertia::render('Profile/Show', [
             'user' => $user
@@ -94,8 +95,16 @@ class PagesController extends Controller
 
     public function user_profile($user)
     {
+        $logged_user = User::find(auth()->user()->id);
         $user = User::find($user);
+
+        if ($logged_user->id === $user->id) {
+            return redirect()->route('profile.show');
+        }
+
+        $logged_user->load('friendship_requests.user');
         $user->load('profile',
+                    'friends', 'friendships', 'friendship_requests.user',
                     'posts', 'posts.reactions.user',
                     'posts.comments.user', 'posts.comments.likes.user', 
                     'posts.comments.children.user', 'posts.comments.children.likes.user',
@@ -104,11 +113,9 @@ class PagesController extends Controller
                     'posts.comments.children.children.children.children.user', 'posts.comments.children.children.children.children.likes.user',
                     'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',);
 
-        $user->all_friends = $user->all_friends();
-
-
         return Inertia::render('User/Show', [
-            'user' => $user
+            'user' => $user,
+            'loggedUser' => $logged_user
         ]);
     }
     
