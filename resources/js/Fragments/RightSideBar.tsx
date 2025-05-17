@@ -1,6 +1,7 @@
 import Dropdown from "@/Components/Dropdown";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
+import { FaAdversal } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 
 const RightSideBar = () => {
@@ -75,7 +76,10 @@ const RightSideBar = () => {
                     />
                 </div>
                 <div className="sticky top-6 space-y-4">
-                    <h2 className="text-xl font-semibold">📢 Reklama</h2>
+                    <h2 className="flex items-center space-x-2 text-xl font-semibold">
+                        <FaAdversal />
+                        <span>Sponzorováno</span>
+                    </h2>
                     <div className="w-full h-64 bg-bg-add border border-border rounded flex items-center justify-center shadow-md">
                         Reklamní prostor
                     </div>

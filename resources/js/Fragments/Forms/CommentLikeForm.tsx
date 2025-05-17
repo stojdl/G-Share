@@ -1,5 +1,6 @@
 import { useForm, router } from "@inertiajs/react";
 import { FormEventHandler } from "react";
+import { AiOutlineLike } from "react-icons/ai";
 
 interface Props {
     comment: any;
@@ -28,7 +29,7 @@ const CommentLikeForm = (props: Props) => {
     return (
         <form onSubmit={submit}>
             <button type="submit" className="hover:scale-125">
-                👍
+                <AiOutlineLike className="text-xl" />
             </button>
         </form>
     );

@@ -5,6 +5,9 @@ import CommentPostForm from "@/Fragments/Forms/CommentPostForm";
 import { Link } from "@inertiajs/react";
 import PostReactionForm from "@/Fragments/Forms/PostReactionForm";
 import PostReactions from "../PostReactions";
+import { FaComments, FaRegComments } from "react-icons/fa6";
+import { FaRegShareSquare } from "react-icons/fa";
+import { TbEyeExclamation } from "react-icons/tb";
 
 interface Props {
     post: any;
@@ -39,13 +42,18 @@ const PostCard = (props: Props) => {
                 <p className="">{post.body}</p>
                 <div className="flex items-center justify-between">
                     <PostReactions post={post} />
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-4">
                         {viewCount > 0 && (
-                            <p className="mt-2">👁️ {viewCount}</p>
+                            <p className="mt-2 flex items-center space-x-0.5">
+                                <TbEyeExclamation className="text-xl" />
+                                <span>{viewCount}</span>
+                            </p>
                         )}
 
                         {shareCount > 0 && (
-                            <p className=" mt-2">🔁 {shareCount}</p>
+                            <p className="mt-2 flex items-center space-x-0.5">
+                                <FaRegShareSquare /> <span>{shareCount}</span>
+                            </p>
                         )}
                     </div>
                 </div>
@@ -58,13 +66,22 @@ const PostCard = (props: Props) => {
                     {commentCount > 0 ? (
                         <button
                             onClick={toggleComments}
-                            className="font-semibold cursor-pointer hover:underline text-primary"
+                            className="flex items-center space-x-2 font-semibold cursor-pointer text-primary"
                         >
-                            💬{" "}
-                            {showComments
-                                ? "Skrýt komentáře"
-                                : "Zobrazit komentáře"}
-                            {` (${commentCount})`}
+                            <p className="flex items-center space-x-2">
+                                {showComments ? (
+                                    <>
+                                        <FaComments className="text-lg" />
+                                        <span>Skrýt komentáře</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <FaRegComments className="text-lg" />
+                                        <span>Zobrazit komentáře</span>
+                                    </>
+                                )}
+                                {` (${commentCount})`}
+                            </p>
                         </button>
                     ) : (
                         <p className="text-text-light">
@@ -73,8 +90,8 @@ const PostCard = (props: Props) => {
                     )}
                 </div>
                 <div className="w-full flex justify-end">
-                    <p className="cursor-not-allowed font-bold text-primary">
-                        📤 Sdílet
+                    <p className="flex items-center space-x-2 cursor-not-allowed font-bold text-primary">
+                        <FaRegShareSquare /> <span>Sdílet</span>
                     </p>
                 </div>
             </div>

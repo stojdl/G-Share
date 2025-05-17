@@ -6,6 +6,8 @@ import React, {
     useMemo,
 } from "react";
 import { router, useForm, usePage } from "@inertiajs/react";
+import { VscReactions } from "react-icons/vsc";
+import { FaHeartCircleMinus } from "react-icons/fa6";
 
 interface Props {
     post: any;
@@ -171,13 +173,16 @@ const PostReactionForm: React.FC<Props> = (props) => {
             )}
             {hasReacted ? (
                 <form onSubmit={deleteReaction}>
-                    <button type="submit" className="text-primary font-bold">
-                        👍 Zrušit reakci
+                    <button
+                        type="submit"
+                        className="text-primary font-bold flex items-center space-x-2"
+                    >
+                        <FaHeartCircleMinus /> <span>Zrušit reakci</span>
                     </button>
                 </form>
             ) : (
-                <p className="text-primary font-bold cursor-pointer">
-                    👍 Reagovat
+                <p className="flex items-center space-x-2 text-primary font-bold cursor-pointer">
+                    <VscReactions className="text-xl" /> <span>Reagovat</span>
                 </p>
             )}
         </div>

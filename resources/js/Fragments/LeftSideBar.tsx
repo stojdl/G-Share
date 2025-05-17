@@ -3,6 +3,7 @@ import { Link, router, usePage } from "@inertiajs/react";
 
 import { useModal } from "@/Contexts/ModalContext";
 import { PageProps } from "@/types";
+import { MdOutlineWorkspacePremium } from "react-icons/md";
 
 const LeftSideBar = () => {
     const { auth } = usePage<PageProps>().props;
@@ -125,8 +126,9 @@ const LeftSideBar = () => {
                     ))}
                 </div>
 
-                <div className="pb-20 text-xs text-center text-text-light">
-                    🚀 Premium jen za{" "}
+                <div className="text-sm flex items-center justify-center space-x-1 text-text-light">
+                    <MdOutlineWorkspacePremium className="text-xl" />
+                    <span>Premium jen za</span>
                     <span className="text-primary">0,99 €</span>
                 </div>
             </aside>
