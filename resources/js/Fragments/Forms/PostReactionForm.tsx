@@ -7,7 +7,9 @@ import React, {
 } from "react";
 import { router, useForm, usePage } from "@inertiajs/react";
 import { VscReactions } from "react-icons/vsc";
-import { FaHeartCircleMinus } from "react-icons/fa6";
+import { FaHeart, FaHeartCircleMinus } from "react-icons/fa6";
+import { AiFillLike } from "react-icons/ai";
+import { FaAngry, FaLaughSquint, FaSadCry, FaSurprise } from "react-icons/fa";
 
 interface Props {
     post: any;
@@ -151,7 +153,7 @@ const PostReactionForm: React.FC<Props> = (props) => {
             {showReactions && !hasReacted && (
                 <form
                     onSubmit={createReaction}
-                    className="absolute top-[-40px] left-0 flex mb-1 px-4 py-2 z-10 bg-white text-black rounded shadow-md space-x-2"
+                    className="absolute top-[-40px] left-0 flex items-center space-x-2 mb-1 px-4 py-2 z-10 bg-bg-post-reaction border border-border text-black rounded shadow-md shadow-shadow"
                     onMouseLeave={() => {
                         if (timeoutIdRef.current) {
                             clearTimeout(timeoutIdRef.current);
@@ -163,10 +165,35 @@ const PostReactionForm: React.FC<Props> = (props) => {
                         <button
                             type="submit"
                             key={reaction}
-                            className="cursor-pointer text-xl"
+                            className="cursor-pointer font-bold text-xl text-text-light hover:text-text transition"
                             onClick={() => handleReactionClick(reaction)}
                         >
-                            {reaction}
+                            {(() => {
+                                switch (reaction) {
+                                    case "like":
+                                        return <AiFillLike />;
+                                    case "GG":
+                                        return (
+                                            <span className="text-lg ">GG</span>
+                                        );
+                                    case "BG":
+                                        return (
+                                            <span className="text-lg ">BG</span>
+                                        );
+                                    case "love":
+                                        return <FaHeart />;
+                                    case "haha":
+                                        return <FaLaughSquint />;
+                                    case "wow":
+                                        return <FaSurprise />;
+                                    case "sad":
+                                        return <FaSadCry />;
+                                    case "angry":
+                                        return <FaAngry />;
+                                    default:
+                                        return reaction;
+                                }
+                            })()}
                         </button>
                     ))}
                 </form>

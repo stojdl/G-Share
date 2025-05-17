@@ -17,6 +17,7 @@ export default {
                 "bg-aside": "var(--color-bg-aside)",
                 "bg-nav": "var(--color-bg-nav)",
                 "bg-post-card": "var(--color-bg-post-card)",
+                "bg-post-reaction": "var(--color-bg-post-reaction)",
                 "bg-comment-card": "var(--color-bg-comment-card)",
                 "bg-input-text": "var(--color-bg-input-text)",
                 "bg-input-text-hover": "var(--color-bg-input-text-hover)",
