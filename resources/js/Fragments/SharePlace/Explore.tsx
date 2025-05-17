@@ -4,6 +4,7 @@ import SharePost from "@/Components/SharePost";
 import { useModal } from "@/Contexts/ModalContext";
 import { PageProps } from "@/types";
 import { usePage } from "@inertiajs/react";
+import { BiWorld } from "react-icons/bi";
 
 const Explore = () => {
     const { posts } = usePage<PageProps>().props;
@@ -13,7 +14,9 @@ const Explore = () => {
 
     return (
         <div className="w-full max-w-screen-xl space-y-2">
-            <H2>🌍 Objevuj herní svět</H2>
+            <H2>
+                <BiWorld /> <span>Objevuj herní svět</span>
+            </H2>
             <SharePost onClick={() => openModal("SharePostModal")} />
             <div className="flex flex-col gap-6">
                 {posts &&

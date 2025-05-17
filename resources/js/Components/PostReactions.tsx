@@ -6,6 +6,9 @@ import React, {
     useRef,
     useState,
 } from "react";
+import { AiFillLike } from "react-icons/ai";
+import { FaLaughSquint, FaSurprise, FaSadCry, FaAngry } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa6";
 
 interface Props {
     post: any;
@@ -65,10 +68,41 @@ const PostReactions: React.FC<Props> = (props) => {
                     <div key={k} className="relative">
                         <button
                             onClick={() => toggleUsers(k)}
-                            className="text-gray-400 hover:underline"
+                            className="flex items-center text-lg text-text-light hover:underline"
                         >
-                            {reaction}
-                            {data.count > 1 ? ` (${data.count})` : ""}
+                            {(() => {
+                                switch (reaction) {
+                                    case "like":
+                                        return <AiFillLike />;
+                                    case "GG":
+                                        return (
+                                            <span className="text-lg font-bold">
+                                                GG
+                                            </span>
+                                        );
+                                    case "BG":
+                                        return (
+                                            <span className="text-lg font-bold">
+                                                BG
+                                            </span>
+                                        );
+                                    case "love":
+                                        return <FaHeart />;
+                                    case "haha":
+                                        return <FaLaughSquint />;
+                                    case "wow":
+                                        return <FaSurprise />;
+                                    case "sad":
+                                        return <FaSadCry />;
+                                    case "angry":
+                                        return <FaAngry />;
+                                    default:
+                                        return reaction;
+                                }
+                            })()}
+                            <span className="text-sm">
+                                {data.count > 1 ? ` (${data.count})` : ""}
+                            </span>
                         </button>
                         {expandedReactionIndex === k && (
                             <div

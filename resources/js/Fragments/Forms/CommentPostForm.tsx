@@ -38,7 +38,7 @@ const CommentPostForm = (props: Props) => {
             <button
                 type="submit"
                 disabled={processing}
-                className="text-red-500 font-bold border border-gray-500 px-4 py-2 rounded"
+                className="text-primary font-bold border border-primary px-4 py-2 rounded"
             >
                 Okomentovat
             </button>

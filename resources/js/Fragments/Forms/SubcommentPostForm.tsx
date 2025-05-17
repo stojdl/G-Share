@@ -5,10 +5,11 @@ import { FormEventHandler } from "react";
 interface Props {
     post_id: any;
     parent_comment_id: any;
+    setShowReplies: any;
 }
 
 const CommentPostForm = (props: Props) => {
-    const { post_id, parent_comment_id } = props;
+    const { post_id, parent_comment_id, setShowReplies } = props;
 
     const { data, setData, post, processing, errors, reset } = useForm({
         post_id: post_id,
@@ -21,6 +22,7 @@ const CommentPostForm = (props: Props) => {
         post(route("comment.store"), {
             onSuccess: () => {
                 reset("body");
+                setShowReplies(true);
             },
             preserveScroll: true,
         });
@@ -34,7 +36,11 @@ const CommentPostForm = (props: Props) => {
                 onChange={(e) => setData("body", e.target.value)}
                 placeholder="Napiš odpověď..."
             />
-            <button type="submit" disabled={processing}>
+            <button
+                type="submit"
+                disabled={processing}
+                className="px-4 py-2 rounded border border-primary text-primary"
+            >
                 Odpovědět
             </button>
         </form>
