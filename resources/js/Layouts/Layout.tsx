@@ -30,9 +30,9 @@ const Layout = (props: Props) => {
             <section className="flex-1 pt-8 space-y-4 ">
                 <div className="flex items-center justify-between">
                     <SearchAnything />
-                    <div className="hidden lg:flex border px-4 py-2 rounded">
+                    {/* <div className="hidden lg:flex border px-4 py-2 rounded">
                         dropdown {"<"}
-                    </div>
+                    </div> */}
                 </div>
                 {children}
             </section>

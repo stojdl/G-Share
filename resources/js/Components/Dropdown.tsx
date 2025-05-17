@@ -1,130 +1,217 @@
-import { Transition } from '@headlessui/react';
-import { InertiaLinkProps, Link } from '@inertiajs/react';
-import {
-    createContext,
-    Dispatch,
-    PropsWithChildren,
-    SetStateAction,
-    useContext,
-    useState,
-} from 'react';
+import React, { useState, useRef, useEffect, ReactNode } from "react";
 
-const DropDownContext = createContext<{
-    open: boolean;
-    setOpen: Dispatch<SetStateAction<boolean>>;
-    toggleOpen: () => void;
-}>({
-    open: false,
-    setOpen: () => {},
-    toggleOpen: () => {},
-});
+interface DropdownItemBase {
+    id: string | number;
+}
 
-const Dropdown = ({ children }: PropsWithChildren) => {
-    const [open, setOpen] = useState(false);
+interface DropdownLinkItem extends DropdownItemBase {
+    type: "link";
+    method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+    label: string;
+    href: string;
+    target?: "_blank" | "_self" | "_parent" | "_top";
+}
 
-    const toggleOpen = () => {
-        setOpen((previousState) => !previousState);
-    };
+interface DropdownButtonItem extends DropdownItemBase {
+    type: "button";
+    label: string;
+    onClick: () => void;
+}
 
-    return (
-        <DropDownContext.Provider value={{ open, setOpen, toggleOpen }}>
-            <div className="relative">{children}</div>
-        </DropDownContext.Provider>
+interface DropdownDividerItem extends DropdownItemBase {
+    type: "divider";
+}
+
+interface DropdownSubmenuItem extends DropdownItemBase {
+    type: "submenu";
+    label: string;
+    items: DropdownItem[];
+}
+
+type DropdownItem =
+    | DropdownLinkItem
+    | DropdownButtonItem
+    | DropdownDividerItem
+    | DropdownSubmenuItem;
+
+interface DropdownProps {
+    items: DropdownItem[];
+    placeholder?: ReactNode;
+    hideCaret?: boolean;
+}
+
+const Dropdown: React.FC<DropdownProps> = ({
+    items,
+    hideCaret,
+    placeholder = "Vyberte...",
+}) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    const [activeSubmenu, setActiveSubmenu] = useState<string | number | null>(
+        null
     );
-};
 
-const Trigger = ({ children }: PropsWithChildren) => {
-    const { open, setOpen, toggleOpen } = useContext(DropDownContext);
-
-    return (
-        <>
-            <div onClick={toggleOpen}>{children}</div>
-
-            {open && (
-                <div
-                    className="fixed inset-0 z-40"
-                    onClick={() => setOpen(false)}
-                ></div>
-            )}
-        </>
-    );
-};
-
-const Content = ({
-    align = 'right',
-    width = '48',
-    contentClasses = 'py-1 bg-white dark:bg-gray-700',
-    children,
-}: PropsWithChildren<{
-    align?: 'left' | 'right';
-    width?: '48';
-    contentClasses?: string;
-}>) => {
-    const { open, setOpen } = useContext(DropDownContext);
-
-    let alignmentClasses = 'origin-top';
-
-    if (align === 'left') {
-        alignmentClasses = 'ltr:origin-top-left rtl:origin-top-right start-0';
-    } else if (align === 'right') {
-        alignmentClasses = 'ltr:origin-top-right rtl:origin-top-left end-0';
-    }
-
-    let widthClasses = '';
-
-    if (width === '48') {
-        widthClasses = 'w-48';
-    }
-
-    return (
-        <>
-            <Transition
-                show={open}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-            >
-                <div
-                    className={`absolute z-50 mt-2 rounded-md shadow-lg ${alignmentClasses} ${widthClasses}`}
-                    onClick={() => setOpen(false)}
-                >
-                    <div
-                        className={
-                            `rounded-md ring-1 ring-black ring-opacity-5 ` +
-                            contentClasses
-                        }
-                    >
-                        {children}
-                    </div>
-                </div>
-            </Transition>
-        </>
-    );
-};
-
-const DropdownLink = ({
-    className = '',
-    children,
-    ...props
-}: InertiaLinkProps) => {
-    return (
-        <Link
-            {...props}
-            className={
-                'block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-800 dark:focus:bg-gray-800 ' +
-                className
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setIsOpen(false);
+                setActiveSubmenu(null);
             }
-        >
-            {children}
-        </Link>
+        }
+
+        function handleEsc(event: KeyboardEvent) {
+            if (event.key === "Escape") {
+                setIsOpen(false);
+                setActiveSubmenu(null);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("keydown", handleEsc);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("keydown", handleEsc);
+        };
+    }, []);
+
+    const handleToggle = () => setIsOpen(!isOpen);
+
+    return (
+        <div className="relative inline-block" ref={dropdownRef}>
+            <button
+                type="button"
+                className="w-full px-4 py-2 flex items-center bg-bg-tile border border-border rounded-md shadow-sm text-left focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                onClick={handleToggle}
+                aria-haspopup="listbox"
+                aria-expanded={isOpen}
+            >
+                {placeholder}
+                {!hideCaret && (
+                    <span className="float-right ml-2">&#x25BC;</span>
+                )}
+            </button>
+
+            {isOpen && (
+                <ul className="absolute right-0 z-50 mt-1 w-max bg-bg-tile shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    {items.map((item) => {
+                        switch (item.type) {
+                            case "link":
+                                return (
+                                    <li key={item.id}>
+                                        <a
+                                            href={item.href}
+                                            className="block px-4 py-2 hover:bg-bg-tile-hover "
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                );
+                            case "button":
+                                return (
+                                    <li key={item.id}>
+                                        <button
+                                            className="block w-full text-left px-4 py-2 hover:bg-bg-tile-hover"
+                                            onClick={item.onClick}
+                                        >
+                                            {item.label}
+                                        </button>
+                                    </li>
+                                );
+                            case "divider":
+                                return (
+                                    <li key={item.id}>
+                                        <hr className="border-border" />
+                                    </li>
+                                );
+                            case "submenu": {
+                                const isActive = activeSubmenu === item.id;
+                                return (
+                                    <li
+                                        key={item.id}
+                                        className="relative"
+                                        onMouseEnter={() =>
+                                            setActiveSubmenu(item.id)
+                                        }
+                                        onMouseLeave={() =>
+                                            setActiveSubmenu(null)
+                                        }
+                                    >
+                                        <button className="w-full text-left px-4 py-2 hover:bg-bg-tile-hover flex items-center justify-between">
+                                            {item.label}
+                                            {/* <span>&#x25B6;</span> */}
+                                        </button>
+                                        {isActive && (
+                                            <ul className="absolute right-full top-0 ml-1 w-max bg-bg-tile shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none">
+                                                {item.items.map((subItem) => {
+                                                    switch (subItem.type) {
+                                                        case "link":
+                                                            return (
+                                                                <li
+                                                                    key={
+                                                                        subItem.id
+                                                                    }
+                                                                >
+                                                                    <a
+                                                                        href={
+                                                                            subItem.href
+                                                                        }
+                                                                        className="block px-4 py-2 hover:bg-bg-tile-hover "
+                                                                    >
+                                                                        {
+                                                                            subItem.label
+                                                                        }
+                                                                    </a>
+                                                                </li>
+                                                            );
+                                                        case "button":
+                                                            return (
+                                                                <li
+                                                                    key={
+                                                                        subItem.id
+                                                                    }
+                                                                >
+                                                                    <button
+                                                                        className="block w-full text-left px-4 py-2 hover:bg-bg-tile-hover"
+                                                                        onClick={
+                                                                            subItem.onClick
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            subItem.label
+                                                                        }
+                                                                    </button>
+                                                                </li>
+                                                            );
+                                                        case "divider":
+                                                            return (
+                                                                <li
+                                                                    key={
+                                                                        subItem.id
+                                                                    }
+                                                                >
+                                                                    <hr className="border-border" />
+                                                                </li>
+                                                            );
+                                                        default:
+                                                            return null;
+                                                    }
+                                                })}
+                                            </ul>
+                                        )}
+                                    </li>
+                                );
+                            }
+                            default:
+                                return null;
+                        }
+                    })}
+                </ul>
+            )}
+        </div>
     );
 };
-
-Dropdown.Trigger = Trigger;
-Dropdown.Content = Content;
-Dropdown.Link = DropdownLink;
 
 export default Dropdown;
