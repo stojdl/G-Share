@@ -13,7 +13,7 @@ const LeftSideBar = () => {
     return (
         <>
             <div className="lg:w-72" />
-            <aside className="w-full px-4 pt-8 pb-20 flex flex-col justify-between space-y-6 bg-gray-900 border-b border-gray-800 backdrop-blur-md shadow-xl lg:fixed lg:inset-0 lg:w-72 lg:h-screen lg:border-b-0 lg:border-r z-40">
+            <aside className="w-full px-4 pt-8 pb-20 flex flex-col justify-between space-y-6 bg-bg-aside border-b border-gray-800 backdrop-blur-md shadow-xl lg:fixed lg:inset-0 lg:w-72 lg:h-screen lg:border-b-0 lg:border-r z-40">
                 <Link
                     href="/"
                     className="text-3xl text-center font-extrabold text-red-500 tracking-wider hover:text-red-400 transition"

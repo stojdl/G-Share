@@ -14,6 +14,7 @@ export default {
         extend: {
             colors: {
                 bg: "var(--color-bg)",
+                "bg-aside": "var(--color-bg-aside)",
                 text: "var(--color-text)",
                 primary: "var(--color-primary)",
                 secondary: "var(--color-secondary)",

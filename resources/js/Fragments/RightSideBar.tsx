@@ -5,7 +5,7 @@ const RightSideBar = () => {
     return (
         <>
             <div className="lg:w-72" />
-            <aside className="hidden lg:flex w-72 px-4 py-8 space-y-4 fixed top-0 right-0 h-screen  border-l border-gray-800 bg-bg backdrop-blur-md shadow-xl z-40 flex-col">
+            <aside className="hidden lg:flex w-72 px-4 py-8 space-y-4 fixed top-0 right-0 h-screen  border-l border-gray-800 bg-bg-aside backdrop-blur-md shadow-xl z-40 flex-col">
                 <div className="flex items-center justify-between">
                     <div>
                         <ThemeSwitcher />
