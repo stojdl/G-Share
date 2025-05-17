@@ -171,12 +171,12 @@ const PostReactionForm: React.FC<Props> = (props) => {
             )}
             {hasReacted ? (
                 <form onSubmit={deleteReaction}>
-                    <button type="submit" className="text-red-500 font-bold">
+                    <button type="submit" className="text-primary font-bold">
                         👍 Zrušit reakci
                     </button>
                 </form>
             ) : (
-                <p className="text-red-500 font-bold cursor-pointer">
+                <p className="text-primary font-bold cursor-pointer">
                     👍 Reagovat
                 </p>
             )}

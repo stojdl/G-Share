@@ -16,30 +16,33 @@ const CommentCard = (props: Props) => {
     return (
         <div
             key={comment.id}
-            className="p-4 bg-gray-700 rounded border border-gray-700 shadow-sm hover:shadow-md transition-all"
+            className="p-4 bg-bg-comment-card rounded border border-border shadow-sm shadow-shadow hover:shadow-md hover:shadow-shadow transition-all"
         >
-            <p className="text-gray-400">{comment.user.username}</p>
-            <p className="font-bold text-white">{comment.body}</p>
-            <p className="flex items-center space-x-2 text-gray-400">
-                <CommentLikeForm comment={comment} />
-                {comment.likes?.length > 0 && (
-                    <span> ({comment.likes?.length || 0})</span>
+            <p className="text-text-light">{comment.user.username}</p>
+            <p className="">{comment.body}</p>
+            <div className="flex items-center justify-between">
+                <p className="flex items-center space-x-2 text-gray-400">
+                    <CommentLikeForm comment={comment} />
+                    {comment.likes?.length > 0 && (
+                        <span> ({comment.likes?.length || 0})</span>
+                    )}
+                </p>
+                {comment.children?.length > 0 && (
+                    <button
+                        onClick={() => {
+                            setShowReplies(!showReplies);
+                            setIteration(iteration + 1);
+                        }}
+                        className="mt-2 font-semibold text-primary cursor-pointer hover:underline"
+                    >
+                        💬{" "}
+                        {showReplies ? "Skrýt odpovědi" : "Zobrazit odpovědi"}
+                        {comment.children?.length > 0
+                            ? ` (${comment.children?.length})`
+                            : ` (${comment.children?.length})`}
+                    </button>
                 )}
-            </p>
-            {comment.children?.length > 0 && (
-                <button
-                    onClick={() => {
-                        setShowReplies(!showReplies);
-                        setIteration(iteration + 1);
-                    }}
-                    className="mt-2 font-semibold text-red-500 cursor-pointer hover:underline"
-                >
-                    💬 {showReplies ? "Skrýt odpovědi" : "Zobrazit odpovědi"}
-                    {comment.children?.length > 0
-                        ? ` (${comment.children?.length})`
-                        : ` (${comment.children?.length})`}
-                </button>
-            )}
+            </div>
 
             {showReplies && (
                 <div className="mt-2 space-y-2">

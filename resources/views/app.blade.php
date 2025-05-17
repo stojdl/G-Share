@@ -15,11 +15,16 @@
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/Pages/{$page['component']}.tsx"])
         @inertiaHead
-        <script>
-        // Pokud chceš genechovat téma z localStorage a nastavit hned při načtení
+    <script>
         (function() {
-            const theme = localStorage.getItem('theme') || '{{ session('theme', 'light') }}';
-            document.documentElement.setAttribute('data-theme', theme);
+            try {
+                const theme = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {
+                // localStorage is not available, possibly in private browsing mode, or disabled
+                // Set a default theme
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
         })();
     </script>
     </head>

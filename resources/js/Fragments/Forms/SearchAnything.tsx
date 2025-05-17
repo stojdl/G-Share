@@ -4,7 +4,7 @@ const SearchAnything = () => {
             <input
                 type="text"
                 placeholder="🔍 Hledat cokoliv ..."
-                className="w-full bg-gray-900 border border-gray-800 rounded px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+                className="w-full bg-bg-input-text border border-border shadow-sm shadow-shadow rounded px-4 py-2 placeholder-placeholder hover:bg-bg-input-text-hover hover:shadow-md hover:shadow-shadow focus:bg-bg-input-text-hover focus:border-border-focus focus:outline-none focus:ring-1 focus:ring-border-focus focus:shadow-lg focus:shadow-shadow transition"
             />
         </form>
     );

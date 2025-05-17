@@ -5,7 +5,7 @@ const SharePost = (props: Props) => {
         <textarea
             name=""
             placeholder="📝 Napiš, co chceš sdílet..."
-            className="w-full h-16 bg-gray-900 border border-gray-800 rounded p-5 text-white placeholder-gray-500 resize-none shadow cursor-pointer hover:bg-gray-800 transition-all focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full h-16 bg-bg-input-text border border-border shadow-sm shadow-shadow rounded p-5  placeholder-placeholder resize-none cursor-pointer hover:bg-bg-input-text-hover hover:shadow-md hover:shadow-shadow transition-all focus:bg-bg-input-text-hover focus:outline-none focus:border-border-focus focus:ring-1 focus:ring-border-focus"
             rows={4}
             readOnly
             {...props}

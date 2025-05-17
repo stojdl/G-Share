@@ -65,7 +65,7 @@ const PostReactions: React.FC<Props> = (props) => {
                     <div key={k} className="relative">
                         <button
                             onClick={() => toggleUsers(k)}
-                            className="text-gray-400 hover:underline"
+                            className="text-text-light hover:underline"
                         >
                             {reaction}
                             {data.count > 1 ? ` (${data.count})` : ""}

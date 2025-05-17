@@ -34,7 +34,11 @@ const CommentPostForm = (props: Props) => {
                 onChange={(e) => setData("body", e.target.value)}
                 placeholder="Napiš odpověď..."
             />
-            <button type="submit" disabled={processing}>
+            <button
+                type="submit"
+                disabled={processing}
+                className="px-4 py-2 rounded border border-primary text-primary"
+            >
                 Odpovědět
             </button>
         </form>
