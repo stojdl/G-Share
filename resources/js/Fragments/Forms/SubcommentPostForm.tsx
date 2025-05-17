@@ -5,10 +5,11 @@ import { FormEventHandler } from "react";
 interface Props {
     post_id: any;
     parent_comment_id: any;
+    setShowReplies: any;
 }
 
 const CommentPostForm = (props: Props) => {
-    const { post_id, parent_comment_id } = props;
+    const { post_id, parent_comment_id, setShowReplies } = props;
 
     const { data, setData, post, processing, errors, reset } = useForm({
         post_id: post_id,
@@ -21,6 +22,7 @@ const CommentPostForm = (props: Props) => {
         post(route("comment.store"), {
             onSuccess: () => {
                 reset("body");
+                setShowReplies(true);
             },
             preserveScroll: true,
         });

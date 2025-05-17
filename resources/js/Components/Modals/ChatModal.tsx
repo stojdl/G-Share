@@ -1,13 +1,10 @@
 import { useModal } from "@/Contexts/ModalContext";
-import LeftSideBar from "@/Fragments/LeftSideBar";
-import RightSideBar from "@/Fragments/RightSideBar";
-import { ReactNode } from "react";
 
 const ChatModal = () => {
     const modal = useModal();
     return (
         <div className="fixed inset-0 z-50 bg-bg/25 backdrop-blur-sm flex justify-center items-center p-4 sm:p-6 lg:p-12">
-            <div className="bg-bg rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col relative">
+            <div className="bg-bg border border-border rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col relative">
                 <button
                     onClick={() => modal.closeModal()}
                     className="absolute top-5 right-6 hover:text-red-500 text-2xl font-bold"

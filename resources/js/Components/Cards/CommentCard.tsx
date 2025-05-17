@@ -76,6 +76,7 @@ const CommentCard = (props: Props) => {
                     <SubcommentPostForm
                         post_id={comment.post_id}
                         parent_comment_id={comment.id}
+                        setShowReplies={setShowReplies}
                     />
                 </div>
             )}

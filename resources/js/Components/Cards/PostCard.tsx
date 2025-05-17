@@ -42,7 +42,7 @@ const PostCard = (props: Props) => {
                 <p className="">{post.body}</p>
                 <div className="flex items-center justify-between">
                     <PostReactions post={post} />
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-4 text-text-light">
                         {viewCount > 0 && (
                             <p className="mt-2 flex items-center space-x-0.5">
                                 <TbEyeExclamation className="text-xl" />

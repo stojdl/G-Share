@@ -4,7 +4,7 @@ const NotificationModal = () => {
     const modal = useModal();
     return (
         <div className="fixed inset-0 z-50 bg-bg/25 backdrop-blur-sm flex justify-center items-center p-4 sm:p-6 lg:p-12">
-            <div className="bg-bg rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative">
+            <div className="bg-bg border border-border rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative">
                 <button
                     onClick={() => modal.closeModal()}
                     className="absolute top-5 right-6 text-gray-400 hover:text-red-500 text-2xl font-bold"

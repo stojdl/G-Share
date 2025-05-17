@@ -95,7 +95,7 @@ const Dropdown: React.FC<DropdownProps> = ({
             </button>
 
             {isOpen && (
-                <ul className="absolute right-0 z-50 mt-1 w-max bg-bg-tile shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <ul className="absolute right-0 z-50 mt-1 w-max bg-bg-tile shadow-lg max-h-60 rounded-md py-1 text-base border border-border">
                     {items.map((item) => {
                         switch (item.type) {
                             case "link":
@@ -144,7 +144,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                                             {/* <span>&#x25B6;</span> */}
                                         </button>
                                         {isActive && (
-                                            <ul className="absolute right-full top-0 ml-1 w-max bg-bg-tile shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none">
+                                            <ul className="absolute right-full top-0 ml-1 w-max bg-bg-tile shadow-lg max-h-60 rounded-md py-1 text-base border border-border">
                                                 {item.items.map((subItem) => {
                                                     switch (subItem.type) {
                                                         case "link":
