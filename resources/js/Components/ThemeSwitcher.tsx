@@ -14,7 +14,7 @@ const ThemeSwitcher = () => {
                 onClick={() => switchTheme("light")}
                 className="bg-primary text-text p-2 rounded-lg"
             >
-                Světlé
+                Výchozí
             </button>
             <button
                 onClick={() => switchTheme("dark")}

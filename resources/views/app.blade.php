@@ -15,6 +15,13 @@
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/Pages/{$page['component']}.tsx"])
         @inertiaHead
+        <script>
+        // Pokud chceš genechovat téma z localStorage a nastavit hned při načtení
+        (function() {
+            const theme = localStorage.getItem('theme') || '{{ session('theme', 'light') }}';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
     </head>
     <body class="font-sans antialiased">
         @inertia

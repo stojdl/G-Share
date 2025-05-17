@@ -23,7 +23,7 @@ const Layout = (props: Props) => {
     const modal = useModal();
 
     return (
-        <main className="relative min-h-screen px-4 pb-28 flex flex-col bg-black text-white lg:flex-row">
+        <main className="relative min-h-screen px-4 pb-28 flex flex-col bg-bg text-white lg:flex-row">
             <TwitchButton />
 
             <LeftSideBar />
