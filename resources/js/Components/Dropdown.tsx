@@ -1,3 +1,5 @@
+import { Link } from "@inertiajs/react";
+
 import React, { useState, useRef, useEffect, ReactNode } from "react";
 
 interface DropdownItemBase {
@@ -6,7 +8,7 @@ interface DropdownItemBase {
 
 interface DropdownLinkItem extends DropdownItemBase {
     type: "link";
-    method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+    method?: "get" | "post" | "put" | "patch" | "delete";
     label: string;
     href: string;
     target?: "_blank" | "_self" | "_parent" | "_top";
@@ -101,19 +103,20 @@ const Dropdown: React.FC<DropdownProps> = ({
                             case "link":
                                 return (
                                     <li key={item.id}>
-                                        <a
+                                        <Link
                                             href={item.href}
-                                            className="block px-4 py-2 hover:bg-bg-tile-hover "
+                                            className="block pl-4 pr-8 py-2 hover:bg-bg-tile-hover "
+                                            method={item.method}
                                         >
                                             {item.label}
-                                        </a>
+                                        </Link>
                                     </li>
                                 );
                             case "button":
                                 return (
                                     <li key={item.id}>
                                         <button
-                                            className="block w-full text-left px-4 py-2 hover:bg-bg-tile-hover"
+                                            className="block w-full text-left pl-4 pr-8 py-2 hover:bg-bg-tile-hover"
                                             onClick={item.onClick}
                                         >
                                             {item.label}
@@ -139,12 +142,12 @@ const Dropdown: React.FC<DropdownProps> = ({
                                             setActiveSubmenu(null)
                                         }
                                     >
-                                        <button className="w-full text-left px-4 py-2 hover:bg-bg-tile-hover flex items-center justify-between">
+                                        <button className="w-full text-left pl-4 pr-8 py-2 hover:bg-bg-tile-hover flex items-center justify-between">
                                             {item.label}
                                             {/* <span>&#x25B6;</span> */}
                                         </button>
                                         {isActive && (
-                                            <ul className="absolute right-full top-0 ml-1 w-max bg-bg-tile shadow-lg max-h-60 rounded-md py-1 text-base border border-border">
+                                            <ul className="absolute right-full top-0 ml-1 w-max bg-bg-tile shadow-lg rounded-md py-1 text-base border border-border">
                                                 {item.items.map((subItem) => {
                                                     switch (subItem.type) {
                                                         case "link":
@@ -158,7 +161,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                                                                         href={
                                                                             subItem.href
                                                                         }
-                                                                        className="block px-4 py-2 hover:bg-bg-tile-hover "
+                                                                        className="block pl-4 pr-8 py-2 hover:bg-bg-tile-hover "
                                                                     >
                                                                         {
                                                                             subItem.label
@@ -174,7 +177,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                                                                     }
                                                                 >
                                                                     <button
-                                                                        className="block w-full text-left px-4 py-2 hover:bg-bg-tile-hover"
+                                                                        className="block w-full text-left pl-4 pr-8 py-2 hover:bg-bg-tile-hover"
                                                                         onClick={
                                                                             subItem.onClick
                                                                         }

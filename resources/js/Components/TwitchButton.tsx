@@ -1,4 +1,8 @@
+import { useLaravelReactI18n } from "laravel-react-i18n";
+
 const TwitchButton = () => {
+    const { t } = useLaravelReactI18n();
+
     return (
         <div className="fixed inset-0 z-50 h-5 px-4 py-1 flex justify-center items-center text-xs bg-bg-twitch border-b border-border shadow">
             <a
@@ -11,7 +15,7 @@ const TwitchButton = () => {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
                 </span>
-                LIVE ON TWITCH
+                {t("layout.twitch")}
             </a>
         </div>
     );
