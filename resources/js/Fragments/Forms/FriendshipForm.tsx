@@ -3,9 +3,9 @@ import { router, useForm, usePage } from "@inertiajs/react";
 import React, { FormEventHandler } from "react";
 
 const FriendshipForm: React.FC = () => {
-    const { user, auth } = usePage<PageProps>().props;
+    const { user, loggedUser } = usePage<PageProps>().props;
 
-    console.log("logged in user: ", auth.user);
+    console.log("logged in user: ", loggedUser);
 
     const {
         data,
@@ -23,7 +23,18 @@ const FriendshipForm: React.FC = () => {
         post(route("friendship.store", { user: user.id }), {
             onSuccess: () => {
                 reset();
-                router.reload({ only: ["all_friends"] });
+                router.reload({ only: ["friendships"] });
+            },
+            preserveScroll: true,
+        });
+    };
+
+    const acceptFriendship: FormEventHandler = (e) => {
+        e.preventDefault();
+        post(route("friendship.accept", { user: user.id }), {
+            onSuccess: () => {
+                reset();
+                router.reload({ only: ["friendships"] });
             },
             preserveScroll: true,
         });
@@ -36,22 +47,44 @@ const FriendshipForm: React.FC = () => {
             preserveScroll: true,
             onSuccess: () => {
                 reset();
-                router.reload({ only: ["all_friends"] });
+                router.reload({ only: ["friends", "friendships"] });
             },
         });
     };
 
+    const isFriend = user.friendships.find(
+        (friendship: any) =>
+            friendship.friend_id === loggedUser.id &&
+            friendship.status === "accepted"
+    );
+
+    const hasPendingRequest = user.friendship_requests.find(
+        (friendship_request: any) =>
+            friendship_request.user_id === loggedUser.id &&
+            friendship_request.status === "pending"
+    );
+
+    const acceptRequest = loggedUser.friendship_requests.find(
+        (friendship_request: any) =>
+            friendship_request.friend_id === loggedUser.id &&
+            friendship_request.status === "pending"
+    );
+
     return (
         <div>
-            {user.all_friends.find(
-                (friend: any) => friend.id === auth.user.id
-            ) ? (
+            {isFriend ? (
                 <form onSubmit={deleteFriendship}>
                     <button type="submit">Odebrat z přátel</button>
                 </form>
+            ) : hasPendingRequest ? (
+                <p>Žádost o přátelství odeslána</p>
+            ) : acceptRequest ? (
+                <form onSubmit={acceptFriendship}>
+                    <button type="submit">Přijmout žádost o přátelství</button>
+                </form>
             ) : (
                 <form onSubmit={createFriendship}>
-                    <button type="submit">Vytvorit přátelství</button>
+                    <button type="submit">Odeslat žádost o přátelství</button>
                 </form>
             )}
         </div>

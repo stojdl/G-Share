@@ -15,6 +15,18 @@
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/Pages/{$page['component']}.tsx"])
         @inertiaHead
+    <script>
+        (function() {
+            try {
+                const theme = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {
+                // localStorage is not available, possibly in private browsing mode, or disabled
+                // Set a default theme
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
     </head>
     <body class="font-sans antialiased">
         @inertia

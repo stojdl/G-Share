@@ -32,8 +32,8 @@ export default forwardRef(function TextInput(
             {...props}
             type={type}
             className={
-                "w-full bg-gray-800 border border-gray-700 text-white placeholder-gray-400 " +
-                "rounded-md px-4 py-2 transition focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 " +
+                "w-full bg-bg-input-text border border-border placeholder-placeholder " +
+                "rounded-md px-4 py-2 transition hover:bg-bg-input-text-hover hover:bg-border-text-input-hover focus:bg-bg-input-text-hover focus:outline-none focus:ring-1 focus:ring-border-focus focus:border-border-focus" +
                 className
             }
             ref={localRef}

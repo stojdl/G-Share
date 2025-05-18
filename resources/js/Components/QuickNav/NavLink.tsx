@@ -14,10 +14,10 @@ const NavLink = (props: Props) => {
     return (
         <Link
             href={href}
-            className={`text-xs sm:text-sm px-4 py-2 rounded-xl font-semibold transition-all shadow-md ${
+            className={`text-xs sm:text-sm px-4 py-2 rounded font-semibold transition-all shadow-md ${
                 active
-                    ? "bg-red-600 text-white hover:bg-red-700"
-                    : "text-gray-400 hover:text-white hover:bg-gray-800"
+                    ? "bg-primary hover:bg-primary-hover"
+                    : "bg-secondary hover:bg-secondary-hover"
             }`}
         >
             {children}

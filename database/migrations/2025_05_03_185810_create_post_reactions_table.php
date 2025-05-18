@@ -21,8 +21,8 @@ return new class extends Migration
                                          ->onDelete('cascade');
             $table->enum('reaction_type', ['like', 'GG', 'BG', 'love', 'haha', 'wow', 'sad', 'angry']);
             $table->string('reaction_icon')->nullable();
+            $table->unique(['user_id', 'post_id'], 'reaction_unique');
             $table->timestamps();
-            $table->timestamp('deleted_at')->nullable();
         });
     }
 

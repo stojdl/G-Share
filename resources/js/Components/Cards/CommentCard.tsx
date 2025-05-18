@@ -1,6 +1,8 @@
 import CommentLikeForm from "@/Fragments/Forms/CommentLikeForm";
 import SubcommentPostForm from "@/Fragments/Forms/SubcommentPostForm";
+import { useLaravelReactI18n } from "laravel-react-i18n";
 import { useState } from "react";
+import { FaComments, FaRegComments } from "react-icons/fa6";
 
 interface Props {
     comment: any;
@@ -8,6 +10,8 @@ interface Props {
 }
 
 const CommentCard = (props: Props) => {
+    const { t } = useLaravelReactI18n();
+
     const { comment, maxRecursion } = props;
 
     const [showReplies, setShowReplies] = useState(false);
@@ -16,30 +20,56 @@ const CommentCard = (props: Props) => {
     return (
         <div
             key={comment.id}
-            className="p-4 bg-gray-700 rounded border border-gray-700 shadow-sm hover:shadow-md transition-all"
+            className="p-4 bg-bg-comment-card rounded border border-border shadow-sm shadow-shadow hover:shadow-md hover:shadow-shadow transition-all"
         >
-            <p className="text-gray-400">{comment.user.username}</p>
-            <p className="font-bold text-white">{comment.body}</p>
-            <p className="flex items-center space-x-2 text-gray-400">
-                <CommentLikeForm comment={comment} />
-                {comment.likes?.length > 0 && (
-                    <span> ({comment.likes?.length || 0})</span>
+            <p className="text-text-light">{comment.user.username}</p>
+            <p className="">{comment.body}</p>
+            <div className="flex items-center justify-between">
+                <p className="mt-1 flex items-center space-x-1 text-text-light">
+                    <CommentLikeForm comment={comment} />
+                    {comment.likes?.length > 0 && (
+                        <span className="-mt-1.5">
+                            ({comment.likes.length})
+                        </span>
+                    )}
+                </p>
+                {comment.children?.length > 0 && (
+                    <button
+                        onClick={() => {
+                            setShowReplies(!showReplies);
+                            setIteration(iteration + 1);
+                        }}
+                        className="mt-2 font-semibold text-primary cursor-pointer"
+                    >
+                        <p className="flex items-center space-x-2">
+                            {showReplies ? (
+                                <>
+                                    <FaComments className="text-lg" />
+                                    <span>
+                                        {t(
+                                            "share-place.post.comment.reply.hide"
+                                        )}
+                                    </span>
+                                </>
+                            ) : (
+                                <>
+                                    <FaRegComments className="text-lg" />
+                                    <span>
+                                        {t(
+                                            "share-place.post.comment.reply.show"
+                                        )}
+                                    </span>
+                                </>
+                            )}
+                            {comment.children?.length > 0 ? (
+                                <span> ({comment.children?.length})</span>
+                            ) : (
+                                <span> ({comment.children?.length})</span>
+                            )}
+                        </p>
+                    </button>
                 )}
-            </p>
-            {comment.children?.length > 0 && (
-                <button
-                    onClick={() => {
-                        setShowReplies(!showReplies);
-                        setIteration(iteration + 1);
-                    }}
-                    className="mt-2 font-semibold text-red-500 cursor-pointer hover:underline"
-                >
-                    💬 {showReplies ? "Skrýt odpovědi" : "Zobrazit odpovědi"}
-                    {comment.children?.length > 0
-                        ? ` (${comment.children?.length})`
-                        : ` (${comment.children?.length})`}
-                </button>
-            )}
+            </div>
 
             {showReplies && (
                 <div className="mt-2 space-y-2">
@@ -57,6 +87,7 @@ const CommentCard = (props: Props) => {
                     <SubcommentPostForm
                         post_id={comment.post_id}
                         parent_comment_id={comment.id}
+                        setShowReplies={setShowReplies}
                     />
                 </div>
             )}

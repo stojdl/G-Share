@@ -137,8 +137,15 @@ class DatabaseSeeder extends Seeder
             'status' => 'accepted',
         ]);
         Friendship::factory()->create([
-            'user_id' => $user4->id,
+            'user_id' => $user2->id,
             'friend_id' => $user->id,
+            'action_user_id' => $user->id,
+            'status' => 'accepted',
+        ]);
+
+        Friendship::factory()->create([
+            'user_id' => $user4->id,
+            'friend_id' => $user2->id,
             'action_user_id' => $user->id,
             'status' => 'pending',
         ]);
