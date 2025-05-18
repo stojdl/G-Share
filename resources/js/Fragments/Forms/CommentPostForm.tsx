@@ -36,7 +36,7 @@ const CommentPostForm = (props: Props) => {
                 name="body"
                 value={data.body}
                 onChange={(e) => setData("body", e.target.value)}
-                placeholder="Napiš komentář..."
+                placeholder={t("share-place.post.comment.create.placeholder")}
             />
             <button
                 type="submit"

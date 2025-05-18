@@ -15,10 +15,11 @@
     "share-place.post.comment.show": "Zobrazit komentáře",
     "share-place.post.comment.hide": "Skrýt komentáře",
     "share-place.post.comment.create": "Okomentovat",
-    "share-place.post.comment.create.placeholder": "Napište komentář...",
+    "share-place.post.comment.create.placeholder": "Napiš komentář...",
     "share-place.post.comment.reply.show": "Zobrazit odpovědi",
     "share-place.post.comment.reply.hide": "Skrýt odpovědi",
     "share-place.post.comment.reply.create": "Odpovědět",
+    "share-place.post.comment.reply.create.placeholder": "Odpověz...",
 
     "left-sidebar.user.status.online": "Aktivní",
     "left-sidebar.user.status.offline": "Neaktivní",

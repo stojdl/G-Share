@@ -19,6 +19,7 @@
     "share-place.post.comment.reply.show": "Show replies",
     "share-place.post.comment.reply.hide": "Hide replies",
     "share-place.post.comment.reply.create": "Reply",
+    "share-place.post.comment.reply.create.placeholder": "Answer...",
 
     "left-sidebar.user.status.online": "Online",
     "left-sidebar.user.status.offline": "Offline",
