@@ -8,6 +8,7 @@ import PostReactions from "../PostReactions";
 import { FaComments, FaRegComments } from "react-icons/fa6";
 import { FaRegShareSquare } from "react-icons/fa";
 import { TbEyeExclamation } from "react-icons/tb";
+import { useLaravelReactI18n } from "laravel-react-i18n";
 
 interface Props {
     post: any;
@@ -15,6 +16,8 @@ interface Props {
 
 const PostCard = (props: Props) => {
     const { post } = props;
+
+    const { t } = useLaravelReactI18n();
 
     const [showComments, setShowComments] = useState(false);
 
@@ -72,12 +75,16 @@ const PostCard = (props: Props) => {
                                 {showComments ? (
                                     <>
                                         <FaComments className="text-lg" />
-                                        <span>Skrýt komentáře</span>
+                                        <span>
+                                            {t("share-place.post.comment.hide")}
+                                        </span>
                                     </>
                                 ) : (
                                     <>
                                         <FaRegComments className="text-lg" />
-                                        <span>Zobrazit komentáře</span>
+                                        <span>
+                                            {t("share-place.post.comment.show")}
+                                        </span>
                                     </>
                                 )}
                                 {` (${commentCount})`}
@@ -85,13 +92,14 @@ const PostCard = (props: Props) => {
                         </button>
                     ) : (
                         <p className="text-text-light">
-                            Zatím žádné komentáře.
+                            {t("share-place.post.comment.empty")}
                         </p>
                     )}
                 </div>
                 <div className="w-full flex justify-end">
                     <p className="flex items-center space-x-2 cursor-not-allowed font-bold text-primary">
-                        <FaRegShareSquare /> <span>Sdílet</span>
+                        <FaRegShareSquare />
+                        <span> {t("share-place.post.share")}</span>
                     </p>
                 </div>
             </div>

@@ -1,16 +1,19 @@
 import Dropdown from "@/Components/Dropdown";
-import { Link } from "@inertiajs/react";
-import { useState } from "react";
+import { useLaravelReactI18n } from "laravel-react-i18n";
 import { FaAdversal } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 
 const RightSideBar = () => {
-    const [theme, setTheme] = useState("dark");
+    const { t } = useLaravelReactI18n();
 
     const switchTheme = (newTheme: string) => {
-        setTheme(newTheme);
         document.documentElement.setAttribute("data-theme", newTheme);
         localStorage.setItem("theme", newTheme);
+    };
+
+    const switchLanguage = (newLanguage: string) => {
+        sessionStorage.setItem("locale", newLanguage);
+        window.location.reload();
     };
 
     return (
@@ -27,7 +30,7 @@ const RightSideBar = () => {
                         hideCaret
                         items={[
                             {
-                                label: "Profil",
+                                label: t("right-sidebar.settings.profile"),
                                 href: route("profile.edit"),
                                 type: "link",
                                 id: "profile",
@@ -37,22 +40,47 @@ const RightSideBar = () => {
                                 id: "divider",
                             },
                             {
-                                label: "Téma",
+                                label: t("right-sidebar.settings.language"),
                                 items: [
                                     {
-                                        label: "Světlé téma",
+                                        label: "Čeština",
+                                        onClick: () => switchLanguage("cs"),
+                                        type: "button",
+                                        id: "cs",
+                                    },
+                                    {
+                                        label: "English",
+                                        onClick: () => switchLanguage("en"),
+                                        type: "button",
+                                        id: "en",
+                                    },
+                                ],
+                                type: "submenu",
+                                id: "lang",
+                            },
+                            {
+                                label: t("right-sidebar.settings.theme"),
+                                items: [
+                                    {
+                                        label: t(
+                                            "right-sidebar.settings.theme.light"
+                                        ),
                                         onClick: () => switchTheme("light"),
                                         type: "button",
                                         id: "lightmode",
                                     },
                                     {
-                                        label: "Tmavé téma",
+                                        label: t(
+                                            "right-sidebar.settings.theme.dark"
+                                        ),
                                         onClick: () => switchTheme("dark"),
                                         type: "button",
                                         id: "darkmode",
                                     },
                                     {
-                                        label: "Neon téma",
+                                        label: t(
+                                            "right-sidebar.settings.theme.neon"
+                                        ),
                                         onClick: () => switchTheme("neon"),
                                         type: "button",
                                         id: "neonmode",
@@ -66,9 +94,9 @@ const RightSideBar = () => {
                                 id: "divider",
                             },
                             {
-                                label: "Odhlásit se",
+                                label: t("right-sidebar.settings.logout"),
                                 href: route("logout"),
-                                method: "POST",
+                                method: "post",
                                 type: "link",
                                 id: "logout",
                             },
@@ -78,7 +106,7 @@ const RightSideBar = () => {
                 <div className="sticky top-6 space-y-4">
                     <h2 className="flex items-center space-x-2 text-xl font-semibold">
                         <FaAdversal />
-                        <span>Sponzorováno</span>
+                        <span>{t("right-sidebar.ad")}</span>
                     </h2>
                     <div className="w-full h-64 bg-bg-add border border-border rounded flex items-center justify-center shadow-md">
                         Reklamní prostor

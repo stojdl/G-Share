@@ -1,5 +1,6 @@
 import CommentLikeForm from "@/Fragments/Forms/CommentLikeForm";
 import SubcommentPostForm from "@/Fragments/Forms/SubcommentPostForm";
+import { useLaravelReactI18n } from "laravel-react-i18n";
 import { useState } from "react";
 import { FaComments, FaRegComments } from "react-icons/fa6";
 
@@ -9,6 +10,8 @@ interface Props {
 }
 
 const CommentCard = (props: Props) => {
+    const { t } = useLaravelReactI18n();
+
     const { comment, maxRecursion } = props;
 
     const [showReplies, setShowReplies] = useState(false);
@@ -42,12 +45,20 @@ const CommentCard = (props: Props) => {
                             {showReplies ? (
                                 <>
                                     <FaComments className="text-lg" />
-                                    <span>Skrýt odpovědi</span>
+                                    <span>
+                                        {t(
+                                            "share-place.post.comment.reply.hide"
+                                        )}
+                                    </span>
                                 </>
                             ) : (
                                 <>
                                     <FaRegComments className="text-lg" />
-                                    <span>Zobrazit odpovědi</span>
+                                    <span>
+                                        {t(
+                                            "share-place.post.comment.reply.show"
+                                        )}
+                                    </span>
                                 </>
                             )}
                             {comment.children?.length > 0 ? (

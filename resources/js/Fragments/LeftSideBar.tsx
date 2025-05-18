@@ -4,9 +4,13 @@ import { Link, router, usePage } from "@inertiajs/react";
 import { useModal } from "@/Contexts/ModalContext";
 import { PageProps } from "@/types";
 import { MdOutlineWorkspacePremium } from "react-icons/md";
+import { useLaravelReactI18n } from "laravel-react-i18n";
+import { FaUserPlus } from "react-icons/fa";
 
 const LeftSideBar = () => {
     const { auth } = usePage<PageProps>().props;
+
+    const { t } = useLaravelReactI18n();
 
     const modal = useModal();
     const [showFriendsDropdown, setShowFriendsDropdown] = useState(false);
@@ -38,7 +42,9 @@ const LeftSideBar = () => {
                             {auth.user.username}
                         </Link>
                     </div>
-                    <div className="text-sm text-green-400">● online</div>
+                    <div className="text-sm text-green-400">
+                        ● {t("left-sidebar.user.status.online")}
+                    </div>
                     <div className="flex gap-2">
                         {[...Array(5)].map((_, i) => (
                             <span
@@ -49,33 +55,42 @@ const LeftSideBar = () => {
                     </div>
                     <button
                         onClick={() => modal.openModal("AddFriendModal")}
-                        className="mt-3 text-sm px-4 py-1 rounded shadow transition-all text-primary border border-primary"
+                        className="mt-3 text-sm px-4 py-1 flex items-center space-x-2 rounded shadow transition-all text-primary border border-primary"
                     >
-                        + Přidat přítele
+                        <span>{t("left-sidebar.user.friend.add")}</span>{" "}
+                        <FaUserPlus className="text-base" />
                     </button>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 text-xs mt-8">
-                    {["Notifikace", "Chat", "Vytvořit tým", "Najít tým"].map(
-                        (label, i) => (
-                            <button
-                                key={i}
-                                onClick={() => {
-                                    if (label === "Notifikace")
-                                        modal.openModal("NotificationModal");
-                                    if (label === "Chat")
-                                        modal.openModal("ChatModal");
-                                    if (label === "Vytvořit tým")
-                                        router.visit("/create-team");
-                                    if (label === "Najít tým")
-                                        router.visit("/find-team");
-                                }}
-                                className="bg-bg-tile hover:bg-bg-tile-hover border border-border rounded py-2 shadow transition"
-                            >
-                                {label}
-                            </button>
-                        )
-                    )}
+                    {[
+                        t("left-sidebar.user.notification"),
+                        t("left-sidebar.user.chat"),
+                        t("left-sidebar.user.team.create"),
+                        t("left-sidebar.user.team.find"),
+                    ].map((label, i) => (
+                        <button
+                            key={i}
+                            onClick={() => {
+                                if (
+                                    label ===
+                                    t("left-sidebar.user.notification")
+                                )
+                                    modal.openModal("NotificationModal");
+                                if (label === t("left-sidebar.user.chat"))
+                                    modal.openModal("ChatModal");
+                                if (
+                                    label === t("left-sidebar.user.team.create")
+                                )
+                                    router.visit("/create-team");
+                                if (label === t("left-sidebar.user.team.find"))
+                                    router.visit("/find-team");
+                            }}
+                            className="bg-bg-tile hover:bg-bg-tile-hover border border-border rounded py-2 shadow transition"
+                        >
+                            {label}
+                        </button>
+                    ))}
                 </div>
 
                 <div className="flex flex-col gap-3 text-sm mt-8">
@@ -86,7 +101,9 @@ const LeftSideBar = () => {
                             }
                             className="bg-bg-tile hover:bg-bg-tile-hover border border-border rounded p-4 text-left transition w-full"
                         >
-                            <p className="font-medium">Přátelé online</p>
+                            <p className="font-medium">
+                                {t("left-sidebar.friends-online")}
+                            </p>
                             <p className="text-xs text-text-light">dropdown</p>
                         </button>
                         {showFriendsDropdown && (
@@ -107,15 +124,19 @@ const LeftSideBar = () => {
                             </div>
                         )}
                     </div>
-                    {["Místnosti", "Turnaje", "Výzvy"].map((label, i) => (
+                    {[
+                        t("left-sidebar.rooms"),
+                        t("left-sidebar.tournaments"),
+                        t("left-sidebar.challenges"),
+                    ].map((label, i) => (
                         <button
                             key={i}
                             onClick={() => {
-                                if (label === "Místnosti")
+                                if (label === t("left-sidebar.rooms"))
                                     router.visit("/rooms");
-                                if (label === "Turnaje")
+                                if (label === t("left-sidebar.tournaments"))
                                     router.visit("/tournaments");
-                                if (label === "Výzvy")
+                                if (label === t("left-sidebar.challenges"))
                                     router.visit("/challenges");
                             }}
                             className="bg-bg-tile hover:bg-bg-tile-hover border border-border rounded p-4 text-left shadow transition"
@@ -128,7 +149,7 @@ const LeftSideBar = () => {
 
                 <div className="text-sm flex items-center justify-center space-x-1 text-text-light">
                     <MdOutlineWorkspacePremium className="text-xl" />
-                    <span>Premium jen za</span>
+                    <span>{t("left-sidebar.premium")}</span>
                     <span className="text-primary">0,99 €</span>
                 </div>
             </aside>

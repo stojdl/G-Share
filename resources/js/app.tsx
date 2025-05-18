@@ -5,6 +5,7 @@ import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { createRoot } from "react-dom/client";
 import { ModalProvider } from "./Contexts/ModalContext";
+import { LaravelReactI18nProvider } from "laravel-react-i18n";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -27,10 +28,28 @@ createInertiaApp({
     },
     setup({ el, App, props }) {
         const root = createRoot(el);
+
+        const getBrowserLocale = () => {
+            if (sessionStorage.getItem("locale")) {
+                return sessionStorage.getItem("locale")?.toString();
+            } else {
+                const language = navigator.language || navigator.languages[0];
+                return language.split("-")[0]; // Return only the language code, e.g., "en"
+            }
+        };
+
+        const browserLocale = getBrowserLocale();
+
         root.render(
-            <ModalProvider>
-                <App {...props} />
-            </ModalProvider>
+            <LaravelReactI18nProvider
+                locale={browserLocale}
+                fallbackLocale={"en"}
+                files={import.meta.glob(["/lang/**/*.json"])}
+            >
+                <ModalProvider>
+                    <App {...props} />
+                </ModalProvider>
+            </LaravelReactI18nProvider>
         );
     },
 

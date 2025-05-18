@@ -1,5 +1,6 @@
 import TextInput from "@/Components/Forms/Inputs/TextInput";
 import { useForm } from "@inertiajs/react";
+import { useLaravelReactI18n } from "laravel-react-i18n";
 import { FormEventHandler } from "react";
 
 interface Props {
@@ -9,6 +10,8 @@ interface Props {
 }
 
 const CommentPostForm = (props: Props) => {
+    const { t } = useLaravelReactI18n();
+
     const { post_id, parent_comment_id, setShowReplies } = props;
 
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -41,7 +44,7 @@ const CommentPostForm = (props: Props) => {
                 disabled={processing}
                 className="px-4 py-2 rounded border border-primary text-primary"
             >
-                Odpovědět
+                {t("share-place.post.comment.reply.create")}
             </button>
         </form>
     );
