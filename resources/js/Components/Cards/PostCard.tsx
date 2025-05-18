@@ -5,6 +5,10 @@ import CommentPostForm from "@/Fragments/Forms/CommentPostForm";
 import { Link } from "@inertiajs/react";
 import PostReactionForm from "@/Fragments/Forms/PostReactionForm";
 import PostReactions from "../PostReactions";
+import { FaComments, FaRegComments } from "react-icons/fa6";
+import { FaRegShareSquare } from "react-icons/fa";
+import { TbEyeExclamation } from "react-icons/tb";
+import { useLaravelReactI18n } from "laravel-react-i18n";
 
 interface Props {
     post: any;
@@ -12,6 +16,8 @@ interface Props {
 
 const PostCard = (props: Props) => {
     const { post } = props;
+
+    const { t } = useLaravelReactI18n();
 
     const [showComments, setShowComments] = useState(false);
 
@@ -24,51 +30,78 @@ const PostCard = (props: Props) => {
     }, []);
 
     return (
-        <article className="p-4 bg-gray-800 space-y-4 rounded border border-gray-800 shadow-md hover:shadow-lg transition-all">
-            <div className="space-y-2 border-b border-gray-700 pb-2">
+        <article className="p-4 bg-bg-post-card space-y-4 rounded border border-border shadow-sm shadow-shadow hover:shadow-shadow hover:shadow-md transition-all">
+            <div className="space-y-2 border-b border-border pb-2">
                 <Link
                     href={route("user_profile", { user: post.user.id })}
-                    className="w-max flex items-center space-x-2 font-bold text-gray-400 hover:underline hover:cursor-pointer hover:text-white"
+                    className="w-max flex items-center space-x-2 font-bold hover:underline hover:cursor-pointer"
                 >
-                    <span className="block border rounded-full w-8 h-8" />
-                    <span>{post.user.username}</span>
+                    <span className="block border border-text-light rounded-full w-8 h-8" />
+                    <span className="text-text-light hover:text-text transition">
+                        {post.user.username}
+                    </span>
                 </Link>
                 <H3>{post.title}</H3>
-                <p className="text-gray-300">{post.body}</p>
+                <p className="">{post.body}</p>
                 <div className="flex items-center justify-between">
                     <PostReactions post={post} />
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-4 text-text-light">
                         {viewCount > 0 && (
-                            <p className="text-gray-400 mt-2">👁️ {viewCount}</p>
+                            <p className="mt-2 flex items-center space-x-0.5">
+                                <TbEyeExclamation className="text-xl" />
+                                <span>{viewCount}</span>
+                            </p>
                         )}
 
                         {shareCount > 0 && (
-                            <p className="text-gray-400 mt-2">
-                                🔁 {shareCount}
+                            <p className="mt-2 flex items-center space-x-0.5">
+                                <FaRegShareSquare /> <span>{shareCount}</span>
                             </p>
                         )}
                     </div>
                 </div>
             </div>
             <div className="mt-4 flex flex-col justify-between space-y-2 sm:flex-row sm:items-center">
-                <PostReactionForm post={post} />
-                {commentCount > 0 ? (
-                    <button
-                        onClick={toggleComments}
-                        className="font-semibold text-red-500 cursor-pointer hover:underline"
-                    >
-                        💬{" "}
-                        {showComments
-                            ? "Skrýt komentáře"
-                            : "Zobrazit komentáře"}
-                        {` (${commentCount})`}
-                    </button>
-                ) : (
-                    <p>Zatím žádné komentáře.</p>
-                )}
-                <p className="cursor-not-allowed text-red-500 font-bold">
-                    📤 Sdílet
-                </p>
+                <div className="w-full">
+                    <PostReactionForm post={post} />
+                </div>
+                <div className="w-full flex justify-center">
+                    {commentCount > 0 ? (
+                        <button
+                            onClick={toggleComments}
+                            className="flex items-center space-x-2 font-semibold cursor-pointer text-primary"
+                        >
+                            <p className="flex items-center space-x-2">
+                                {showComments ? (
+                                    <>
+                                        <FaComments className="text-lg" />
+                                        <span>
+                                            {t("share-place.post.comment.hide")}
+                                        </span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <FaRegComments className="text-lg" />
+                                        <span>
+                                            {t("share-place.post.comment.show")}
+                                        </span>
+                                    </>
+                                )}
+                                {` (${commentCount})`}
+                            </p>
+                        </button>
+                    ) : (
+                        <p className="text-text-light">
+                            {t("share-place.post.comment.empty")}
+                        </p>
+                    )}
+                </div>
+                <div className="w-full flex justify-end">
+                    <p className="flex items-center space-x-2 cursor-not-allowed font-bold text-primary">
+                        <FaRegShareSquare />
+                        <span> {t("share-place.post.share")}</span>
+                    </p>
+                </div>
             </div>
             {showComments && (
                 <div className="mt-2 space-y-2">

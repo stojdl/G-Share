@@ -23,16 +23,16 @@ const Layout = (props: Props) => {
     const modal = useModal();
 
     return (
-        <main className="relative min-h-screen px-4 pb-28 flex flex-col bg-bg text-white lg:flex-row">
+        <main className="relative min-h-screen px-4 pb-28 flex flex-col bg-bg text-text lg:flex-row">
             <TwitchButton />
 
             <LeftSideBar />
             <section className="flex-1 pt-8 space-y-4 ">
                 <div className="flex items-center justify-between">
                     <SearchAnything />
-                    <div className="hidden lg:flex border px-4 py-2 rounded">
+                    {/* <div className="hidden lg:flex border px-4 py-2 rounded">
                         dropdown {"<"}
-                    </div>
+                    </div> */}
                 </div>
                 {children}
             </section>
