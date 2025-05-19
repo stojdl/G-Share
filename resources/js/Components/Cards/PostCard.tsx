@@ -2,13 +2,13 @@ import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import CommentCard from "./CommentCard";
 import H3 from "../Headings/H3";
 import CommentPostForm from "@/Fragments/Forms/CommentPostForm";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import PostReactionForm from "@/Fragments/Forms/PostReactionForm";
 import PostReactions from "../PostReactions";
 import { FaComments, FaRegComments } from "react-icons/fa6";
 import { FaRegShareSquare } from "react-icons/fa";
 import { TbEyeExclamation } from "react-icons/tb";
-import { useLaravelReactI18n } from "laravel-react-i18n";
+import { PageProps } from "@/types";
 
 interface Props {
     post: any;
@@ -17,7 +17,7 @@ interface Props {
 const PostCard = (props: Props) => {
     const { post } = props;
 
-    const { t } = useLaravelReactI18n();
+    const { shareplace } = usePage<PageProps>().props;
 
     const [showComments, setShowComments] = useState(false);
 
@@ -76,14 +76,14 @@ const PostCard = (props: Props) => {
                                     <>
                                         <FaComments className="text-lg" />
                                         <span>
-                                            {t("share-place.post.comment.hide")}
+                                            {shareplace.post.comment.hide}
                                         </span>
                                     </>
                                 ) : (
                                     <>
                                         <FaRegComments className="text-lg" />
                                         <span>
-                                            {t("share-place.post.comment.show")}
+                                            {shareplace.post.comment.show}
                                         </span>
                                     </>
                                 )}
@@ -92,14 +92,14 @@ const PostCard = (props: Props) => {
                         </button>
                     ) : (
                         <p className="text-text-light">
-                            {t("share-place.post.comment.empty")}
+                            {shareplace.post.comment.empty}
                         </p>
                     )}
                 </div>
                 <div className="w-full flex justify-end">
                     <p className="flex items-center space-x-2 cursor-not-allowed font-bold text-primary">
                         <FaRegShareSquare />
-                        <span> {t("share-place.post.share")}</span>
+                        <span> {shareplace.post.share}</span>
                     </p>
                 </div>
             </div>
@@ -127,3 +127,6 @@ const PostCard = (props: Props) => {
 };
 
 export default PostCard;
+function usePageProps(): { t: any } {
+    throw new Error("Function not implemented.");
+}

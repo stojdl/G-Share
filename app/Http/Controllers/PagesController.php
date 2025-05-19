@@ -141,13 +141,16 @@ class PagesController extends Controller
 
                                             
         return Inertia::render('SharePlace', [
+            'shareplace' => __('shareplace'),
             'posts' => $posts,
         ]);
     }
 
     public function home_page()
     {
-        return Inertia::render('HomePage');
+        return Inertia::render('HomePage', [
+            'home' => __('home'),
+        ]);
     }
 
     public function communities()
