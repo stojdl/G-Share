@@ -1,11 +1,14 @@
 import { usePage } from "@inertiajs/react";
 import NavLink from "./NavLink";
+import { PageProps } from "@/types";
 
 interface NavProps {
     isAnyModalOpen: boolean;
 }
 
 const Nav: React.FC<NavProps> = ({ isAnyModalOpen }) => {
+    const { layout } = usePage<PageProps>().props;
+
     if (isAnyModalOpen) return null;
 
     const { url } = usePage();
@@ -13,19 +16,19 @@ const Nav: React.FC<NavProps> = ({ isAnyModalOpen }) => {
 
     const Butt = [
         {
-            label: "Share Place",
+            label: `${layout.quickNav.shareplace}`,
             href: "/share-place",
         },
         {
-            label: "Komunity",
+            label: `${layout.quickNav.communities}`,
             href: "/communities",
         },
         {
-            label: "Skupiny",
+            label: `${layout.quickNav.groups}`,
             href: "/groups",
         },
         {
-            label: "Esports",
+            label: `${layout.quickNav.esports}`,
             href: "/esports",
         },
     ];

@@ -18,17 +18,19 @@ interface Props {
 
 const Layout = (props: Props) => {
     const { children } = props;
-    const { users } = usePage<PageProps>().props;
+    const { users, layout } = usePage<PageProps>().props;
+
+    console.log("layout: ", layout);
 
     const modal = useModal();
 
     return (
-        <main className="relative min-h-screen px-4 pb-28 flex flex-col bg-bg text-text lg:flex-row">
+        <main className="relative min-h-screen px-4 pb-28 flex flex-col justify-between bg-bg text-text lg:flex-row">
             <TwitchButton />
 
             <LeftSideBar />
-            <section className="flex-1 pt-8 space-y-4 ">
-                <div className="flex items-center justify-between">
+            <section className="pt-8 max-w-3xl flex-1 space-y-4 ">
+                <div className="w-full flex items-center justify-between">
                     <SearchAnything />
                     {/* <div className="hidden lg:flex border px-4 py-2 rounded">
                         dropdown {"<"}
