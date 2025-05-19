@@ -11,8 +11,8 @@ export default function PrimaryButton({
             {...props}
             className={
                 `inline-flex items-center px-4 py-2 rounded-md font-semibold text-sm 
-                bg-black text-white border border-transparent 
-                hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 
+                bg-[#49ab93] border border-transparent 
+                hover:bg-[#328573] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 
                 disabled:opacity-50 disabled:cursor-not-allowed transition ` +
                 className
             }

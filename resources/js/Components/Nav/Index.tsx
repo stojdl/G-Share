@@ -1,29 +1,83 @@
-import { Link } from "@inertiajs/react";
+import { PageProps } from "@/types";
+import { Link, usePage } from "@inertiajs/react";
 import React from "react";
+import { IoSettingsOutline } from "react-icons/io5";
+import Dropdown from "../Dropdown";
 
 const Index: React.FC = () => {
+    const { auth, layout } = usePage<PageProps>().props;
+
     return (
         <nav className="w-full py-8 flex justify-between">
             <Link
                 href="/"
-                className="text-3xl font-bold text-red-500 hover:text-red-400 transition mb-6"
+                className="text-3xl font-bold text-[#49ab93] hover:text-[#328573] transition mb-6"
             >
                 G-Share
             </Link>
-            <div className="flex items-center space-x-4">
-                <Link
-                    href="/register"
-                    className="px-5 py-2 rounded bg-red-600 hover:bg-red-700 transition text-white font-semibold shadow"
-                >
-                    Registrovat
-                </Link>
-                <Link
-                    href="/login"
-                    className="px-5 py-2 rounded bg-gray-700 hover:bg-gray-800 transition text-white font-semibold shadow"
-                >
-                    Přihlásit
-                </Link>
-            </div>
+
+            {auth.user ? (
+                <Dropdown
+                    placeholder={<IoSettingsOutline />}
+                    hideCaret
+                    items={[
+                        {
+                            label: layout.sidebar.right.settings.language,
+                            items: [
+                                {
+                                    label: "Čeština",
+                                    type: "link",
+                                    href: route("lang.change", {
+                                        lang: "cs",
+                                    }),
+                                    method: "post",
+                                    preserveScroll: true,
+                                    id: "cs",
+                                },
+                                {
+                                    label: "English",
+                                    type: "link",
+                                    href: route("lang.change", {
+                                        lang: "en",
+                                    }),
+                                    method: "post",
+                                    preserveScroll: true,
+                                    id: "en",
+                                },
+                            ],
+                            type: "submenu",
+                            id: "lang",
+                        },
+
+                        {
+                            type: "divider",
+                            id: "divider2",
+                        },
+                        {
+                            label: layout.sidebar.right.settings.logout,
+                            href: route("logout"),
+                            method: "post",
+                            type: "link",
+                            id: "logout",
+                        },
+                    ]}
+                />
+            ) : (
+                <div className="flex items-center space-x-4">
+                    <Link
+                        href="/register"
+                        className="px-5 py-2 rounded bg-[#49ab93] hover:bg-[#328573] border border-[#49ab93] text-[#141414] hover:text-[#f0f0f0] transition font-semibold shadow"
+                    >
+                        Registrovat
+                    </Link>
+                    <Link
+                        href="/login"
+                        className="px-5 py-2 rounded border border-[#49ab93] hover:border-[#6cb8a2] hover:bg-[#328573] transition text-[#49ab93] hover:text-[#f0f0f0] font-semibold shadow"
+                    >
+                        Přihlásit
+                    </Link>
+                </div>
+            )}
         </nav>
     );
 };
