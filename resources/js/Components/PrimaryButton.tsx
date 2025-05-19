@@ -12,7 +12,7 @@ export default function PrimaryButton({
             className={
                 `inline-flex items-center px-4 py-2 rounded-md font-semibold text-sm 
                 bg-[#49ab93] border border-transparent 
-                hover:bg-[#328573] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 
+                hover:bg-[#328573] text-[#1f1f1f] hover:text-[#f0f0f0] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 
                 disabled:opacity-50 disabled:cursor-not-allowed transition ` +
                 className
             }

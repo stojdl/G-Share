@@ -3,10 +3,13 @@ import InputLabel from "@/Components/Forms/Inputs/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/Forms/Inputs/TextInput";
 import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { FormEventHandler } from "react";
+import { PageProps } from "@/types";
 
 export default function Register() {
+    const { register } = usePage<PageProps>().props;
+
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         email: "",
@@ -29,14 +32,14 @@ export default function Register() {
 
                 {/* Nadpis */}
                 <h2 className="text-3xl font-bold text-[#49ab93] mb-8 text-center">
-                    Registrace do G-Share
+                    {register.title}
                 </h2>
 
                 {/* Formulář */}
                 <form onSubmit={submit} className="space-y-6">
                     {/* Uživatelské jméno */}
                     <div>
-                        <InputLabel htmlFor="name" value="Uživatelské jméno" />
+                        <InputLabel htmlFor="name" value={register.username} />
                         <TextInput
                             id="name"
                             name="name"
@@ -52,7 +55,7 @@ export default function Register() {
 
                     {/* Email */}
                     <div>
-                        <InputLabel htmlFor="email" value="Email" />
+                        <InputLabel htmlFor="email" value={register.email} />
                         <TextInput
                             id="email"
                             type="email"
@@ -68,7 +71,10 @@ export default function Register() {
 
                     {/* Heslo */}
                     <div>
-                        <InputLabel htmlFor="password" value="Heslo" />
+                        <InputLabel
+                            htmlFor="password"
+                            value={register.password}
+                        />
                         <TextInput
                             id="password"
                             type="password"
@@ -91,7 +97,7 @@ export default function Register() {
                     <div>
                         <InputLabel
                             htmlFor="password_confirmation"
-                            value="Potvrzení hesla"
+                            value={register.passwordConfirmation}
                         />
                         <TextInput
                             id="password_confirmation"
@@ -117,11 +123,11 @@ export default function Register() {
                             href={route("login")}
                             className="text-sm text-gray-400 underline hover:text-[#49ab93] transition"
                         >
-                            Už máš účet? Přihlas se
+                            {register.registered}
                         </Link>
 
                         <PrimaryButton disabled={processing}>
-                            Registrovat
+                            {register.button}
                         </PrimaryButton>
                     </div>
                 </form>

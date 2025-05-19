@@ -1,14 +1,21 @@
     <?php
 
     return [
-        'search' => 'Search anything...',
-        'twitch' => 'Live',
+        'nav' => [
+            'button' => [
+                'register' => 'Sign up',
+                'login' => 'Log in'
+            ],
+            'enter' => 'Enter app',
+        ],
         'quickNav' => [
             'shareplace' => 'Share place',
             'communities' => 'Communities',
             'groups' => 'Groups',
             'esports' => 'Esports',
         ],
+        'search' => 'Search anything...',
+        'twitch' => 'Live',
         'sidebar' => [
             'left' => [
                 'user' => [

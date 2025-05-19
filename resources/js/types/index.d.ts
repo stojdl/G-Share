@@ -20,4 +20,7 @@ export type PageProps<
     loggedUser: User;
     layout: any;
     shareplace: any;
+    home: any;
+    login: any;
+    register: any;
 };

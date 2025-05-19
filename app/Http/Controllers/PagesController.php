@@ -148,7 +148,9 @@ class PagesController extends Controller
 
     public function home_page()
     {
-        return Inertia::render('HomePage');
+        return Inertia::render('HomePage', [
+            'home' => __('home'),
+        ]);
     }
 
     public function communities()

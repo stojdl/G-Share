@@ -4,9 +4,10 @@ import InputLabel from "@/Components/Forms/Inputs/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/Forms/Inputs/TextInput";
 import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 import TextField from "@/Components/Forms/Inputs/TextField";
+import { PageProps } from "@/types";
 
 export default function Login({
     status,
@@ -15,6 +16,8 @@ export default function Login({
     status?: string;
     canResetPassword: boolean;
 }) {
+    const { login } = usePage<PageProps>().props;
+
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
@@ -33,7 +36,7 @@ export default function Login({
             <Head title="Přihlášení" />
             <section className="w-full max-w-md">
                 <div className="text-center text-3xl font-bold text-[#49ab93] mb-8">
-                    Přihlásit se
+                    {login.title}
                 </div>
                 {status && (
                     <div className="mb-4 text-sm font-medium text-green-500 text-center">
@@ -52,7 +55,7 @@ export default function Login({
                         autoComplete="username"
                         isFocused={true}
                         onChange={(e) => setData("email", e.target.value)}
-                        label="E-mail"
+                        label={login.email}
                         error={errors.email}
                     />
 
@@ -65,7 +68,7 @@ export default function Login({
                         className="mt-1 block w-full focus:ring-[#49ab93] focus:border-[#49ab93]"
                         autoComplete="current-password"
                         onChange={(e) => setData("password", e.target.value)}
-                        label="Heslo"
+                        label={login.password}
                         error={errors.password}
                     />
                     {/* Zapamatovat */}
@@ -79,7 +82,7 @@ export default function Login({
                             className="bg-[#141414] border-gray-300  focus:ring-[#49ab93]"
                         />
                         <span className="ml-2 text-sm text-gray-300">
-                            Zapamatovat si mě
+                            {login.remember}
                         </span>
                     </label>
 
@@ -90,12 +93,12 @@ export default function Login({
                                 href={route("password.request")}
                                 className="text-sm text-gray-400 underline hover:text-[#49ab93] transition"
                             >
-                                Zapomněl jsi heslo?
+                                {login.forgotPassword}
                             </Link>
                         )}
 
                         <PrimaryButton disabled={processing}>
-                            Přihlásit se
+                            {login.button}
                         </PrimaryButton>
                     </div>
                 </form>

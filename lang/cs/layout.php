@@ -1,6 +1,13 @@
     <?php
 
     return [
+        'nav' => [
+            'button' => [
+                'register' => 'Registrovat',
+                'login' => 'Přihlásit'
+            ],
+            'enter' => 'Vstoupit do aplikace',
+        ],
         'quickNav' => [
             'shareplace' => 'Herní svět',
             'communities' => 'Komunity',
