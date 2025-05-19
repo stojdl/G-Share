@@ -42,5 +42,7 @@
     "right-sidebar.settings.theme.dark": "Tmavý",
     "right-sidebar.settings.theme.neon": "Neonový",
     "right-sidebar.settings.logout": "Odhlásit se",
-    "right-sidebar.ad": "Sponzorováno"
+    "right-sidebar.ad": "Sponzorováno",
+
+    "profile.user.status.online": "Aktivní"
 }

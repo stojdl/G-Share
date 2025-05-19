@@ -42,5 +42,7 @@
     "right-sidebar.settings.theme.dark": "Dark",
     "right-sidebar.settings.theme.neon": "Neon",
     "right-sidebar.settings.logout": "Logout",
-    "right-sidebar.ad": "Sponsors"
+    "right-sidebar.ad": "Sponsors",
+
+    "profile.user.status.online": "Active"
 }
