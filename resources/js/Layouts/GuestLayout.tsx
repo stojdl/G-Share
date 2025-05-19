@@ -1,7 +1,7 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 import { Link } from "@inertiajs/react";
 import Footer from "@/Fragments/Footers/Footer";
-import Nav from "@/Components/Nav";
+import Nav from "@/Components/Nav/Index";
 
 export default function Guest({ children }: PropsWithChildren) {
     const [hideHeader, setHideHeader] = useState(false);
