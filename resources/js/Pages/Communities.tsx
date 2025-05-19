@@ -10,7 +10,7 @@ interface Props {
 export default function Commuities({ users, posts }: Props) {
     return (
         <Layout>
-            <main className="flex-1 lg:ml-72 lg:mr-72 lg:mt-0 p-6 pt-2 pb-28 w-full max-w-screen-xl mx-auto space-y-8">
+            <main className="w-full max-w-screen-xl ">
                 <TwitchButton />
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                     <input
