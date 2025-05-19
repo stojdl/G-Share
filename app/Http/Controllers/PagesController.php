@@ -80,7 +80,7 @@ class PagesController extends Controller
         $user = User::find(auth()->user()->id);
         $user->load('profile', 'settings', 'privacy_settings',
                     'friends', 'friendships', 'friendship_requests.user',
-                    'posts', 'posts.reactions.user',
+                    'posts.user', 'posts.reactions.user',
                     'posts.comments.user', 'posts.comments.likes.user', 
                     'posts.comments.children.user', 'posts.comments.children.likes.user',
                     'posts.comments.children.children.user', 'posts.comments.children.children.likes.user',
@@ -89,6 +89,7 @@ class PagesController extends Controller
                     'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',);
 
         return Inertia::render('Profile/Show', [
+            'shareplace'=>__('shareplace'),
             'user' => $user
         ]);
     }
@@ -105,7 +106,7 @@ class PagesController extends Controller
         $logged_user->load('friendship_requests.user');
         $user->load('profile',
                     'friends', 'friendships', 'friendship_requests.user',
-                    'posts', 'posts.reactions.user',
+                    'posts.user', 'posts.reactions.user',
                     'posts.comments.user', 'posts.comments.likes.user', 
                     'posts.comments.children.user', 'posts.comments.children.likes.user',
                     'posts.comments.children.children.user', 'posts.comments.children.children.likes.user',
@@ -114,6 +115,7 @@ class PagesController extends Controller
                     'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',);
 
         return Inertia::render('User/Show', [
+            
             'user' => $user,
             'loggedUser' => $logged_user
         ]);

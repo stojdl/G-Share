@@ -18,6 +18,7 @@
     --color-bg-input-text-hover: #ffffff;
     --color-bg-tile: #fafafa;
     --color-bg-tile-hover: #f5f5f5;
+
     --color-bg-twitch: #f5f5f5;
 
     --color-border: #d9d9d9;
@@ -50,7 +51,7 @@
     --color-bg-comment-card: #1f1f1f;
     --color-bg-input-text: #141414;
     --color-bg-input-text-hover: #000000;
-    --color-bg-tile: #1f1f1f;
+    --color-bg-tile: #141414;
     --color-bg-tile-hover: #262626;
     --color-bg-twitch: #141414;
 
@@ -83,7 +84,7 @@
     --color-bg-comment-card: #1f1f1f;
     --color-bg-input-text: #141414;
     --color-bg-input-text-hover: #000000;
-    --color-bg-tile: #1f1f1f;
+    --color-bg-tile: #141414;
     --color-bg-tile-hover: #262626;
     --color-bg-twitch: #141414;
 
