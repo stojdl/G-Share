@@ -89,6 +89,7 @@ class PagesController extends Controller
                     'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',);
 
         return Inertia::render('Profile/Show', [
+            'shareplace'=>__('shareplace'),
             'user' => $user
         ]);
     }
@@ -114,6 +115,7 @@ class PagesController extends Controller
                     'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',);
 
         return Inertia::render('User/Show', [
+            
             'user' => $user,
             'loggedUser' => $logged_user
         ]);
