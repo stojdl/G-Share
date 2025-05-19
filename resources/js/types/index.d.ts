@@ -1,4 +1,6 @@
 export interface User {
+    avatar: string;
+    online: any;
     id: number;
     username: string;
     email: string;
@@ -18,4 +20,9 @@ export type PageProps<
     posts: Array;
     user: User;
     loggedUser: User;
+    layout: any;
+    shareplace: any;
+    home: any;
+    login: any;
+    register: any;
 };
