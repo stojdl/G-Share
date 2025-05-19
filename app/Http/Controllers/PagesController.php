@@ -141,6 +141,7 @@ class PagesController extends Controller
 
                                             
         return Inertia::render('SharePlace', [
+            'shareplace' => __('shareplace'),
             'posts' => $posts,
         ]);
     }

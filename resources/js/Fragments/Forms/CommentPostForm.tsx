@@ -1,6 +1,6 @@
 import TextInput from "@/Components/Forms/Inputs/TextInput";
-import { router, useForm } from "@inertiajs/react";
-import { useLaravelReactI18n } from "laravel-react-i18n";
+import { PageProps } from "@/types";
+import { router, useForm, usePage } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 const CommentPostForm = (props: Props) => {
     const { post_id, setShowComments } = props;
 
-    const { t } = useLaravelReactI18n();
+    const { shareplace } = usePage<PageProps>().props;
 
     const { data, setData, post, processing, errors, reset } = useForm({
         post_id: post_id,
@@ -36,14 +36,14 @@ const CommentPostForm = (props: Props) => {
                 name="body"
                 value={data.body}
                 onChange={(e) => setData("body", e.target.value)}
-                placeholder={t("share-place.post.comment.create.placeholder")}
+                placeholder={`${shareplace.post.comment.placeholder}`}
             />
             <button
                 type="submit"
                 disabled={processing}
                 className="text-primary font-bold border border-primary px-4 py-2 rounded"
             >
-                {t("share-place.post.comment.create")}
+                {`${shareplace.post.comment.create}`}
             </button>
         </form>
     );

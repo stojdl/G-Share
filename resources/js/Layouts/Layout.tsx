@@ -18,7 +18,9 @@ interface Props {
 
 const Layout = (props: Props) => {
     const { children } = props;
-    const { users } = usePage<PageProps>().props;
+    const { users, layout } = usePage<PageProps>().props;
+
+    console.log("layout: ", layout);
 
     const modal = useModal();
 

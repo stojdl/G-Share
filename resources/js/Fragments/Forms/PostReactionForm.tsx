@@ -10,14 +10,14 @@ import { VscReactions } from "react-icons/vsc";
 import { FaHeart, FaHeartCircleMinus } from "react-icons/fa6";
 import { AiFillLike } from "react-icons/ai";
 import { FaAngry, FaLaughSquint, FaSadCry, FaSurprise } from "react-icons/fa";
-import { useLaravelReactI18n } from "laravel-react-i18n";
+import { PageProps } from "@/types";
 
 interface Props {
     post: any;
 }
 
 const PostReactionForm: React.FC<Props> = (props) => {
-    const { t } = useLaravelReactI18n();
+    const { shareplace } = usePage<PageProps>().props;
 
     const [showReactions, setShowReactions] = useState(false);
     const { data, setData, post } = useForm({
@@ -208,13 +208,13 @@ const PostReactionForm: React.FC<Props> = (props) => {
                         className="text-primary font-bold flex items-center space-x-2"
                     >
                         <FaHeartCircleMinus />
-                        <span>{t("share-place.post.reaction.remove")}</span>
+                        <span>{shareplace.post.reaction.remove}</span>
                     </button>
                 </form>
             ) : (
                 <p className="flex items-center space-x-2 text-primary font-bold cursor-pointer">
                     <VscReactions className="text-xl" />{" "}
-                    <span>{t("share-place.post.reaction.add")}</span>
+                    <span>{shareplace.post.reaction.add}</span>
                 </p>
             )}
         </div>

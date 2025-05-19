@@ -9,6 +9,7 @@ interface DropdownItemBase {
 interface DropdownLinkItem extends DropdownItemBase {
     type: "link";
     method?: "get" | "post" | "put" | "patch" | "delete";
+    preserveScroll?: boolean;
     label: string;
     href: string;
     target?: "_blank" | "_self" | "_parent" | "_top";
@@ -107,6 +108,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                                             href={item.href}
                                             className="block pl-4 pr-8 py-2 hover:bg-bg-tile-hover "
                                             method={item.method}
+                                            preserveScroll={item.preserveScroll}
                                         >
                                             {item.label}
                                         </Link>
@@ -157,16 +159,22 @@ const Dropdown: React.FC<DropdownProps> = ({
                                                                         subItem.id
                                                                     }
                                                                 >
-                                                                    <a
+                                                                    <Link
                                                                         href={
                                                                             subItem.href
+                                                                        }
+                                                                        method={
+                                                                            subItem.method
+                                                                        }
+                                                                        preserveScroll={
+                                                                            subItem.preserveScroll
                                                                         }
                                                                         className="block pl-4 pr-8 py-2 hover:bg-bg-tile-hover "
                                                                     >
                                                                         {
                                                                             subItem.label
                                                                         }
-                                                                    </a>
+                                                                    </Link>
                                                                 </li>
                                                             );
                                                         case "button":

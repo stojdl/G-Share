@@ -1,6 +1,7 @@
 import CommentLikeForm from "@/Fragments/Forms/CommentLikeForm";
 import SubcommentPostForm from "@/Fragments/Forms/SubcommentPostForm";
-import { useLaravelReactI18n } from "laravel-react-i18n";
+import { PageProps } from "@/types";
+import { usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { FaComments, FaRegComments } from "react-icons/fa6";
 
@@ -10,9 +11,9 @@ interface Props {
 }
 
 const CommentCard = (props: Props) => {
-    const { t } = useLaravelReactI18n();
-
     const { comment, maxRecursion } = props;
+
+    const { shareplace } = usePage<PageProps>().props;
 
     const [showReplies, setShowReplies] = useState(false);
     const [iteration, setIteration] = useState(0);
@@ -46,18 +47,14 @@ const CommentCard = (props: Props) => {
                                 <>
                                     <FaComments className="text-lg" />
                                     <span>
-                                        {t(
-                                            "share-place.post.comment.reply.hide"
-                                        )}
+                                        {shareplace.post.comment.reply.hide}
                                     </span>
                                 </>
                             ) : (
                                 <>
                                     <FaRegComments className="text-lg" />
                                     <span>
-                                        {t(
-                                            "share-place.post.comment.reply.show"
-                                        )}
+                                        {shareplace.post.comment.reply.show}
                                     </span>
                                 </>
                             )}

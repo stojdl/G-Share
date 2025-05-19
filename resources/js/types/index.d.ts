@@ -18,4 +18,6 @@ export type PageProps<
     posts: Array;
     user: User;
     loggedUser: User;
+    layout: any;
+    shareplace: any;
 };
