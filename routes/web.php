@@ -21,12 +21,11 @@ Route::get('/dashboard', [PagesController::class, 'dashboard'])->middleware(['au
 
 // Skupina rout chráněných middlewarem 'auth'
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [PagesController::class, 'profile'])->name('profile.show');
+    Route::get('/{user_id}/profile', [PagesController::class, 'profile'])->name('profile.show');
     Route::get('/edit-profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/user/{user}/profile', [PagesController::class, 'user_profile'])->name('user_profile');
     Route::post('/user/{user}/add-friend', [FriendshipController::class, 'store'])->name('friendship.store');
     Route::post('/user/{user}/accept-friendship-request', [FriendshipController::class, 'accept_friendship_request'])->name('friendship.accept');
     Route::delete('/user/{user}/remove-friend', [FriendshipController::class, 'destroy'])->name('friendship.remove');

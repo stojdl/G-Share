@@ -24,10 +24,9 @@ const Index: React.FC = () => {
                             items={[
                                 {
                                     label: layout.nav.enter,
-                                    href: route("logout"),
-                                    method: "post",
+                                    href: route("share_place"),
                                     type: "link",
-                                    id: "logout",
+                                    id: "enter",
                                 },
                                 {
                                     type: "divider",
