@@ -9,6 +9,7 @@ import { FaComments, FaRegComments } from "react-icons/fa6";
 import { FaRegShareSquare } from "react-icons/fa";
 import { TbEyeExclamation } from "react-icons/tb";
 import { PageProps } from "@/types";
+import { LiaUserSecretSolid } from "react-icons/lia";
 
 interface Props {
     post: any;
@@ -33,11 +34,11 @@ const PostCard = (props: Props) => {
         <article className="p-4 bg-bg-post-card space-y-4 rounded border border-border shadow-sm shadow-shadow hover:shadow-shadow hover:shadow-md transition-all">
             <div className="space-y-2 border-b border-border pb-2">
                 <Link
-                    href={route("user_profile", { user: post.user.id })}
-                    className="w-max flex items-center space-x-2 font-bold hover:underline hover:cursor-pointer"
+                    href={route("profile.show", { user_id: post.user.id })}
+                    className="w-max flex items-center space-x-2 text-text-light font-bold hover:underline hover:cursor-pointer"
                 >
-                    <span className="block border border-text-light rounded-full w-8 h-8" />
-                    <span className="text-text-light hover:text-text transition">
+                    <LiaUserSecretSolid className="text-4xl border border-text-light rounded-full" />
+                    <span className=" hover:text-text transition">
                         {post.user.username}
                     </span>
                 </Link>

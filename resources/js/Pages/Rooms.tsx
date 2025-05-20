@@ -4,24 +4,26 @@ import Layout from "@/Layouts/Layout";
 export default function Rooms() {
     return (
         <Layout>
-            <main className="flex-1 lg:ml-72 lg:mr-72 lg:mt-0 p-6 pt-3 pb-28 w-full max-w-screen-xl mx-auto space-y-8">
+            <main className="w-full max-w-screen-xl space-y-6 px-6 py-6">
                 <TwitchButton />
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <input
                         type="text"
                         placeholder="🔍 Hledat místnosti..."
-                        className="w-full md:w-1/2 bg-gray-800 border border-gray-700 rounded px-4 py-2 text-white placeholder-gray-400 shadow"
+                        className="w-full md:w-1/2 bg-[var(--color-bg-input-text)] border border-[var(--color-border)] rounded-md px-4 py-2 text-[var(--color-text)] placeholder-[var(--color-placeholder)] shadow-md focus:outline-none focus:border-[var(--color-border-focus)]"
                     />
                 </div>
 
-                <h1 className="text-3xl font-extrabold">ROOMS</h1>
+                <h1 className="text-3xl font-extrabold text-[var(--color-text)]">
+                    ROOMS
+                </h1>
 
                 <div className="flex flex-wrap gap-3">
                     {["🎮 podle hry", "👥 podle přátel", "💬 text/hlas"].map(
                         (filter, i) => (
                             <button
                                 key={i}
-                                className="bg-gray-800 border border-gray-700 hover:bg-gray-700 px-4 py-2 rounded text-sm shadow"
+                                className="bg-[var(--color-bg-tile)] border border-[var(--color-border)] hover:bg-[var(--color-bg-tile-hover)] px-4 py-2 rounded-md text-sm text-[var(--color-text)] shadow-md transition"
                             >
                                 {filter}
                             </button>
@@ -33,7 +35,7 @@ export default function Rooms() {
                     {[...Array(15)].map((_, i) => (
                         <div
                             key={i}
-                            className="bg-gray-900 border border-gray-800 rounded-xl min-h-[150px] flex items-center justify-center text-gray-500 shadow-md hover:shadow-lg transition"
+                            className="bg-[var(--color-bg-tile)] border border-[var(--color-border)] rounded-md min-h-[150px] flex items-center justify-center text-[var(--color-text-light)] shadow-md hover:shadow-lg transition"
                         >
                             Místnost #{i + 1}
                         </div>

@@ -4,7 +4,7 @@ import Layout from "@/Layouts/Layout";
 export default function Esports() {
     return (
         <Layout>
-            <main className="flex-1 lg:ml-72 lg:mr-72 lg:mt-0 p-6 pt-3 pb-28 w-full max-w-screen-xl mx-auto space-y-8">
+            <main className="w-full max-w-screen-xl space-y-2">
                 <TwitchButton />
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                     <input
