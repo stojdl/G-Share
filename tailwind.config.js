@@ -41,6 +41,7 @@ export default {
             },
             fontFamily: {
                 sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
+                tiny5: ["Tiny5,", "sans-serif"],
             },
         },
     },
