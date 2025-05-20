@@ -5,7 +5,7 @@ import React, { FormEventHandler } from "react";
 const FriendshipForm: React.FC = () => {
     const { user, loggedUser } = usePage<PageProps>().props;
 
-    console.log("logged in user: ", loggedUser);
+    console.log("user: ", user);
 
     const {
         data,
@@ -74,17 +74,32 @@ const FriendshipForm: React.FC = () => {
         <div>
             {isFriend ? (
                 <form onSubmit={deleteFriendship}>
-                    <button type="submit">Odebrat z přátel</button>
+                    <button
+                        type="submit"
+                        className="px-5 py-2 rounded-md bg-[var(--color-bg-nav)] text-[var(--color-text)] transition hover:bg-[var(--color-bg-tile-hover)]"
+                    >
+                        Odebrat z přátel
+                    </button>
                 </form>
             ) : hasPendingRequest ? (
-                <p>Žádost o přátelství odeslána</p>
+                <p className="px-5 py-2">Žádost odeslána</p>
             ) : acceptRequest ? (
                 <form onSubmit={acceptFriendship}>
-                    <button type="submit">Přijmout žádost o přátelství</button>
+                    <button
+                        type="submit"
+                        className="px-5 py-2 rounded-md bg-[var(--color-bg-nav)] text-[var(--color-text)] transition hover:bg-[var(--color-bg-tile-hover)]"
+                    >
+                        Přijmout žádost o přátelství
+                    </button>
                 </form>
             ) : (
                 <form onSubmit={createFriendship}>
-                    <button type="submit">Odeslat žádost o přátelství</button>
+                    <button
+                        type="submit"
+                        className="px-5 py-2 rounded-md bg-[var(--color-bg-nav)] text-[var(--color-text)] transition hover:bg-[var(--color-bg-tile-hover)]"
+                    >
+                        Přidat hráče
+                    </button>
                 </form>
             )}
         </div>
