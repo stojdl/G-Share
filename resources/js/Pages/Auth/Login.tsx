@@ -1,8 +1,5 @@
 import Checkbox from "@/Components/Checkbox";
-import InputError from "@/Components/Forms/Inputs/InputError";
-import InputLabel from "@/Components/Forms/Inputs/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/Forms/Inputs/TextInput";
 import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { FormEventHandler } from "react";
@@ -34,64 +31,57 @@ export default function Login({
     return (
         <GuestLayout>
             <Head title="Přihlášení" />
-            <section className="w-full max-w-md">
-                <div className="text-center text-3xl font-bold text-[#49ab93] mb-8">
+            <section className="w-full max-w-md mx-auto bg-[var(--color-bg-tile)] border border-[var(--color-border)] rounded-xl p-6 shadow space-y-6 text-[var(--color-text)]">
+                <div className="text-center text-3xl font-bold text-[var(--color-accent)] mb-4">
                     {login.title}
                 </div>
                 {status && (
-                    <div className="mb-4 text-sm font-medium text-green-500 text-center">
+                    <div className="mb-4 text-sm font-medium text-center">
                         {status}
                     </div>
                 )}
                 <form onSubmit={submit} className="space-y-6">
-                    {/* Email */}
-
                     <TextField
                         id="email"
                         type="email"
                         name="email"
                         value={data.email}
-                        className="mt-2 focus:ring-[#49ab93] focus:border-[#49ab93]"
+                        className="bg-[var(--color-bg-input-text)] border border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-placeholder)] focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
                         autoComplete="username"
                         isFocused={true}
                         onChange={(e) => setData("email", e.target.value)}
                         label={login.email}
                         error={errors.email}
                     />
-
-                    {/* Heslo */}
                     <TextField
                         id="password"
                         type="password"
                         name="password"
                         value={data.password}
-                        className="mt-1 block w-full focus:ring-[#49ab93] focus:border-[#49ab93]"
+                        className="bg-[var(--color-bg-input-text)] border border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-placeholder)] focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
                         autoComplete="current-password"
                         onChange={(e) => setData("password", e.target.value)}
                         label={login.password}
                         error={errors.password}
                     />
-                    {/* Zapamatovat */}
-                    <label className="w-max flex items-center">
+                    <label className="w-max flex items-center text-sm">
                         <Checkbox
                             name="remember"
                             checked={data.remember}
                             onChange={(e) =>
                                 setData("remember", e.target.checked)
                             }
-                            className="bg-[#141414] border-gray-300  focus:ring-[#49ab93]"
+                            className="bg-[var(--color-bg-input-text)] border-[var(--color-border)] focus:ring-[var(--color-accent)]"
                         />
-                        <span className="ml-2 text-sm text-gray-300">
+                        <span className="ml-2 text-[var(--color-text)]">
                             {login.remember}
                         </span>
                     </label>
-
-                    {/* Odkaz + tlačítko */}
                     <div className="flex items-center justify-between mt-4">
                         {canResetPassword && (
                             <Link
                                 href={route("password.request")}
-                                className="text-sm text-gray-400 underline hover:text-[#49ab93] transition"
+                                className="text-sm underline text-[var(--color-placeholder)] hover:text-[var(--color-accent)] transition"
                             >
                                 {login.forgotPassword}
                             </Link>
