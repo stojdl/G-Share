@@ -5,7 +5,7 @@ export default function CreateTeam() {
     return (
         <Layout>
             <main className="w-full rounded h-full space-y-2">
-                <div className="flex flex-col md:flex-row justify-between bg-[var(--color-bg-tile)] items-center gap-4 p-4 rounded shadow">
+                <div className="flex flex-col md:flex-row justify-between bg-[var(--color-bg-tile)] border border-[var(--color-border)] items-center gap-4 p-4 rounded shadow">
                     <div className="flex gap-2 w-full md:w-auto">
                         <button className="bg-[var(--color-button)] text-[var(--color-button-text)] hover:bg-[var(--color-button-hover)] px-4 py-2 rounded font-semibold text-sm transition">
                             Vytvořit tým
