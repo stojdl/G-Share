@@ -31,7 +31,7 @@ export default function Login({
     return (
         <GuestLayout>
             <Head title="Přihlášení" />
-            <section className="w-full max-w-md mx-auto bg-[var(--color-bg-tile)] border border-[var(--color-border)] rounded-xl p-6 shadow space-y-6 text-[var(--color-text)]">
+            <section className="w-full max-w-md mx-auto   rounded-xl p-6 shadow space-y-6 text-[var(--color-text)]">
                 <div className="text-center text-3xl font-bold text-[var(--color-accent)] mb-4">
                     {login.title}
                 </div>
