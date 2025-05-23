@@ -75,10 +75,18 @@ const RightSideBar = () => {
                                     },
                                     {
                                         label: layout.sidebar.right.settings
-                                            .themes.dark,
+                                            .themes.dark.default,
                                         onClick: () => switchTheme("dark"),
                                         type: "button",
                                         id: "darkmode",
+                                    },
+                                    {
+                                        label: layout.sidebar.right.settings
+                                            .themes.dark.purple,
+                                        onClick: () =>
+                                            switchTheme("dark-purple"),
+                                        type: "button",
+                                        id: "darkpurplemode",
                                     },
                                     {
                                         label: layout.sidebar.right.settings

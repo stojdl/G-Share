@@ -49,7 +49,10 @@
                     'themes' => [
                         'theme' => 'Theme',
                         'light' => 'Light',
-                        'dark' => 'Dark',
+                        'dark' => [
+                            'default' => 'Tmavý',
+                            'purple' => 'Tmavý-Fialový'
+                        ],
                         'neon' => 'Neon',
                     ],
                     'logout' => 'Logout',

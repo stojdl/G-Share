@@ -49,7 +49,10 @@
                     'themes' => [
                         'theme' => 'Motiv',
                         'light' => 'Světlý',
-                        'dark' => 'Tmavý',
+                        'dark' => [
+                            'default' => 'Tmavý',
+                            'purple' => 'Tmavý-Fialový'
+                        ],
                         'neon' => 'Neonový',
                     ],
                     'logout' => 'Odhlásit se',
