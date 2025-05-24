@@ -106,16 +106,16 @@ const PostReactions: React.FC<Props> = (props) => {
                         </button>
                         {expandedReactionIndex === k && (
                             <div
-                                className="absolute left-0 mt-2 p-2 bg-gray-700 border border-gray-600 rounded shadow-md z-10"
+                                className="absolute left-0 mt-2 p-2 bg-bg-tile border border-border rounded shadow-md z-10"
                                 ref={reactionUsersRef}
                             >
                                 {data.users.map((user: any) => (
                                     <Link
                                         key={user.id}
-                                        href={route("user_profile", {
-                                            user: user.id,
+                                        href={route("profile.show", {
+                                            user_id: user.id,
                                         })}
-                                        className="block text-gray-500 hover:underline"
+                                        className="block text-text-light hover:underline"
                                     >
                                         {user.username.replace(/ /g, "\u00A0")}
                                     </Link>
