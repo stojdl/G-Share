@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/share-place', [PagesController::class, 'share_place'])->name('share_place');
 
+    Route::get('/settings', [PagesController::class, 'settings'])->name('settings');
+
     Route::group(['prefix' => 'post'], function () {
         Route::post('/store', [PostController::class, 'store'])->name('post.store');
         Route::post('/react', [PostReactionController::class, 'store'])->name('post.reaction.store');

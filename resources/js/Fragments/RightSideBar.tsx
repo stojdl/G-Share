@@ -32,6 +32,13 @@ const RightSideBar = () => {
                                 id: "profile",
                             },
                             {
+                                label: layout.sidebar.right.settings
+                                    .user_settings,
+                                href: route("settings"),
+                                type: "link",
+                                id: "settings",
+                            },
+                            {
                                 type: "divider",
                                 id: "divider1",
                             },

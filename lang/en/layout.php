@@ -55,6 +55,7 @@
                         ],
                         'neon' => 'Neon',
                     ],
+                    'user_settings' => "Settings",
                     'logout' => 'Logout',
                 ],
                 'ad' => 'Sponsors',

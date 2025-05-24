@@ -55,6 +55,7 @@
                         ],
                         'neon' => 'Neonový',
                     ],
+                    'user_settings' => "Nastavení",
                     'logout' => 'Odhlásit se',
                 ],
                 'ad' => 'Sponzorováno',
