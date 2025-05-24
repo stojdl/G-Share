@@ -11,7 +11,7 @@ const Index: React.FC = () => {
         <nav className="w-full py-8 flex justify-between">
             <Link
                 href="/"
-                className="text-3xl font-bold text-[#49ab93] hover:text-[#328573] transition mb-6"
+                className="text-3xl font-bold font-tiny5 text-[#49ab93] hover:text-[#328573] transition mb-6"
             >
                 G-Share
             </Link>
