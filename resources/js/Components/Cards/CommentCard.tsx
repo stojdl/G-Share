@@ -2,6 +2,7 @@ import CommentLikeForm from "@/Fragments/Forms/CommentLikeForm";
 import SubcommentPostForm from "@/Fragments/Forms/SubcommentPostForm";
 import { PageProps } from "@/types";
 import { usePage } from "@inertiajs/react";
+import moment from "moment/min/moment-with-locales";
 import { useState } from "react";
 import { FaComments, FaRegComments } from "react-icons/fa6";
 
@@ -13,7 +14,8 @@ interface Props {
 const CommentCard = (props: Props) => {
     const { comment, maxRecursion } = props;
 
-    const { shareplace } = usePage<PageProps>().props;
+    const { shareplace, locale } = usePage<PageProps>().props;
+    console.log(locale);
 
     const [showReplies, setShowReplies] = useState(false);
     const [iteration, setIteration] = useState(0);
@@ -27,6 +29,11 @@ const CommentCard = (props: Props) => {
             <p className="">{comment.body}</p>
             <div className="flex items-center justify-between">
                 <p className="mt-1 flex items-center space-x-1 text-text-light">
+                    <span className="text-text-light text-sm">
+                        {moment(comment.created_at)
+                            .locale(locale)
+                            .fromNow(true)}
+                    </span>
                     <CommentLikeForm comment={comment} />
                     {comment.likes?.length > 0 && (
                         <span className="-mt-1.5">

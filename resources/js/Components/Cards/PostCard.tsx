@@ -10,6 +10,7 @@ import { FaRegShareSquare } from "react-icons/fa";
 import { TbEyeExclamation } from "react-icons/tb";
 import { PageProps } from "@/types";
 import { LiaUserSecretSolid } from "react-icons/lia";
+import moment from "moment/min/moment-with-locales";
 
 interface Props {
     post: any;
@@ -18,7 +19,7 @@ interface Props {
 const PostCard = (props: Props) => {
     const { post } = props;
 
-    const { shareplace } = usePage<PageProps>().props;
+    const { shareplace, locale } = usePage<PageProps>().props;
 
     const [showComments, setShowComments] = useState(false);
 
@@ -33,15 +34,27 @@ const PostCard = (props: Props) => {
     return (
         <article className="p-4 bg-bg-post-card space-y-4 rounded border border-border shadow-sm shadow-shadow hover:shadow-shadow hover:shadow-md transition-all">
             <div className="space-y-2 border-b border-border pb-2">
-                <Link
-                    href={route("profile.show", { user_id: post.user.id })}
-                    className="w-max flex items-center space-x-2 text-text-light font-bold hover:underline hover:cursor-pointer"
-                >
-                    <LiaUserSecretSolid className="text-4xl border border-text-light rounded-full" />
-                    <span className=" hover:text-text transition">
-                        {post.user.username}
-                    </span>
-                </Link>
+                <div className="flex items-center space-x-2 ">
+                    <Link
+                        href={route("profile.show", { user_id: post.user.id })}
+                        className="w-max text-text-light font-bold hover:underline hover:cursor-pointer"
+                    >
+                        <LiaUserSecretSolid className="text-4xl border border-text-light rounded-full" />
+                    </Link>
+                    <div className="flex flex-col">
+                        <Link
+                            href={route("profile.show", {
+                                user_id: post.user.id,
+                            })}
+                            className="w-max text-text-light font-bold hover:underline hover:cursor-pointer hover:text-text"
+                        >
+                            {post.user.username}
+                        </Link>
+                        <span className="text-text-light text-sm">
+                            {moment(post.created_at).locale(locale).fromNow()}
+                        </span>
+                    </div>
+                </div>
                 <H3>{post.title}</H3>
                 <p className="">{post.body}</p>
                 <div className="flex items-center justify-between">
