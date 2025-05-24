@@ -75,7 +75,39 @@
 
     --color-bg-add: #1f1f1f;
 }
+/* Dark theme */
+/* primary: rgb(73,171,147) */
+[data-theme="dark-purple"] {
+    --color-bg: #1f1f1f;
+    --color-bg-aside: #141414;
+    --color-bg-nav: #262626;
+    --color-bg-post-card: #141414;
+    --color-bg-post-reaction: #1f1f1f;
+    --color-bg-comment-card: #1f1f1f;
+    --color-bg-input-text: #141414;
+    --color-bg-input-text-hover: #000000;
+    --color-bg-tile: #141414;
+    --color-bg-tile-hover: #262626;
+    --color-bg-twitch: #141414;
 
+    --color-border: #3b2d58;
+    --color-border-focus: #8f60ff;
+    --color-shadow: #442b7a;
+
+    --color-text: #e2d9f3;
+    --color-text-light: #a693cc;
+    --color-placeholder: #a693cc;
+
+    --color-primary: #8f60ff;
+    --color-primary-hover: #a280ff;
+
+    --color-secondary: #3a2e54;
+    --color-secondary-hover: #5a3f8c;
+
+    --font-sans: ui-sans-serif, system-ui, sans-serif;
+
+    --color-bg-add: #1a1528;
+}
 /* Neon theme */
 [data-theme="neon"] {
     --color-bg: #1f1f1f;
