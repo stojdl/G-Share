@@ -32,6 +32,13 @@ const RightSideBar = () => {
                                 id: "profile",
                             },
                             {
+                                label: layout.sidebar.right.settings
+                                    .user_settings,
+                                href: route("settings"),
+                                type: "link",
+                                id: "settings",
+                            },
+                            {
                                 type: "divider",
                                 id: "divider1",
                             },
@@ -75,10 +82,18 @@ const RightSideBar = () => {
                                     },
                                     {
                                         label: layout.sidebar.right.settings
-                                            .themes.dark,
+                                            .themes.dark.default,
                                         onClick: () => switchTheme("dark"),
                                         type: "button",
                                         id: "darkmode",
+                                    },
+                                    {
+                                        label: layout.sidebar.right.settings
+                                            .themes.dark.purple,
+                                        onClick: () =>
+                                            switchTheme("dark-purple"),
+                                        type: "button",
+                                        id: "darkpurplemode",
                                     },
                                     {
                                         label: layout.sidebar.right.settings

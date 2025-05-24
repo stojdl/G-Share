@@ -25,6 +25,8 @@ export default function Authenticated({
                     </Link>
 
                     <div className="hidden sm:flex gap-6 items-center">
+                        <NavLink href={route("share_place")}>Aplikace</NavLink>
+
                         <NavLink
                             href={route("dashboard")}
                             active={route().current("dashboard")}
@@ -32,7 +34,9 @@ export default function Authenticated({
                             Dashboard
                         </NavLink>
 
-                        <NavLink href={route("profile.edit")}>Profil</NavLink>
+                        <NavLink href={route("profile.edit")}>
+                            Edit Profil
+                        </NavLink>
 
                         <form method="POST" action={route("logout")}>
                             <button

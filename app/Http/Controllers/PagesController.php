@@ -28,6 +28,12 @@ class PagesController extends Controller
         return Inertia::render('Dashboard');
     }
 
+    public function settings()
+    {
+        return Inertia::render('User/Settings');
+
+    }
+
     public function dev()
     {
         //$users = \App\Models\User::all()->load('posts', 'profile', 'settings', 'privacy_settings', 'posts.comments', 'posts.likes', 'posts.reactions');
