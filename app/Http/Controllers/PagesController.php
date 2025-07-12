@@ -154,13 +154,27 @@ class PagesController extends Controller
         return Inertia::render('Esports');
     }
 
+    public function team($slug)
+    {
+        $team = \App\Models\Team::where('slug', $slug)->first()->load('creator', 'owner', 'members.user');
+        return Inertia::render('Team/index', [
+            'team' => $team
+        ]);
+    }
+
     public function create_team()
     {
-        return Inertia::render('CreateTeam');
+        $teams = \App\Models\Team::where('creator_user_id', auth()->id())->get();
+        return Inertia::render('CreateTeam', [
+            'teams' => $teams
+        ]);
     }
     public function find_team()
     {
-        return Inertia::render('FindTeam');
+        $teams = \App\Models\Team::all();
+        return Inertia::render('FindTeam', [
+            'teams' => $teams
+        ]);
     }
 
     public function rooms()

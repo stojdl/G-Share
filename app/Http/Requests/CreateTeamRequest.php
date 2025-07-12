@@ -22,12 +22,13 @@ class CreateTeamRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'game' => 'required|string|max:50',
             'name' => 'required|string|max:255',
             'slug' => 'required|string|unique:teams,slug|max:255',
             'avatar' => 'nullable|image|max:2048',
             'size' => 'required|string|max:50',
             'description' => 'nullable|string|max:500',
-            'language' => 'required|string|max:50',
+            'lang' => 'required|string|max:50',
             'region' => 'required|string|max:50',
             'membership_type' => 'required|in:open,request,invite',
         ];

@@ -20,7 +20,7 @@ class TeamController extends Controller
             'avatar' => $request->avatar,
             'size' => $request->size,
             'description' => $request->description,
-            'language' => $request->language,
+            'language' => $request->lang,
             'region' => $request->region,
             'membership_type' => $request->membership_type,
             'creator_user_id' => auth()->id(),
