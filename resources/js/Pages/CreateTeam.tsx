@@ -1,3 +1,4 @@
+import H2 from "@/Components/Headings/H2";
 import LoLForm from "@/Fragments/Forms/CreateTeam/LoLForm";
 import Layout from "@/Layouts/Layout";
 import { PageProps } from "@/types";
@@ -33,6 +34,7 @@ export default function CreateTeam() {
                         Najít tým
                     </Link>
                 </div>
+                <H2>Create Team</H2>
                 <div className="flex flex-col md:flex-row justify-center bg-bg-tile border border-border items-center gap-4 p-4 rounded shadow">
                     <select
                         className="bg-bg-input-text text-text border border-border px-4 py-2 pr-10 w-full md:w-auto rounded shadow"

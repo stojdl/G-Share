@@ -257,4 +257,24 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, 'user_blocks', 'blocked_id', 'blocker_id');
     }
+
+    public function teams(): HasMany
+    {
+        return $this->hasMany(Team::class, 'creator_user_id');
+    }
+
+    public function owned_teams(): HasMany
+    {
+        return $this->hasMany(Team::class, 'owner_user_id');
+    }
+
+    public function team_memberships(): HasMany
+    {
+        return $this->hasMany(TeamMember::class);
+    }
+
+    public function team_join_requests(): HasMany
+    {
+        return $this->hasMany(TeamJoinRequest::class);
+    }
 }
