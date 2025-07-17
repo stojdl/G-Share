@@ -26,4 +26,6 @@ export type PageProps<
     home: any;
     login: any;
     register: any;
+    teams: Array;
+    team: any;
 };
