@@ -97,7 +97,8 @@ class PagesController extends Controller
                     'posts.comments.children.children.user', 'posts.comments.children.children.likes.user',
                     'posts.comments.children.children.children.user', 'posts.comments.children.children.children.likes.user',
                     'posts.comments.children.children.children.children.user', 'posts.comments.children.children.children.children.likes.user',
-                    'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',);
+                    'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',
+                    'teams', 'teams.members.user');
 
         return Inertia::render('Profile/Show', [
             'shareplace'=>__('shareplace'),
