@@ -219,7 +219,8 @@ export default function CreateTeam() {
                                     {team.members.length > 3 && (
                                         <Link
                                             href={route("profile.show", {
-                                                user_id: team.members[1].id,
+                                                user_id:
+                                                    team.members[3].user.id,
                                             })}
                                         >
                                             <LiaUserSecretSolid className="w-full h-full text-text-light" />
@@ -230,7 +231,8 @@ export default function CreateTeam() {
                                     {team.members.length > 3 ? (
                                         <Link
                                             href={route("profile.show", {
-                                                user_id: team.members[3].id,
+                                                user_id:
+                                                    team.members[3].user.id,
                                             })}
                                         >
                                             <p className="pt-1 flex items-center gap-2">
@@ -263,7 +265,8 @@ export default function CreateTeam() {
                                     {team.members.length > 4 && (
                                         <Link
                                             href={route("profile.show", {
-                                                user_id: team.members[4].id,
+                                                user_id:
+                                                    team.members[4].user.id,
                                             })}
                                         >
                                             <LiaUserSecretSolid className="w-full h-full text-text-light" />
@@ -274,7 +277,8 @@ export default function CreateTeam() {
                                     {team.members.length > 4 ? (
                                         <Link
                                             href={route("profile.show", {
-                                                user_id: team.members[4].id,
+                                                user_id:
+                                                    team.members[4].user.id,
                                             })}
                                         >
                                             <p className="pt-1 flex items-center gap-2">
@@ -304,7 +308,8 @@ export default function CreateTeam() {
                                     {team.members.length > 1 && (
                                         <Link
                                             href={route("profile.show", {
-                                                user_id: team.members[1].id,
+                                                user_id:
+                                                    team.members[1].user.id,
                                             })}
                                         >
                                             <LiaUserSecretSolid className="w-full h-full text-text-light" />
@@ -315,7 +320,8 @@ export default function CreateTeam() {
                                     {team.members.length > 1 ? (
                                         <Link
                                             href={route("profile.show", {
-                                                user_id: team.members[1].id,
+                                                user_id:
+                                                    team.members[1].user.id,
                                             })}
                                         >
                                             <p className="pt-1 flex items-center gap-2">
@@ -345,7 +351,8 @@ export default function CreateTeam() {
                                     {team.members.length > 0 && (
                                         <Link
                                             href={route("profile.show", {
-                                                user_id: team.members[0].id,
+                                                user_id:
+                                                    team.members[0].user.id,
                                             })}
                                         >
                                             <LiaUserSecretSolid className="w-full h-full text-text-light" />
@@ -356,7 +363,8 @@ export default function CreateTeam() {
                                     {team.members.length > 0 && (
                                         <Link
                                             href={route("profile.show", {
-                                                user_id: team.members[0].id,
+                                                user_id:
+                                                    team.members[0].user.id,
                                             })}
                                         >
                                             <p className="pt-1 flex items-center gap-2">
@@ -382,7 +390,8 @@ export default function CreateTeam() {
                                     {team.members.length > 2 && (
                                         <Link
                                             href={route("profile.show", {
-                                                user_id: team.members[2].id,
+                                                user_id:
+                                                    team.members[2].user.id,
                                             })}
                                         >
                                             <LiaUserSecretSolid className="w-full h-full text-text-light" />
@@ -393,7 +402,8 @@ export default function CreateTeam() {
                                     {team.members.length > 2 ? (
                                         <Link
                                             href={route("profile.show", {
-                                                user_id: team.members[2].id,
+                                                user_id:
+                                                    team.members[2].user.id,
                                             })}
                                         >
                                             <p className="pt-1 flex items-center gap-2">
