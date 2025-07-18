@@ -28,4 +28,5 @@ export type PageProps<
     register: any;
     teams: Array;
     team: any;
+    games: Array;
 };

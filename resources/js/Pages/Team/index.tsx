@@ -8,6 +8,12 @@ import Layout from "@/Layouts/Layout";
 import { PageProps } from "@/types";
 import { usePage, Link } from "@inertiajs/react";
 import moment from "moment";
+import { BiWorld } from "react-icons/bi";
+import { FaCrown } from "react-icons/fa";
+import { GiSwordsEmblem } from "react-icons/gi";
+import { IoLanguage } from "react-icons/io5";
+import { LiaUserSecretSolid } from "react-icons/lia";
+import { RiTeamFill } from "react-icons/ri";
 
 export default function CreateTeam() {
     const { auth, team, locale } = usePage<PageProps>().props;
@@ -44,111 +50,115 @@ export default function CreateTeam() {
                 >
                     ← Zpět
                 </button>
-                <div className="w-full flex flex-col md:flex-row justify-center bg-bg-tile border border-border items-center gap-4 p-4 rounded shadow">
-                    <div className="w-full bg-[var(--color-bg-tile)] border border-[var(--color-border)] rounded p-4">
-                        <h3 className="font-bold text-lg text-[var(--color-text)] mb-2">
+                <div className="w-full flex flex-col md:flex-row bg-bg-tile border border-border gap-4 p-4 rounded shadow">
+                    <div>
+                        <GiSwordsEmblem className="p-3 text-9xl text-text-light border border-text-light rounded-full cursor-not-allowed" />
+                    </div>
+                    <div className="w-full bg-[var(--color-bg-tile)] border border-[var(--color-border)] rounded px-4 py-2">
+                        <h3 className="font-bold text-lg text-[var(--color-text)]">
                             {team.name}
                         </h3>
                         <div className="text-[var(--color-placeholder)] mb-1">
-                            popisek: {team.description}
-                        </div>
-                        <div className="text-[var(--color-text)]">
-                            {team.region && <span>Region: {team.region}</span>}
-                        </div>
-                        <div className="text-[var(--color-text)]">
-                            {team.language && (
-                                <span>Lang: {team.language}</span>
-                            )}
-                        </div>
-                        <div className="text-[var(--color-text)]">
-                            {team.size && (
-                                <span>velikost týmu: {team.size}</span>
-                            )}
-                        </div>
-                        <div className="text-[var(--color-text)]">
-                            {team.created_at && (
-                                <span>
-                                    založeno:{" "}
-                                    {moment(team.created_at)
-                                        .locale(locale)
-                                        .toLocaleString()}{" "}
-                                </span>
-                            )}
+                            {team.description}
                         </div>
                         <div className="text-[var(--color-text)]">
                             {team.creator && (
-                                <Link
-                                    href={route("profile.show", {
-                                        user_id: team.creator.id,
-                                    })}
-                                >
-                                    <span>
-                                        založil: {team.creator.username}
-                                    </span>
-                                </Link>
+                                <p className="flex items-center gap-1">
+                                    <LiaUserSecretSolid className="w-6 h-6" />
+                                    <Link
+                                        href={route("profile.show", {
+                                            user_id: team.creator.id,
+                                        })}
+                                    >
+                                        <span className="text-lg">
+                                            {team.creator.username}
+                                        </span>
+                                        ,
+                                    </Link>
+
+                                    {team.created_at && (
+                                        <span>
+                                            {moment(team.created_at)
+                                                .locale(locale)
+                                                .fromNow()
+                                                .toLocaleString()}{" "}
+                                        </span>
+                                    )}
+                                </p>
                             )}
                         </div>
-                        <div className="text-[var(--color-text)]">
-                            {team.owner && (
-                                <Link
-                                    href={route("profile.show", {
-                                        user_id: team.owner.id,
-                                    })}
-                                >
-                                    <span>vlastník: {team.owner.username}</span>
-                                </Link>
-                            )}
-                        </div>
-                        <div className="text-[var(--color-text)]">
-                            {team.members && (
-                                <div>
-                                    členové tymu:
-                                    {team.members.map((member: any) => (
-                                        <Link
-                                            href={route("profile.show", {
-                                                user_id: member.id,
-                                            })}
-                                        >
-                                            <span> {member.user.username}</span>
-                                        </Link>
-                                    ))}
+
+                        <div className="mt-2 pt-1 border-t flex justify-between items-center">
+                            <div className="flex items-center gap-4">
+                                <div className="text-[var(--color-text)]">
+                                    {team.region && (
+                                        <p className="flex items-center gap-1">
+                                            <BiWorld />
+                                            <span className="uppercase">
+                                                {team.region}
+                                            </span>
+                                        </p>
+                                    )}
                                 </div>
-                            )}
-                        </div>
-                        <div className="mt-4 pt-2 border-t text-right">
-                            {auth.user.id === team.owner.id && <DeleteForm />}
-
-                            {team.members.find(
-                                (member: any) =>
-                                    member.user.id === auth.user.id &&
-                                    team.owner.id !== auth.user.id
-                            ) && <LeaveForm />}
-
-                            {!team.members.find(
-                                (member: any) => member.user.id === auth.user.id
-                            ) && (
-                                <>
-                                    {team.membership_type === "open" && (
-                                        <JoinForm />
+                                <div className="text-[var(--color-text)]">
+                                    {team.language && (
+                                        <p className="flex items-center gap-1">
+                                            <IoLanguage />
+                                            <span className="uppercase">
+                                                {team.language}
+                                            </span>
+                                        </p>
                                     )}
-                                    {team.membership_type === "request" &&
-                                        (!team.join_requests?.find(
-                                            (join_request: any) =>
-                                                join_request.user.id ===
-                                                auth.user.id
-                                        ) ? (
-                                            <RequestForm />
-                                        ) : (
-                                            <div>request sent</div>
-                                        ))}
-                                    {team.membership_type === "invite" && (
-                                        <div>
-                                            Do tohoto týmu musíš pozvánku
-                                            dostat.
-                                        </div>
+                                </div>
+                                <div className="text-[var(--color-text)]">
+                                    {team.size && (
+                                        <p className="flex items-center gap-1">
+                                            <RiTeamFill />
+                                            <span className="uppercase">
+                                                {team.size}
+                                            </span>
+                                        </p>
                                     )}
-                                </>
-                            )}
+                                </div>
+                            </div>
+                            <div className=" text-right">
+                                {auth.user.id === team.owner.id && (
+                                    <DeleteForm />
+                                )}
+
+                                {team.members.find(
+                                    (member: any) =>
+                                        member.user.id === auth.user.id &&
+                                        team.owner.id !== auth.user.id
+                                ) && <LeaveForm />}
+
+                                {!team.members.find(
+                                    (member: any) =>
+                                        member.user.id === auth.user.id
+                                ) && (
+                                    <>
+                                        {team.membership_type === "open" && (
+                                            <JoinForm />
+                                        )}
+                                        {team.membership_type === "request" &&
+                                            (!team.join_requests?.find(
+                                                (join_request: any) =>
+                                                    join_request.user.id ===
+                                                    auth.user.id
+                                            ) ? (
+                                                <RequestForm />
+                                            ) : (
+                                                <div>request sent</div>
+                                            ))}
+                                        {team.membership_type === "invite" && (
+                                            <div>
+                                                Do tohoto týmu musíš pozvánku
+                                                dostat.
+                                            </div>
+                                        )}
+                                    </>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -200,6 +210,215 @@ export default function CreateTeam() {
                             )}
                     </div>
                 )}
+
+                <div className="mt-4 bg-bg-tile p-4 flex flex-col gap-4">
+                    <div className="grid grid-cols-3">
+                        <div className="w-full grid place-items-center ">
+                            <div className="flex flex-col items-center">
+                                <div className="p-2 border rounded-full w-24 h-24">
+                                    {team.members.length > 3 && (
+                                        <Link
+                                            href={route("profile.show", {
+                                                user_id: team.members[1].id,
+                                            })}
+                                        >
+                                            <LiaUserSecretSolid className="w-full h-full text-text-light" />
+                                        </Link>
+                                    )}
+                                </div>
+                                <div>
+                                    {team.members.length > 3 ? (
+                                        <Link
+                                            href={route("profile.show", {
+                                                user_id: team.members[3].id,
+                                            })}
+                                        >
+                                            <p className="pt-1 flex items-center gap-2">
+                                                {team.members[3].user.id ===
+                                                    team.owner.id && (
+                                                    <FaCrown />
+                                                )}
+                                                <span>
+                                                    {
+                                                        team.members[3].user
+                                                            .username
+                                                    }
+                                                </span>
+                                            </p>
+                                        </Link>
+                                    ) : (
+                                        <p className="pt-1 text-text-light cursor-not-allowed">
+                                            Pozvat hráče
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full grid place-items-center ">
+                            <GiSwordsEmblem className="p-3 text-[172px] text-text-light border border-text rounded-full cursor-not-allowed" />{" "}
+                        </div>
+                        <div className="w-full grid place-items-center">
+                            <div className="flex flex-col items-center">
+                                <div className="p-2 border rounded-full w-24 h-24">
+                                    {team.members.length > 4 && (
+                                        <Link
+                                            href={route("profile.show", {
+                                                user_id: team.members[4].id,
+                                            })}
+                                        >
+                                            <LiaUserSecretSolid className="w-full h-full text-text-light" />
+                                        </Link>
+                                    )}
+                                </div>
+                                <div>
+                                    {team.members.length > 4 ? (
+                                        <Link
+                                            href={route("profile.show", {
+                                                user_id: team.members[4].id,
+                                            })}
+                                        >
+                                            <p className="pt-1 flex items-center gap-2">
+                                                {team.members[4].user.id ===
+                                                    team.owner.id && (
+                                                    <FaCrown />
+                                                )}
+                                                <span>
+                                                    {
+                                                        team.members[4].user
+                                                            .username
+                                                    }
+                                                </span>
+                                            </p>
+                                        </Link>
+                                    ) : (
+                                        <p className="pt-1 text-text-light cursor-not-allowed">
+                                            Pozvat hráče
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full px-6 pt-8 pb-16 grid place-items-end">
+                            <div className="flex flex-col items-center">
+                                <div className="p-2 border rounded-full w-24 h-24">
+                                    {team.members.length > 1 && (
+                                        <Link
+                                            href={route("profile.show", {
+                                                user_id: team.members[1].id,
+                                            })}
+                                        >
+                                            <LiaUserSecretSolid className="w-full h-full text-text-light" />
+                                        </Link>
+                                    )}
+                                </div>
+                                <div>
+                                    {team.members.length > 1 ? (
+                                        <Link
+                                            href={route("profile.show", {
+                                                user_id: team.members[1].id,
+                                            })}
+                                        >
+                                            <p className="pt-1 flex items-center gap-2">
+                                                {team.members[1].user.id ===
+                                                    team.owner.id && (
+                                                    <FaCrown />
+                                                )}
+                                                <span>
+                                                    {
+                                                        team.members[1].user
+                                                            .username
+                                                    }
+                                                </span>
+                                            </p>
+                                        </Link>
+                                    ) : (
+                                        <p className="pt-1 text-text-light cursor-not-allowed">
+                                            Pozvat hráče
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full grid justify-center items-end ">
+                            <div className="flex flex-col items-center">
+                                <div className="p-2 border rounded-full w-24 h-24">
+                                    {team.members.length > 0 && (
+                                        <Link
+                                            href={route("profile.show", {
+                                                user_id: team.members[0].id,
+                                            })}
+                                        >
+                                            <LiaUserSecretSolid className="w-full h-full text-text-light" />
+                                        </Link>
+                                    )}
+                                </div>
+                                <div>
+                                    {team.members.length > 0 && (
+                                        <Link
+                                            href={route("profile.show", {
+                                                user_id: team.members[0].id,
+                                            })}
+                                        >
+                                            <p className="pt-1 flex items-center gap-2">
+                                                {team.members[0].user.id ===
+                                                    team.owner.id && (
+                                                    <FaCrown />
+                                                )}
+                                                <span>
+                                                    {
+                                                        team.members[0].user
+                                                            .username
+                                                    }
+                                                </span>
+                                            </p>
+                                        </Link>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full px-6 pt-8 pb-16 grid place-items-start ">
+                            <div className="flex flex-col items-center">
+                                <div className="p-2 border rounded-full w-24 h-24">
+                                    {team.members.length > 2 && (
+                                        <Link
+                                            href={route("profile.show", {
+                                                user_id: team.members[2].id,
+                                            })}
+                                        >
+                                            <LiaUserSecretSolid className="w-full h-full text-text-light" />
+                                        </Link>
+                                    )}
+                                </div>
+                                <div>
+                                    {team.members.length > 2 ? (
+                                        <Link
+                                            href={route("profile.show", {
+                                                user_id: team.members[2].id,
+                                            })}
+                                        >
+                                            <p className="pt-1 flex items-center gap-2">
+                                                {team.members[2].user.id ===
+                                                    team.owner.id && (
+                                                    <FaCrown />
+                                                )}
+                                                <span>
+                                                    {
+                                                        team.members[2].user
+                                                            .username
+                                                    }
+                                                </span>
+                                            </p>
+                                        </Link>
+                                    ) : (
+                                        <p className="pt-1 text-text-light cursor-not-allowed">
+                                            Pozvat hráče
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </Layout>
     );

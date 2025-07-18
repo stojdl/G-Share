@@ -8,7 +8,7 @@ export default function LoLForm() {
         name: "",
         slug: "",
         description: "",
-        size: "",
+        size: "5",
         lang: "",
         region: "",
         membership_type: "",
@@ -77,7 +77,7 @@ export default function LoLForm() {
                             error={errors.name}
                         />
                         <TextField
-                            label="Slug"
+                            label="Slug - musí být bez diakritiky, mezer a specialnich znaku"
                             name="slug"
                             value={data.slug}
                             onChange={(e) => setData("slug", e.target.value)}
@@ -96,7 +96,7 @@ export default function LoLForm() {
                             className="w-full px-4 py-2 border bordercolor-border rounded bgcolor-bg-input-text textcolor-text placeholdercolor-placeholder shadow"
                             error={errors.description}
                         />
-                        <TextField
+                        {/* <TextField
                             label="Počet hráčů"
                             name="size"
                             value={data.size}
@@ -104,7 +104,7 @@ export default function LoLForm() {
                             placeholder="třeba 3"
                             className="w-full px-4 py-2 border bordercolor-border rounded bgcolor-bg-input-text textcolor-text placeholdercolor-placeholder shadow"
                             error={errors.size}
-                        />
+                        /> */}
                         <TextField
                             label="Jazyk"
                             name="lang"

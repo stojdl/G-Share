@@ -7,15 +7,8 @@ import { Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function FindTeam() {
-    const { teams } = usePage<PageProps>().props;
+    const { teams, games } = usePage<PageProps>().props;
     console.log("teams: ", teams);
-
-    const games = [
-        { value: "", label: "Vyber hru" },
-        { value: "LoL", label: "League of Legends" },
-        { value: "Valo", label: "Valorant" },
-        { value: "GTA", label: "GTA V" },
-    ];
 
     const [selectedGame, setSelectedGame] = useState("");
 
@@ -43,15 +36,16 @@ export default function FindTeam() {
                         value={selectedGame}
                         onChange={(e) => setSelectedGame(e.target.value)}
                     >
-                        {games.map((game) => (
-                            <option key={game.value} value={game.value}>
-                                {game.label}
+                        <option value={""}>{"Vyber hru"}</option>
+                        {games.map((game: any) => (
+                            <option key={game.id} value={game.slug}>
+                                {game.name}
                             </option>
                         ))}
                     </select>
                 </div>
 
-                {selectedGame === "LoL" && <LoLForm />}
+                {selectedGame === "league-of-legends" && <LoLForm />}
 
                 <p>Vypis týmů:</p>
                 <div className="py-4 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -88,7 +82,7 @@ export default function FindTeam() {
                     )}
                 </div>
 
-                <div className="w-full border-b pb-40"></div>
+                {/* <div className="w-full border-b pb-40"></div>
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                     <div className="flex gap-2 w-full md:w-auto">
                         <button className="bg-[var(--color-bg-input-text)] text-[var(--color-text)] border border-[var(--color-border)] rounded px-4 py-2 pr-10 text-sm w-full md:w-auto shadow">
@@ -189,7 +183,7 @@ export default function FindTeam() {
                             </div>
                         ))}
                     </div>
-                </div>
+                </div> */}
             </main>
         </Layout>
     );

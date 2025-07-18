@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\User;
 use App\Models\Team;
+use App\Models\Game;
 
 
 class PagesController extends Controller
@@ -165,14 +166,19 @@ class PagesController extends Controller
 
     public function create_team()
     {
-        $teams = \App\Models\Team::where('creator_user_id', auth()->id())->get();
+        $teams = Team::where('creator_user_id', auth()->id())->get();
+        $games = Game::all()->load('developers', 'categories');
+
         return Inertia::render('CreateTeam', [
-            'teams' => $teams
+            'teams' => $teams,
+            'games' => $games
         ]);
     }
     public function find_team(Request $request)
     {
         $teams = Team::all();
+        $games = Game::all()->load('developers', 'categories');
+
 
         $query = Team::query();
 
@@ -189,7 +195,8 @@ class PagesController extends Controller
 
         $teams = $query->get();
         return Inertia::render('FindTeam', [
-            'teams' => $teams
+            'teams' => $teams,
+            'games' => $games
         ]);
     }
 
