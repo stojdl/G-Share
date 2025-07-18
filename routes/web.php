@@ -8,6 +8,7 @@ use App\Http\Controllers\CommentLikeController;
 use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\PostReactionController;
 use App\Http\Controllers\LocalizationController;
+use App\Http\Controllers\TeamController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/share-place', [PagesController::class, 'share_place'])->name('share_place');
 
+    Route::get('/settings', [PagesController::class, 'settings'])->name('settings');
+
     Route::group(['prefix' => 'post'], function () {
         Route::post('/store', [PostController::class, 'store'])->name('post.store');
         Route::post('/react', [PostReactionController::class, 'store'])->name('post.reaction.store');
@@ -41,6 +44,28 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'comment'], function () {
         Route::post('/store', [CommentController::class, 'store'])->name('comment.store');
         Route::post('/like', [CommentLikeController::class, 'like'])->name('comment.like');
+    });
+
+    Route::group(['prefix' => 'team'], function () {
+        Route::get('/{slug}', [PagesController::class, 'team'])->name('team');
+        Route::post('/join', [TeamController::class, 'join'])->name('team.join');
+        Route::post('/request', [TeamController::class, 'request'])->name('team.request');
+        Route::post('/accept-request', [TeamController::class, 'accept_request'])->name('team.request.accept');
+        Route::post('/leave', [TeamController::class, 'leave'])->name('team.leave');
+        Route::post('/delete', [TeamController::class, 'delete'])->name('team.delete');
+    });
+
+
+    Route::group(['prefix' => 'create-team'], function () {
+        // Routy pro týmové akce
+        Route::get('', [PagesController::class, 'create_team'])->name('team.create');
+        Route::post('/LoL', [TeamController::class, 'store'])->name('team.create.lol');
+    });
+
+    Route::group(['prefix' => 'find-team'], function () {
+        // Routy pro týmové akce
+        Route::get('', [PagesController::class, 'find_team'])->name('team.find');
+        Route::post('', [TeamController::class, 'find'])->name('team.find.lol');
     });
 });
 
@@ -54,10 +79,6 @@ Route::get('/user/{user}', [PagesController::class, 'user'])->name('user');
 Route::get('/communities', [PagesController::class, 'communities'])->name('communities');
 Route::get('/groups', [PagesController::class, 'groups'])->name('groups');
 Route::get('/esports', [PagesController::class, 'esports'])->name('esports');
-
-// Routy pro týmové akce
-Route::get('/create-team', [PagesController::class, 'create_team'])->name('create_team');
-Route::get('/find-team', [PagesController::class, 'find_team'])->name('find_team');
 
 // Routy pro místnosti, turnaje a výzvy
 Route::get('/rooms', [PagesController::class, 'rooms'])->name('rooms');

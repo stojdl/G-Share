@@ -14,6 +14,7 @@ export interface User {
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>
 > = T & {
+    locale: string;
     auth: {
         user: User;
     };
@@ -25,4 +26,7 @@ export type PageProps<
     home: any;
     login: any;
     register: any;
+    teams: Array;
+    team: any;
+    games: Array;
 };

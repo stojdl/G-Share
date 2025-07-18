@@ -16,7 +16,7 @@ const TextField: FC<TextFieldProps> = ({
     ...inputProps
 }) => {
     return (
-        <div className="mt-4">
+        <div>
             <InputLabel htmlFor={inputProps.type} value={label} />
 
             <TextInput {...inputProps} isFocused={isFocused} />
