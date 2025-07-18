@@ -1,3 +1,4 @@
+import H2 from "@/Components/Headings/H2";
 import LoLForm from "@/Fragments/Forms/CreateTeam/LoLForm";
 import Layout from "@/Layouts/Layout";
 import { PageProps } from "@/types";
@@ -5,14 +6,9 @@ import { Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function CreateTeam() {
-    const { teams } = usePage<PageProps>().props;
+    const { teams, games } = usePage<PageProps>().props;
 
-    const games = [
-        { value: "", label: "Vyber hru" },
-        { value: "LoL", label: "League of Legends" },
-        { value: "Valo", label: "Valorant" },
-        { value: "GTA", label: "GTA V" },
-    ];
+    console.log("games", games);
 
     const [selectedGame, setSelectedGame] = useState("");
 
@@ -33,21 +29,23 @@ export default function CreateTeam() {
                         Najít tým
                     </Link>
                 </div>
+                <H2>Create Team</H2>
                 <div className="flex flex-col md:flex-row justify-center bg-bg-tile border border-border items-center gap-4 p-4 rounded shadow">
                     <select
                         className="bg-bg-input-text text-text border border-border px-4 py-2 pr-10 w-full md:w-auto rounded shadow"
                         value={selectedGame}
                         onChange={(e) => setSelectedGame(e.target.value)}
                     >
-                        {games.map((game) => (
-                            <option key={game.value} value={game.value}>
-                                {game.label}
+                        <option value={""}>{"Vyber hru"}</option>
+                        {games.map((game: any) => (
+                            <option key={game.id} value={game.slug}>
+                                {game.name}
                             </option>
                         ))}
                     </select>
                 </div>
 
-                {selectedGame === "LoL" && <LoLForm />}
+                {selectedGame === "league-of-legends" && <LoLForm />}
                 {selectedGame === "Valo" && (
                     <div>
                         {/* Import and render your Valorant form here */}

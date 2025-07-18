@@ -48,6 +48,11 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['prefix' => 'team'], function () {
         Route::get('/{slug}', [PagesController::class, 'team'])->name('team');
+        Route::post('/join', [TeamController::class, 'join'])->name('team.join');
+        Route::post('/request', [TeamController::class, 'request'])->name('team.request');
+        Route::post('/accept-request', [TeamController::class, 'accept_request'])->name('team.request.accept');
+        Route::post('/leave', [TeamController::class, 'leave'])->name('team.leave');
+        Route::post('/delete', [TeamController::class, 'delete'])->name('team.delete');
     });
 
 
@@ -60,7 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'find-team'], function () {
         // Routy pro týmové akce
         Route::get('', [PagesController::class, 'find_team'])->name('team.find');
-       // Route::post('/LoL', [PagesController::class, 'find_team'])->name('team.create.lol');
+        Route::post('', [TeamController::class, 'find'])->name('team.find.lol');
     });
 });
 

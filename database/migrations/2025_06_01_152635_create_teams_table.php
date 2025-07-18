@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('avatar')->nullable();
-            $table->string('size');
+            $table->string('size')->default("5");
             $table->string('description')->nullable();
-            $table->string('language');
+            $table->string('language')->default("EN");
             $table->string('region');
             $table->enum('membership_type', ['open', 'request', 'invite'])->default('request');
 

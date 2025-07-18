@@ -23,6 +23,10 @@ class Team extends Model
     {
         return $this->hasMany(TeamMember::class);
     }
+    public function joinRequests()
+    {
+        return $this->hasMany(TeamJoinRequest::class);
+    }
 
     public function creator()
     {

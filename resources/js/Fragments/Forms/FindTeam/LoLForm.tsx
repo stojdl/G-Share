@@ -3,12 +3,12 @@ import TextField from "@/Components/Forms/Inputs/TextField";
 import { GiSwordsEmblem } from "react-icons/gi";
 
 export default function LoLForm() {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, get, processing, errors } = useForm({
         game: "LoL",
         name: "",
         slug: "",
         description: "",
-        size: "5",
+        size: "",
         lang: "",
         region: "",
         membership_type: "",
@@ -16,7 +16,12 @@ export default function LoLForm() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route("team.create.lol"), {});
+        get(route("team.find"), {
+            onSuccess: (teams) => {
+                console.log("Team search initiated:", teams);
+            },
+            preserveState: true,
+        });
     };
 
     return (
@@ -48,19 +53,6 @@ export default function LoLForm() {
                     <span className="px-2 py-1 rounded bg-badge text-text cursor-not-allowed text-right">
                         Herní mód
                     </span>
-                    <select
-                        className="w-max px-3 py-1 bg-bg-input-text rounded text-text cursor-pointer text-right"
-                        name="inviteType"
-                        value={data.membership_type}
-                        onChange={(e) =>
-                            setData("membership_type", e.target.value)
-                        }
-                    >
-                        <option value="">Party</option>
-                        <option value="open">Open</option>
-                        <option value="request">Request</option>
-                        <option value="invite">Invite only</option>
-                    </select>
                 </div>
             </div>
             <div className="px-4 border border-border rounded bg-bg-tile space-y-4 shadow sm:p-6">
@@ -76,44 +68,6 @@ export default function LoLForm() {
                             className="w-full px-4 py-2 border bordercolor-border rounded bgcolor-bg-input-text textcolor-text placeholdercolor-placeholder shadow"
                             error={errors.name}
                         />
-                        <TextField
-                            label="Slug - musí být bez diakritiky, mezer a specialnich znaku"
-                            name="slug"
-                            value={data.slug}
-                            onChange={(e) => setData("slug", e.target.value)}
-                            placeholder="třeba kokoti"
-                            className="w-full px-4 py-2 border bordercolor-border rounded bgcolor-bg-input-text textcolor-text placeholdercolor-placeholder shadow"
-                            error={errors.slug}
-                        />
-                        <TextField
-                            label="Popisek"
-                            name="description"
-                            value={data.description}
-                            onChange={(e) =>
-                                setData("description", e.target.value)
-                            }
-                            placeholder="třeba Jsme fakt Banda kokotů"
-                            className="w-full px-4 py-2 border bordercolor-border rounded bgcolor-bg-input-text textcolor-text placeholdercolor-placeholder shadow"
-                            error={errors.description}
-                        />
-                        {/* <TextField
-                            label="Počet hráčů"
-                            name="size"
-                            value={data.size}
-                            onChange={(e) => setData("size", e.target.value)}
-                            placeholder="třeba 3"
-                            className="w-full px-4 py-2 border bordercolor-border rounded bgcolor-bg-input-text textcolor-text placeholdercolor-placeholder shadow"
-                            error={errors.size}
-                        /> */}
-                        <TextField
-                            label="Jazyk"
-                            name="lang"
-                            value={data.lang}
-                            onChange={(e) => setData("lang", e.target.value)}
-                            placeholder="třeba CZ/SK"
-                            className="w-full px-4 py-2 border bordercolor-border rounded bgcolor-bg-input-text textcolor-text placeholdercolor-placeholder shadow"
-                            error={errors.lang}
-                        />
                     </div>
                     <div className="flex flex-col flex-wrap items-end justify-end gap-2">
                         <button
@@ -121,7 +75,7 @@ export default function LoLForm() {
                             className="bg-button text-button-text border border-border px-6 py-2 rounded text-xs font-semibold transition hover:bg-button-hover"
                             disabled={processing}
                         >
-                            Vytvořit tým
+                            Hledat tým
                         </button>
                     </div>
                 </div>

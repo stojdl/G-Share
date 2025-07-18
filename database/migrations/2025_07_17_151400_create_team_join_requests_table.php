@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('team_members', function (Blueprint $table) {
+        Schema::create('team_join_requests', function (Blueprint $table) {
             $table->id();
-            $table->enum('role', ['member', 'admin', 'owner'])->default('member');
-            $table->boolean('kicked')->default(false);
-            $table->timestamp('joined_at');
-
+            $table->enum('status', ['pending', 'accepted', 'blocked'])->default('pending');
             $table->foreignId('user_id')->references('id')
                                         ->on('users')
                                         ->onDelete('cascade');
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('team_members');
+        Schema::dropIfExists('team_join_requests');
     }
 };

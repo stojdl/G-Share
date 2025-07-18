@@ -26,9 +26,9 @@ class CreateTeamRequest extends FormRequest
             'name' => 'required|string|max:255',
             'slug' => 'required|string|unique:teams,slug|max:255',
             'avatar' => 'nullable|image|max:2048',
-            'size' => 'required|string|max:50',
+            'size' => 'string|max:50',
             'description' => 'nullable|string|max:500',
-            'lang' => 'required|string|max:50',
+            'lang' => 'string|max:50',
             'region' => 'required|string|max:50',
             'membership_type' => 'required|in:open,request,invite',
         ];

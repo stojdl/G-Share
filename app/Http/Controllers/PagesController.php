@@ -9,6 +9,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\User;
+use App\Models\Team;
+use App\Models\Game;
 
 
 class PagesController extends Controller
@@ -156,7 +158,7 @@ class PagesController extends Controller
 
     public function team($slug)
     {
-        $team = \App\Models\Team::where('slug', $slug)->first()->load('creator', 'owner', 'members.user');
+        $team = \App\Models\Team::where('slug', $slug)->first()->load('creator', 'owner', 'members.user', 'joinRequests.user');
         return Inertia::render('Team/index', [
             'team' => $team
         ]);
@@ -164,16 +166,37 @@ class PagesController extends Controller
 
     public function create_team()
     {
-        $teams = \App\Models\Team::where('creator_user_id', auth()->id())->get();
+        $teams = Team::where('creator_user_id', auth()->id())->get();
+        $games = Game::all()->load('developers', 'categories');
+
         return Inertia::render('CreateTeam', [
-            'teams' => $teams
+            'teams' => $teams,
+            'games' => $games
         ]);
     }
-    public function find_team()
+    public function find_team(Request $request)
     {
-        $teams = \App\Models\Team::all();
+        $teams = Team::all();
+        $games = Game::all()->load('developers', 'categories');
+
+
+        $query = Team::query();
+
+        // Example filters, you can adjust as needed
+        if ($request->has('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+        if ($request->has('region')) {
+            $query->where('region', 'like', '%' .  $request->region . '%');
+        }
+        if ($request->has('language')) {
+            $query->where('language', 'like', '%' . $request->language);
+        }
+
+        $teams = $query->get();
         return Inertia::render('FindTeam', [
-            'teams' => $teams
+            'teams' => $teams,
+            'games' => $games
         ]);
     }
 

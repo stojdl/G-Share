@@ -26,6 +26,7 @@ class TeamResource extends JsonResource
             'creator' => new UserResource($this->whenLoaded('creator')),
             'owner' => new UserResource($this->whenLoaded('owner')),
             'members' => UserResource::collection($this->whenLoaded('members')),
+            'join_requests' => TeamJoinRequestResource::collection($this->whenLoaded('joinRequests')),
         ];
     }
 }
