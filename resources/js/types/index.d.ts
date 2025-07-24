@@ -9,6 +9,7 @@ export interface User {
     friends?: any;
     friendships?: any;
     friendship_requests?: any;
+    teams?: any;
 }
 
 export type PageProps<
@@ -26,4 +27,7 @@ export type PageProps<
     home: any;
     login: any;
     register: any;
+    teams: Array;
+    team: any;
+    games: Array;
 };

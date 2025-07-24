@@ -9,6 +9,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\User;
+use App\Models\Team;
+use App\Models\Game;
 
 
 class PagesController extends Controller
@@ -95,7 +97,8 @@ class PagesController extends Controller
                     'posts.comments.children.children.user', 'posts.comments.children.children.likes.user',
                     'posts.comments.children.children.children.user', 'posts.comments.children.children.children.likes.user',
                     'posts.comments.children.children.children.children.user', 'posts.comments.children.children.children.children.likes.user',
-                    'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',);
+                    'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',
+                    'teams', 'teams.members.user');
 
         return Inertia::render('Profile/Show', [
             'shareplace'=>__('shareplace'),
@@ -106,7 +109,6 @@ class PagesController extends Controller
     
     public function share_place()
     {
-
         $posts = \App\Models\Post::all()->load('user', 
                                                'views', 
                                                'reactions.user', 
@@ -154,13 +156,48 @@ class PagesController extends Controller
         return Inertia::render('Esports');
     }
 
+    public function team($slug)
+    {
+        $team = \App\Models\Team::where('slug', $slug)->first()->load('creator', 'owner', 'members.user', 'joinRequests.user');
+        return Inertia::render('Team/index', [
+            'team' => $team
+        ]);
+    }
+
     public function create_team()
     {
-        return Inertia::render('CreateTeam');
+        $teams = Team::where('creator_user_id', auth()->id())->get();
+        $games = Game::all()->load('developers', 'categories');
+
+        return Inertia::render('Team/Create', [
+            'teams' => $teams,
+            'games' => $games
+        ]);
     }
-    public function find_team()
+    public function find_team(Request $request)
     {
-        return Inertia::render('FindTeam');
+        $teams = Team::all();
+        $games = Game::all()->load('developers', 'categories');
+
+
+        $query = Team::query();
+
+        // Example filters, you can adjust as needed
+        if ($request->has('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+        if ($request->has('region')) {
+            $query->where('region', 'like', '%' .  $request->region . '%');
+        }
+        if ($request->has('language')) {
+            $query->where('language', 'like', '%' . $request->language);
+        }
+
+        $teams = $query->get();
+        return Inertia::render('Team/Find', [
+            'teams' => $teams,
+            'games' => $games
+        ]);
     }
 
     public function rooms()

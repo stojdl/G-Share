@@ -7,11 +7,14 @@ import { useModal } from "@/Contexts/ModalContext";
 import PostCard from "@/Components/Cards/PostCard";
 import FriendshipForm from "@/Fragments/Forms/FriendshipForm";
 import { LiaUserSecretSolid } from "react-icons/lia";
+import TeamCard from "@/Components/Cards/TeamCard";
 
 const Show = () => {
     const { auth, user } = usePage<PageProps>().props;
     const { openModal } = useModal();
-    const [activeTab, setActiveTab] = useState<"posts" | "friends">("posts");
+    const [activeTab, setActiveTab] = useState<"posts" | "friends" | "teams">(
+        "posts"
+    );
 
     const isPersonal = auth.user.id === user.id;
 
@@ -86,6 +89,16 @@ const Show = () => {
                     >
                         Přátelé
                     </button>
+                    <button
+                        onClick={() => setActiveTab("teams")}
+                        className={`px-4 py-2 -mb-px font-medium text-sm transition ${
+                            activeTab === "teams"
+                                ? "border-b-2 border-[var(--color-primary)]"
+                                : "text-[var(--color-text-light)] hover:text-[var(--color-text)]"
+                        }`}
+                    >
+                        Týmy
+                    </button>
                 </nav>
 
                 {/* Posts Tab */}
@@ -134,6 +147,21 @@ const Show = () => {
                         ) : (
                             <p className="text-[var(--color-text-light)]">
                                 Zatím žádní přátelé.
+                            </p>
+                        )}
+                    </section>
+                )}
+
+                {/* Teams Tab */}
+                {activeTab === "teams" && (
+                    <section className="space-y-6">
+                        {user.teams.length > 0 ? (
+                            user.teams.map((team: any) => (
+                                <TeamCard team={team} key={team.id} />
+                            ))
+                        ) : (
+                            <p className="text-[var(--color-text-light)]">
+                                Zatím žádné týmy.
                             </p>
                         )}
                     </section>
