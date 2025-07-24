@@ -1,16 +1,14 @@
-import { ReactNode } from "react";
+import React from "react";
 
-interface Props {
-    children: ReactNode;
-}
+type H2Props = React.HTMLAttributes<HTMLHeadingElement>;
 
-const H1 = (props: Props) => {
-    const { children } = props;
+const H2: React.FC<H2Props> = ({ children, className = "", ...props }) => (
+    <h2
+        className={`text-4xl sm:text-6xl font-extrabold text-primary mb-4 ${className}`}
+        {...props}
+    >
+        {children}
+    </h2>
+);
 
-    return (
-        <h1 className="text-4xl sm:text-6xl font-extrabold text-primary mb-4">
-            {children}
-        </h1>
-    );
-};
-export default H1;
+export default H2;

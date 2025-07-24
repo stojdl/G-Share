@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('region');
             $table->enum('membership_type', ['open', 'request', 'invite'])->default('request');
 
+            $table->foreignId('game_id')->references('id')
+                                                ->on('games')
+                                                ->onDelete('cascade');
             $table->foreignId('creator_user_id')->references('id')
                                                 ->on('users')
                                                 ->onDelete('cascade');

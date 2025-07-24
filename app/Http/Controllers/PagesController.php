@@ -97,7 +97,8 @@ class PagesController extends Controller
                     'posts.comments.children.children.user', 'posts.comments.children.children.likes.user',
                     'posts.comments.children.children.children.user', 'posts.comments.children.children.children.likes.user',
                     'posts.comments.children.children.children.children.user', 'posts.comments.children.children.children.children.likes.user',
-                    'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',);
+                    'posts.comments.children.children.children.children.children.user', 'posts.comments.children.children.children.children.children.likes.user',
+                    'teams', 'teams.members.user');
 
         return Inertia::render('Profile/Show', [
             'shareplace'=>__('shareplace'),
@@ -108,7 +109,6 @@ class PagesController extends Controller
     
     public function share_place()
     {
-
         $posts = \App\Models\Post::all()->load('user', 
                                                'views', 
                                                'reactions.user', 
@@ -169,7 +169,7 @@ class PagesController extends Controller
         $teams = Team::where('creator_user_id', auth()->id())->get();
         $games = Game::all()->load('developers', 'categories');
 
-        return Inertia::render('CreateTeam', [
+        return Inertia::render('Team/Create', [
             'teams' => $teams,
             'games' => $games
         ]);
@@ -194,7 +194,7 @@ class PagesController extends Controller
         }
 
         $teams = $query->get();
-        return Inertia::render('FindTeam', [
+        return Inertia::render('Team/Find', [
             'teams' => $teams,
             'games' => $games
         ]);

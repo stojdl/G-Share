@@ -26,6 +26,7 @@ export default {
                 "bg-tile-hover": "var(--color-bg-tile-hover)",
                 "bg-twitch": "var(--color-bg-twitch)",
                 border: "var(--color-border)",
+                "border-hover": "var(--color-border-hover)",
                 "border-focus": "var(--color-border-focus)",
                 shadow: "var(--color-shadow)",
                 text: "var(--color-text)",

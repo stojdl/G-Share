@@ -58,6 +58,7 @@
     --color-bg-twitch: #141414;
 
     --color-border: #262626;
+    --color-border-hover: #3b2d58;
     --color-border-focus: #000000;
     --color-shadow: #262626;
 
@@ -91,6 +92,7 @@
     --color-bg-twitch: #141414;
 
     --color-border: #3b2d58;
+    --color-border-hover: #5a3f8c;
     --color-border-focus: #8f60ff;
     --color-shadow: #442b7a;
 
@@ -123,6 +125,7 @@
     --color-bg-twitch: #141414;
 
     --color-border: #49ab93;
+    --color-border-hover: #328573;
     --color-border-focus: #000000;
     --color-shadow: #262626;
 
