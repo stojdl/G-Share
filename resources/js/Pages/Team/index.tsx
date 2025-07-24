@@ -1,4 +1,6 @@
+import Back from "@/Components/Back";
 import H3 from "@/Components/Headings/H3";
+import H4 from "@/Components/Headings/H4";
 import AcceptRequestForm from "@/Fragments/Forms/Team/AcceptRequestForm";
 import DeleteForm from "@/Fragments/Forms/Team/DeleteForm";
 import JoinForm from "@/Fragments/Forms/Team/JoinForm";
@@ -20,48 +22,20 @@ export default function CreateTeam() {
 
     console.log(team, auth);
 
-    const games = [
-        { value: "", label: "Vyber hru" },
-        { value: "LoL", label: "League of Legends" },
-        { value: "Valo", label: "Valorant" },
-        { value: "GTA", label: "GTA V" },
-    ];
-
     return (
         <Layout>
-            <main className="relative w-full rounded h-full space-y-2">
-                <div className="absolute -top-14 right-0.5 flex space-x-2 w-full md:w-auto">
-                    <Link
-                        href={route("team.create")}
-                        className="bg-primary text-button-text hover:bg-primary-hover px-4 py-2 rounded font-semibold transition"
-                    >
-                        Vytvořit tým
-                    </Link>
-                    <Link
-                        href={route("team.find")}
-                        className="bg-secondary text-secondary-text hover:bg-secondary-hover px-4 py-2 rounded font-semibold transition"
-                    >
-                        Najít tým
-                    </Link>
-                </div>
-                <button
-                    onClick={() => window.history.back()}
-                    className="px-4 py-2 rounded bg-[var(--color-button)] text-[var(--color-button-text)] hover:bg-[var(--color-button-hover)] transition"
-                >
-                    ← Zpět
-                </button>
-                <div className="w-full flex flex-col md:flex-row bg-bg-tile border border-border gap-4 p-4 rounded shadow">
+            <main className="relative w-full h-full space-y-2">
+                <Back />
+                <div className="w-full p-4 flex flex-col gap-4 bg-bg-tile border border-border rounded shadow md:flex-row">
                     <div>
                         <GiSwordsEmblem className="p-3 text-9xl text-text-light border border-text-light rounded-full cursor-not-allowed" />
                     </div>
-                    <div className="w-full bg-[var(--color-bg-tile)] border border-[var(--color-border)] rounded px-4 py-2">
-                        <h3 className="font-bold text-lg text-[var(--color-text)]">
-                            {team.name}
-                        </h3>
-                        <div className="text-[var(--color-placeholder)] mb-1">
+                    <div className="w-full px-4 py-2 bg-bg-tile border border-border rounded">
+                        <H4>{team.name}</H4>
+                        <div className="text-placeholder mb-1">
                             {team.description}
                         </div>
-                        <div className="text-[var(--color-text)]">
+                        <div>
                             {team.creator && (
                                 <p className="flex items-center gap-1">
                                     <LiaUserSecretSolid className="w-6 h-6" />
@@ -90,7 +64,7 @@ export default function CreateTeam() {
 
                         <div className="mt-2 pt-1 border-t flex justify-between items-center">
                             <div className="flex items-center gap-4">
-                                <div className="text-[var(--color-text)]">
+                                <div>
                                     {team.region && (
                                         <p className="flex items-center gap-1">
                                             <BiWorld />
@@ -100,7 +74,7 @@ export default function CreateTeam() {
                                         </p>
                                     )}
                                 </div>
-                                <div className="text-[var(--color-text)]">
+                                <div>
                                     {team.language && (
                                         <p className="flex items-center gap-1">
                                             <IoLanguage />
@@ -110,7 +84,7 @@ export default function CreateTeam() {
                                         </p>
                                     )}
                                 </div>
-                                <div className="text-[var(--color-text)]">
+                                <div>
                                     {team.size && (
                                         <p className="flex items-center gap-1">
                                             <RiTeamFill />
@@ -121,7 +95,7 @@ export default function CreateTeam() {
                                     )}
                                 </div>
                             </div>
-                            <div className=" text-right">
+                            <div>
                                 {auth.user.id === team.owner.id && (
                                     <DeleteForm />
                                 )}
@@ -164,7 +138,7 @@ export default function CreateTeam() {
                 </div>
 
                 {auth.user.id === team.owner.id && (
-                    <div className="w-full flex flex-col bg-bg-tile border border-border  gap-4 p-4 rounded shadow">
+                    <div className="w-full p-4 flex flex-col gap-4 bg-bg-tile border border-border rounded shadow">
                         <p>Nastavení</p>
 
                         {team.membership_type === "request" &&
@@ -182,7 +156,7 @@ export default function CreateTeam() {
                                             .map((request: any) => (
                                                 <div
                                                     key={request.id}
-                                                    className="p-2 flex justify-between items-center border border-border rounded "
+                                                    className="p-2 flex justify-between items-center border border-border rounded"
                                                 >
                                                     <Link
                                                         href={route(
@@ -211,20 +185,26 @@ export default function CreateTeam() {
                     </div>
                 )}
 
-                <div className="mt-4 bg-bg-tile p-4 flex flex-col gap-4">
+                <div className="mt-4 bg-bg-tile p-4 flex flex-col gap-4 border border-border">
                     <div className="grid grid-cols-3">
-                        <div className="w-full grid place-items-center ">
+                        <div className="group w-full grid place-items-center">
                             <div className="flex flex-col items-center">
-                                <div className="p-2 border rounded-full w-24 h-24">
-                                    {team.members.length > 3 && (
-                                        <Link
-                                            href={route("profile.show", {
-                                                user_id:
-                                                    team.members[3].user.id,
-                                            })}
-                                        >
-                                            <LiaUserSecretSolid className="w-full h-full text-text-light" />
-                                        </Link>
+                                <div className="w-24 h-24 p-2 grid place-items-center border border-border rounded-full group-hover:border-border-hover transition cursor-not-allowed">
+                                    {team.members.length > 3 ? (
+                                        <div className="w-full h-full">
+                                            <Link
+                                                href={route("profile.show", {
+                                                    user_id:
+                                                        team.members[3].user.id,
+                                                })}
+                                            >
+                                                <LiaUserSecretSolid className="w-full h-full text-text-light" />
+                                            </Link>
+                                        </div>
+                                    ) : (
+                                        <span className="text-3xl text-text-light">
+                                            +
+                                        </span>
                                     )}
                                 </div>
                                 <div>
@@ -235,7 +215,7 @@ export default function CreateTeam() {
                                                     team.members[3].user.id,
                                             })}
                                         >
-                                            <p className="pt-1 flex items-center gap-2">
+                                            <p className="pt-1 flex items-center space-x-2">
                                                 {team.members[3].user.id ===
                                                     team.owner.id && (
                                                     <FaCrown />
@@ -256,21 +236,23 @@ export default function CreateTeam() {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full grid place-items-center ">
-                            <GiSwordsEmblem className="p-3 text-[172px] text-text-light border border-text rounded-full cursor-not-allowed" />{" "}
+                        <div className="w-full grid place-items-center">
+                            <GiSwordsEmblem className="p-3 text-[172px] text-text-light border border-border rounded-full cursor-not-allowed" />
                         </div>
                         <div className="w-full grid place-items-center">
                             <div className="flex flex-col items-center">
-                                <div className="p-2 border rounded-full w-24 h-24">
+                                <div className="w-24 h-24 p-2 grid place-items-center border border-border rounded-full group-hover:border-border-hover transition cursor-not-allowed">
                                     {team.members.length > 4 && (
-                                        <Link
-                                            href={route("profile.show", {
-                                                user_id:
-                                                    team.members[4].user.id,
-                                            })}
-                                        >
-                                            <LiaUserSecretSolid className="w-full h-full text-text-light" />
-                                        </Link>
+                                        <div className="w-full h-full">
+                                            <Link
+                                                href={route("profile.show", {
+                                                    user_id:
+                                                        team.members[4].user.id,
+                                                })}
+                                            >
+                                                <LiaUserSecretSolid className="w-full h-full text-text-light" />
+                                            </Link>
+                                        </div>
                                     )}
                                 </div>
                                 <div>
@@ -303,17 +285,19 @@ export default function CreateTeam() {
                             </div>
                         </div>
                         <div className="w-full px-6 pt-8 pb-16 grid place-items-end">
-                            <div className="flex flex-col items-center">
-                                <div className="p-2 border rounded-full w-24 h-24">
+                            <div className="group flex flex-col items-center">
+                                <div className="w-24 h-24 p-2 grid place-items-center border border-border rounded-full group-hover:border-border-hover transition cursor-not-allowed">
                                     {team.members.length > 1 && (
-                                        <Link
-                                            href={route("profile.show", {
-                                                user_id:
-                                                    team.members[1].user.id,
-                                            })}
-                                        >
-                                            <LiaUserSecretSolid className="w-full h-full text-text-light" />
-                                        </Link>
+                                        <div className="w-full h-full">
+                                            <Link
+                                                href={route("profile.show", {
+                                                    user_id:
+                                                        team.members[1].user.id,
+                                                })}
+                                            >
+                                                <LiaUserSecretSolid className="w-full h-full text-text-light" />
+                                            </Link>
+                                        </div>
                                     )}
                                 </div>
                                 <div>
@@ -347,16 +331,18 @@ export default function CreateTeam() {
                         </div>
                         <div className="w-full grid justify-center items-end ">
                             <div className="flex flex-col items-center">
-                                <div className="p-2 border rounded-full w-24 h-24">
+                                <div className="w-24 h-24 p-2 grid place-items-center border border-border rounded-full group-hover:border-border-hover transition cursor-not-allowed">
                                     {team.members.length > 0 && (
-                                        <Link
-                                            href={route("profile.show", {
-                                                user_id:
-                                                    team.members[0].user.id,
-                                            })}
-                                        >
-                                            <LiaUserSecretSolid className="w-full h-full text-text-light" />
-                                        </Link>
+                                        <div className="w-full h-full">
+                                            <Link
+                                                href={route("profile.show", {
+                                                    user_id:
+                                                        team.members[0].user.id,
+                                                })}
+                                            >
+                                                <LiaUserSecretSolid className="w-full h-full text-text-light" />
+                                            </Link>
+                                        </div>
                                     )}
                                 </div>
                                 <div>
@@ -386,16 +372,18 @@ export default function CreateTeam() {
                         </div>
                         <div className="w-full px-6 pt-8 pb-16 grid place-items-start ">
                             <div className="flex flex-col items-center">
-                                <div className="p-2 border rounded-full w-24 h-24">
+                                <div className="w-24 h-24 p-2 grid place-items-center border border-border rounded-full group-hover:border-border-hover transition cursor-not-allowed">
                                     {team.members.length > 2 && (
-                                        <Link
-                                            href={route("profile.show", {
-                                                user_id:
-                                                    team.members[2].user.id,
-                                            })}
-                                        >
-                                            <LiaUserSecretSolid className="w-full h-full text-text-light" />
-                                        </Link>
+                                        <div className="w-full h-full">
+                                            <Link
+                                                href={route("profile.show", {
+                                                    user_id:
+                                                        team.members[2].user.id,
+                                                })}
+                                            >
+                                                <LiaUserSecretSolid className="w-full h-full text-text-light" />
+                                            </Link>
+                                        </div>
                                     )}
                                 </div>
                                 <div>
