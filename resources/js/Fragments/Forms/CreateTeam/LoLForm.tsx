@@ -72,7 +72,7 @@ export default function LoLForm() {
                             name="name"
                             value={data.name}
                             onChange={(e) => setData("name", e.target.value)}
-                            placeholder="třeba Banda kokotů"
+                            placeholder="název týmu"
                             className="w-full px-4 py-2 border bordercolor-border rounded bgcolor-bg-input-text textcolor-text placeholdercolor-placeholder shadow"
                             error={errors.name}
                         />
@@ -81,7 +81,7 @@ export default function LoLForm() {
                             name="slug"
                             value={data.slug}
                             onChange={(e) => setData("slug", e.target.value)}
-                            placeholder="třeba kokoti"
+                            placeholder="slug"
                             className="w-full px-4 py-2 border bordercolor-border rounded bgcolor-bg-input-text textcolor-text placeholdercolor-placeholder shadow"
                             error={errors.slug}
                         />
@@ -92,7 +92,7 @@ export default function LoLForm() {
                             onChange={(e) =>
                                 setData("description", e.target.value)
                             }
-                            placeholder="třeba Jsme fakt Banda kokotů"
+                            placeholder="popisek týmu"
                             className="w-full px-4 py-2 border bordercolor-border rounded bgcolor-bg-input-text textcolor-text placeholdercolor-placeholder shadow"
                             error={errors.description}
                         />
